@@ -52,24 +52,62 @@ C_MAL=   X(49);
 C_OAA=   X(50);
 C_FLV=   X(51);
 
+
+% Unpack the constants to simplefy the code
+Is=data.Is;R=data.R;T=data.T;Cm=data.Cm;F=data.F;RTONF=data.RTONF;HT=data.HT;
+Cai=data.Cai;Nai=data.Nai;Ki=data.Ki;Kc=data.Kc;Vi=data.Vi;VCa=data.VCa;Vc=data.Vc;
+Vup=data.Vup;Vrel=data.Vrel;VnSR=data.VnSR;Kcy_ca=data.Kcy_ca;Kxcs=data.Kxcs;
+Ksr_ca=data.Ksr_ca;Ff=data.Ff;SL_0=data.SL_0;N_c=data.N_c;F_k0=data.F_k0;F_k1=data.F_k1;
+F_k05=data.F_k05;F_kl=data.F_kl;F_go=data.F_go;F_gl=data.F_gl;F_XB=data.F_XB;
+FN=data.FN;C_ATPi=data.C_ATPi;MaxATP=data.MaxATP;K_ACI=data.K_ACI;K_AC=data.K_AC;
+K_Ca=data.K_Ca;k_bCM=data.k_bCM;k_fCM=data.k_fCM;K_ACCa=data.K_ACCa;k_XBATP=data.k_XBATP;
+k_XBADP=data.k_XBADP;V_uni_max=data.V_uni_max;psi0=data.psi0;K_act=data.K_act;
+K_trans=data.K_trans;L=data.L;n_a=data.n_a;V_NaCa_max=data.V_NaCa_max;b=data.b;
+K_Na=data.K_Na;K_Ca=data.K_Ca;n=data.n;delta=data.delta;r_a=data.r_a;r_c1=data.r_c1;
+r_c2=data.r_c2;r_1=data.r_1;r_2=data.r_2;r_3=data.r_3;rho_res=data.rho_res;K_res=data.K_res;
+rho_resF=data.rho_resF;psi_B=data.psi_B;G=data.G;K_resF=data.K_resF;r_b=data.r_b;
+FADH2=data.FADH2;FADH=data.FADH;p_a=data.p_a;p_b=data.p_b;p_c1=data.p_c1;p_c2=data.p_c2;
+p_1=data.p_1;p_2=data.p_2;p_3=data.p_3;KCaATP=data.KCaATP;rho_F1=data.rho_F1;K_F1=data.K_F1;
+Pi=data.Pi;C_A=data.C_A;V_ant_max=data.V_ant_max;h_ANT=data.h_ANT;g_H=data.g_H;delta_pH=data.delta_pH;
+C_PN=data.C_PN;C_mito=data.C_mito;Cc=data.Cc;C_AcCoA=data.C_AcCoA;k_cat_cs=data.k_cat_cs;
+E_T_cs=data.E_T_cs;K_M_AcCoA=data.K_M_AcCoA;K_M_OAA=data.K_M_OAA;C_K_int=data.C_K_int;
+k_f_ACO=data.k_f_ACO;k_E_ACO=data.k_E_ACO;K_ADP_a=data.K_ADP_a;K_Ca_a=data.K_Ca_a;
+K_i_NADH=data.K_i_NADH;k_cat_IDH=data.k_cat_IDH;E_T_IDH=data.E_T_IDH;C_H=data.C_H;k_h_1=data.k_h_1;
+k_h_2=data.k_h_2;K_M_ISOC=data.K_M_ISOC;N_i=data.N_i;K_M_NAD=data.K_M_NAD;K_M_Mg=data.K_M_Mg;
+K_M_Ca=data.K_M_Ca;E_T_KGDH=data.E_T_KGDH;k_cat_KGDH=data.k_cat_KGDH;K_M_aKG=data.K_M_aKG;
+K_M_NAD_new=data.K_M_NAD_new;n_aKG=data.n_aKG;C_Mg=data.C_Mg;k_f_SL=data.k_f_SL;
+k_E_SL=data.k_E_SL;C_CoA=data.C_CoA;k_cat_SDH=data.k_cat_SDH;E_T_SDH=data.E_T_SDH;
+K_M_SUC=data.K_M_SUC;K_i_FUM=data.K_i_FUM;K_i_sdh_OAA=data.K_i_sdh_OAA;k_f_FH=data.k_f_FH;
+K_E_FH=data.K_E_FH;k_h1=data.k_h1;k_h2=data.k_h2;k_h3=data.k_h3;k_h4=data.k_h4;k_offset=data.k_offset;
+k_cat_MDH=data.k_cat_MDH;E_T_MDH=data.E_T_MDH;K_M_MAL=data.K_M_MAL;K_i_OAA=data.K_i_OAA;
+K_M_NAD_mdh=data.K_M_NAD_mdh;C_GLU=data.C_GLU;k_f_AAT=data.k_f_AAT;K_E_AAT=data.K_E_AAT;
+k_ASP=data.k_ASP;C_T=data.C_T;k_CK_cyto=data.k_CK_cyto;k_CK_mito=data.k_CK_mito;k_tr_Cr=data.k_tr_Cr;
+K_EQ=data.K_EQ;V_ATPase_cyto=data.V_ATPase_cyto;V_myo=data.V_myo;V_mito=data.V_mito;A_cap=data.A_cap;
+P_Ca=data.P_Ca;Z_Ca=data.Z_Ca;alpha_m=data.alpha_m;alpha_e=data.alpha_e;V_NC=data.V_NC;Na_e=data.Na_e;
+Na_m=data.Na_m;Beta_Ca=data.Beta_Ca;K_D_Ca=data.K_D_Ca;K_D_Mg=data.K_D_Mg;SL_o=data.SL_o;N_c=data.N_c;
+F_k0=data.F_k0;F_k1=data.F_k1;FN=data.FN;F_k_half=data.F_k_half;F_kl=data.F_kl;F_f=data.F_f;
+F_g0=data.F_g0;F_gl=data.F_gl;K_M_ATP=data.K_M_ATP;Max_ATP=data.Max_ATP;CATPi=data.CATPi;
+
+
+
 % Constant loading - whan neglecting Ca++ handling
 %Cai = Cai;
-%Ki  = data.Ki;
-%Nai = data.Nai;
-%Kc  = data.Kc;
+%Ki  = Ki;
+%Nai = Nai;
+%Kc  = Kc;
 
-Ek   = data.RTONF*log(Kc/Ki);
-ENa  = data.RTONF*log(140/Nai);
-ECa  = (data.RTONF/2)*log(2.5/Cai);
+Ek   = RTONF*log(Kc/Ki);
+ENa  = RTONF*log(140/Nai);
+ECa  = (RTONF/2)*log(2.5/Cai);
 
 % calculation of ikf
-IKf = 3.5*Pa*Pi*(V-Ek);
+IKf = 3.5*Pa*Pi*(V - Ek);
 
 Apa = 9.0*exp(V/25.371);
 Bpa = 1.3*exp(-V/13.026);
-pam = 1/(1+exp(-(V+5.1)/7.4));
+pam = 1/(1 + exp(-(V + 5.1)/7.4));
 tpa = 1/(Apa+Bpa);
-dPa = (pam-Pa)/tpa;
+dPa = (pam - Pa)/tpa;
 
 Api = 100*exp(-V/54.645);
 Bpi = 656*exp(V/106.157);
@@ -82,14 +120,14 @@ IKs = 2.5*n*(V-Ek);
 
 An = 1.66*exp(V/69.452);
 Bn = 0.3*exp(-V/21.826);
-nm = 1/(1+exp(-(V-0.9)/13.8));
+nm = 1/(1+exp(-(V - 0.9)/13.8));
 tn = 1/(An+Bn) + 0.06;
-dn = (nm-n)/tn;
+dn = (nm - n)/tn;
 
 % calculation of ik1
-E0 = V-Ek+3.6;
+E0 = V - Ek + 3.6;
 
-Ik1 = 2.5*5.08*(Kc/(Kc+0.59))^3*(V-Ek)/(1+exp(1.393*E0/data.RTONF)); %CT - 2.0, PM - 2.5
+Ik1 = 2.5*5.08*(Kc/(Kc + 0.59))^3*(V - Ek)/(1+exp(1.393*E0/RTONF)); %CT - 2.0, PM - 2.5
 
 % calculation of ito
 Ito = 0.35*50.02*r*(0.590*s1^3 + 0.410*s2^3)*(0.600*s3^6 + 0.4)*(V - Ek); % CT - 0.2, PM - 0.35
@@ -99,55 +137,55 @@ Ito  = Ito + Isus;
 
 Ar = 386.6*exp(V/12);
 Br = 8.011*exp(-V/7.2);
-rm = 1/(1 + exp(-(V+15)/5.633));
-tr = 1/(Ar+Br) + 0.0004;
-dr = (rm-r)/tr;
+rm = 1/(1 + exp(-(V + 15)/5.633));
+tr = 1/(Ar + Br) + 0.0004;
+dr = (rm - r)/tr;
 
-s1m = 1/(1 + exp((V+28.29)/7.06));
-ts1 = 0.5466/(1 + exp((V+32.8)/0.1))+0.0204;
+s1m = 1/(1 + exp((V + 28.29)/7.06));
+ts1 = 0.5466/(1 + exp((V + 32.8)/0.1)) + 0.0204;
 ds1 = (s1m-s1)/ts1;
 
-s2m = 1/(1 + exp((V+28.29)/7.06));
-ts2 = 5.75/(1 + exp((V+32.8)/0.1)) + 0.45/(1 + exp(-(V-13.54)/13.97));
+s2m = 1/(1 + exp((V + 28.29)/7.06));
+ts2 = 5.75/(1 + exp((V+32.8)/0.1)) + 0.45/(1 + exp(-(V - 13.54)/13.97));
 ds2 = (s2m-s2)/ts2;
 
-s3m = ((1/(1 + exp((V+50.67)/27.38))) + 0.666)/1.666;
-ts3 = (7.5/(1 + exp((V+23.0)/0.5))) + 0.5;
+s3m = ((1/(1 + exp((V + 50.67)/27.38))) + 0.666)/1.666;
+ts3 = (7.5/(1 + exp((V + 23.0)/0.5))) + 0.5;
 ds3 = (s3m-s3)/ts3;
 
 % calculate ip <------- This is the Na-K ATPase current!!!!!!!!!!!!!
-Ip = 64.41*(Kc/(Kc+1))*(Nai^1.5/(Nai^1.5 + 11^1.5))*(1.6/(1.5 + exp(-(V+60)/40)));
+Ip = 64.41*(Kc/(Kc + 1))*(Nai^1.5/(Nai^1.5 + 11^1.5))*(1.6/(1.5 + exp(-(V + 60)/40)));
 
 % calculate inaca
-INaCa = 0.02*(Nai^3*2.5*exp(0.450*V/data.RTONF) - 140^3*Cai*exp(V*(0.45-1)/data.RTONF))/(1 + 0.0003*(Cai*140^3 + 2.5*Nai^3));
+INaCa = 0.02*(Nai^3*2.5*exp(0.450*V/RTONF) - 140^3*Cai*exp(V*(0.45 - 1)/RTONF))/(1 + 0.0003*(Cai*140^3 + 2.5*Nai^3));
 
 %% soduium
 
 % calculate ina
-if(abs(V+44.4) < 0.0001)
+if(abs(V + 44.4) < 0.0001)
     Am = 460*12.673;
 else
-    Am = -460*(V + 44.4)/(exp(-(V+44.4)/12.673) - 1);
+    Am = -460*(V + 44.4)/(exp(-(V + 44.4)/12.673) - 1);
 end
 
-Bm = 18400*exp(-(V+44.4)/12.673);
-dm = Am*(1-m) - Bm*m;
+Bm = 18400*exp(-(V + 44.4)/12.673);
+dm = Am*(1 - m) - Bm*m;
 
-Ah = 44.9*exp(-(V+66.9)/5.57);
-Bh = 1491.0/(1+323.3*exp(-(V+94.6)/12.9));
+Ah = 44.9*exp(-(V + 66.9)/5.57);
+Bh = 1491.0/(1 + 323.3*exp(-(V + 94.6)/12.9));
 
 th1 = 0.03/(1 + exp((V+40)/6)) + 0.00015; %0.00035 - Lindblad
 th2 = 0.12/(1 + exp((V+60)/2)) + 0.00045;  %0.00295 - Lindblab
 
-hm  = Ah/(Ah+Bh);
-dh1 = (hm-h1)/th1;
-dh2 = (hm-h2)/th2;
+hm  = Ah/(Ah + Bh);
+dh1 = (hm - h1)/th1;
+dh2 = (hm - h2)/th2;
 
 if(abs(V) > 0.0001)
     INa = 0.0014*m^3*(0.635*h1 + 0.365*h2)*140*V...
-        *(data.F/data.RTONF)*(exp((V-ENa)/data.RTONF) - 1)/(exp(V/data.RTONF) - 1); 
+        *(F/RTONF)*(exp((V-ENa)/RTONF) - 1)/(exp(V/RTONF) - 1); 
 else
-    INa = 0.0014*m^3*(0.635*h1 + 0.365*h2)*140*(data.F)*(exp((V-ENa)/data.RTONF)-1);     
+    INa = 0.0014*m^3*(0.635*h1 + 0.365*h2)*140*(F)*(exp((V-ENa)/RTONF)-1);     
 end
 
 % calculate icap
@@ -158,28 +196,28 @@ ICap = 9.509*(Cai/(Cai + 0.0002));
 % calculate ical
 V_CaL = V + 10;
 
-Adl = -16.72*(V_CaL + 35)/(exp(-(V_CaL+35)/2.5)-1) - 50.0*V_CaL/(exp(-V_CaL/4.808) - 1);
+Adl = -16.72*(V_CaL + 35)/(exp(-(V_CaL + 35)/2.5)-1) - 50.0*V_CaL/(exp(-V_CaL/4.808) - 1);
 if(abs(V_CaL+35) < 0.0001)
      Adl = 16.72*2.5 - 50.0*V_CaL/(exp(-V_CaL/4.808) - 1);
 end
 if(abs(V_CaL) < 0.0001)
-     Adl = -16.72*(V_CaL + 35)/(exp(-(V+35)/2.5)-1) + 50*4.808;
+     Adl = -16.72*(V_CaL + 35)/(exp(-(V + 35)/2.5) - 1) + 50*4.808;
 end
 
-if(abs(V_CaL-5) < 0.0001)
+if(abs(V_CaL - 5) < 0.0001)
     Bdl = 4.48*2.5;
 else
-    Bdl = 4.48*(V_CaL-5)/(exp((V_CaL-5)/2.5) - 1);
+    Bdl = 4.48*(V_CaL-5)/(exp((V_CaL - 5)/2.5) - 1);
 end
 
 tdl = 1/(Adl + Bdl);
 
-dlm = 1/(1+exp(-(V_CaL+0.95)/6.6));
-ddL=(dlm-dL)/tdl;
+dlm = 1/(1 + exp(-(V_CaL+0.95)/6.6));
+ddL=(dlm - dL)/tdl;
 
-V_CaL = V_CaL-10-10; % updated JB
+V_CaL = V_CaL - 10 - 10; % updated JB
 
-if(abs(V_CaL+28) < 0.0001)
+if(abs(V_CaL + 28) < 0.0001)
     Afl = 8.49*4;
 else
     Afl = 8.49*(V_CaL + 28)/(exp((V_CaL + 28)/4) - 1);
@@ -212,24 +250,24 @@ ICaT = 6*dT*fT*(V - 38);
 IbNa = 0.03*(V - ENa);  % 0.02 - CT, 0.03 - PM
 
 % calculate ibca
-IbCa = 0.03*(V  - ECa);  % 0.02 - CT, 0.03 - PM
+IbCa = 0.03*(V - ECa);  % 0.02 - CT, 0.03 - PM
 
 
 % Calculate the total current
-Itot=IKf+IKs+Ik1+Ito+Ip+INaCa+INa+IbNa+ICaL+ICaT+ICap+IbCa;
+Itot = IKf + IKs + Ik1 + Ito + Ip + INaCa + INa + IbNa + ICaL + ICaT + ICap + IbCa;
 
 %% LINDBLAD Ca++ handling - SR Ca++
 
 % Na+ concentration change
-dNai = (-3*Ip-3*INaCa-IbNa-INa)/(data.F*data.Vi);
+dNai = (-3*Ip-3*INaCa-IbNa-INa)/(F*Vi);
 
 % Uptake current of Ca++ to the SR
-Iup = (2800/1000)*(ATPi/7.977)*(((Cai/data.Kcy_ca) - (data.Kxcs*data.Kxcs*Caup/data.Ksr_ca))/(((Cai + data.Kcy_ca)/data.Kcy_ca) + (data.Kxcs*(Caup + data.Ksr_ca)/data.Ksr_ca)));
+Iup = (2800/1000)*(ATPi/7.977)*(((Cai/Kcy_ca) - (Kxcs*Kxcs*Caup/Ksr_ca))/(((Cai + Kcy_ca)/Kcy_ca) + (Kxcs*(Caup + Ksr_ca)/Ksr_ca)));
 % Release current of Ca++ from the SR
 Irel = 200000*((F2/(F2 + 0.25))^2)*(Carel - Cai);
 
 % transfer current of Ca++ between the SR compartments
-Itr = (Caup - Carel)*2*data.F*data.Vup/0.01;
+Itr = (Caup - Carel)*2*F*Vup/0.01;
 
 % calculation of the Ca++ concentration in the different compartments
 dfac     = 200000*Cai*(1 - fac) - 476*fac;
@@ -239,12 +277,7 @@ dfaTmgm  = 2000*2.5*(1 - faTmgc - faTmgm) - 666*faTmgm;
 dfaCalse = 480*Carel*(1 - faCalse) - 400*faCalse;
 dfab     = 0.08*dfaTc + 0.16*dfaTmgc + 0.045*dfac;
 
-Faraday = data.F;
-Vup     = data.Vup;
-Vrel    = data.Vrel;
-VCa     = data.VCa;
-Vc      = data.Vc;
-Vi      = data.Vi;
+Faraday = F;
 
 dCaup = (Iup - Itr)/(2*Faraday*Vup);
 dCarel = ((Itr - Irel)/(2*Faraday*Vrel) - 31*(480*Carel*(1 - faCalse) - 400*faCalse));
@@ -267,17 +300,6 @@ dfca = 0*fca;
 
 %% Force generation
 
-SL_0 = data.SL_0;
-N_c = data.N_c;
-F_k0 = data.F_k0;
-F_k1 = data.F_k1;
-F_k05 = data.F_k05;
-F_kl = data.F_kl;
-Ff = data.Ff;
-F_go = data.F_go; 
-F_gl = data.F_gl;
-FN = data.FN;
-
 dSL = -Ve;
 N_XB = (1e-6)*(SL - SL_0)*N_c*(TT + U)*1000/2;
 K_Ca = F_k0 + F_k1*(N_XB^FN)/(F_k05^FN + N_XB^FN);
@@ -285,131 +307,131 @@ K_minus1 = F_kl/K_Ca;
 dA = F_kl*Cai*(1 - A - TT - U) - A*(Ff + K_minus1) + TT*(F_go + F_gl*Ve);
 dTT = Ff*A - TT*(F_go + F_gl*Ve + K_minus1) + F_kl*Cai*U;
 dU = K_minus1*TT - (F_go + F_gl*Ve + F_kl*Cai)*U;
-ADPi=data.C_A-ATPi;
-N_XB_ATP=1.02/(1+(data.k_XBATP/ATPi)*(1+ADPi/data.k_XBADP));
-Force=data.F_XB*N_XB_ATP*((SL-SL_0)/2)*(TT+U)*data.N_c;
+
+ADPi=C_A-ATPi;
+N_XB_ATP=1.02/(1+(k_XBATP/ATPi)*(1+ADPi/k_XBADP));
+Force=F_XB*N_XB_ATP*((SL-SL_0)/2)*(TT+U)*N_c;
 
 dVe = 0; % We assume here isometric contraction, change here for moving models
 
 %% Energy consumption
 
-%dATPi = 0*ATPi; % assuming const. ATP concentration  - implemented for future use
 %energy metabolites reaction rates
-C_ATP_m=data.C_A-C_ADP_m;
-%C_ADP_ic=data.C_A-C_ATP_ic;
-C_NAD=data.C_PN-C_NADH;
-A_res=((data.R*data.T)/(data.F))*log(data.K_res*sqrt(C_NADH./C_NAD));
-delta_mu_h=-2.303*(data.R*data.T/data.F)*data.delta_pH+delta_Psi_m;
+C_ATP_m = C_A - C_ADP_m;
 
-A_res_F=((data.R*data.T)/(data.F))*log(data.K_resF*sqrt(data.FADH2/data.FADH));
-A_F1=((data.R*data.T)/data.F)*log((data.K_F1*C_ATP_m)/(C_ADP_m*data.Pi));
+%C_ADP_ic=C_A-C_ATP_ic;
+C_NAD = C_PN - C_NADH;
+A_res = ((R*T)/(F))*log(K_res*sqrt(C_NADH./C_NAD));
+delta_mu_h = -2.303*(R*T/F)*delta_pH + delta_Psi_m;
 
-V_He= 6*data.rho_res*(data.r_a*exp((A_res*data.F)/(data.R*data.T))-(data.r_a+data.r_b)*exp((12*data.F*delta_mu_h)/(data.R*data.T)))/((1+data.r_1*exp((A_res*data.F)/(data.R*data.T)))*exp((6*data.F*data.psi_B)/(data.R*data.T))+(data.r_2+data.r_3* exp((A_res*data.F)/(data.R*data.T)))* exp((12*data.F*delta_mu_h)/(data.R*data.T)));
+A_res_F = ((R*T)/(F))*log(K_resF*sqrt(FADH2/FADH));
+A_F1 = ((R*T)/F)*log((K_F1*C_ATP_m)/(C_ADP_m*Pi));
 
-V_He_F=4*data.rho_resF*(data.r_a*exp((A_res_F*data.F)/(data.R*data.T))-(data.r_a+data.r_b)*exp((12*data.F*delta_mu_h)/(data.R*data.T)))/((1+data.r_1* exp((A_res_F*data.F)/(data.R*data.T)))* exp((6*data.F*data.psi_B)/(data.R*data.T))+(data.r_2+data.r_3* exp((A_res_F*data.F)/(data.R*data.T)))* exp((12*data.F*delta_mu_h)/(data.R*data.T)))                                                               ;
+V_He = 6*rho_res*(r_a*exp((A_res*F)/(R*T)) - (r_a + r_b)*exp((12*F*delta_mu_h)/(R*T)))/...
+                 ((1 + r_1*exp((A_res*F)/(R*T))) * exp((6*F*psi_B)/(R*T)) + (r_2 + r_3 * exp((A_res*F)/(R*T)))* exp((12*F*delta_mu_h)/(R*T)));
 
-%data.Cai=data.Q_Ca*(1-exp(-t/data.t_on))*exp(-t/data.t_off)+data.Q_d;
+V_He_F = 4*rho_resF*(r_a*exp((A_res_F*F)/(R*T)) - (r_a + r_b)*exp((12*F*delta_mu_h)/(R*T)))/...
+                    ((1+r_1* exp((A_res_F*F)/(R*T)))* exp((6*F*psi_B)/(R*T))+(r_2+r_3* exp((A_res_F*F)/(R*T)))* exp((12*F*delta_mu_h)/(R*T)));
 
-Juni=data.P_Ca*((data.Z_Ca*delta_Psi_m*data.F)/(data.R*data.T))*(data.alpha_m*Ca_m*exp((-data.Z_Ca*delta_Psi_m*data.F)/(data.R*data.T))-(data.alpha_e*Cai))/(exp((-data.Z_Ca*delta_Psi_m*data.F)/(data.R*data.T))-1);
+Juni = P_Ca*((Z_Ca*delta_Psi_m*F)/(R*T))*(alpha_m*Ca_m*exp((-Z_Ca*delta_Psi_m*F)/(R*T))-(alpha_e*Cai))/...
+                                         (exp((-Z_Ca*delta_Psi_m*F)/(R*T))-1);
 
-Jnc=data.V_NC*(exp(0.5*delta_Psi_m*data.F/(data.R*data.T))*(data.Na_e^3*Ca_m)/(data.K_Na^3*data.K_Ca)-exp(-0.5*delta_Psi_m*data.F/(data.R*data.T))*(data.Na_m^3*Cai)/(data.K_Na^3*data.K_Ca))/(1+(data.Na_e^3/data.K_Na^3)+(Ca_m/data.K_Ca)+(data.Na_e^3*Ca_m)/(data.K_Na^3*data.K_Ca)+(data.Na_m^3/data.K_Na^3)+(Cai/data.K_Ca)+(data.Na_m^3*Cai)/(data.K_Na^3*data.K_Ca));
+Jnc = V_NC*(exp(0.5*delta_Psi_m*F/(R*T))*(Na_e^3*Ca_m)/(K_Na^3*K_Ca) - exp(-0.5*delta_Psi_m*F/(R*T))*(Na_m^3*Cai)/(K_Na^3*K_Ca))/...
+           (1 + (Na_e^3/K_Na^3) + (Ca_m/K_Ca) + (Na_e^3*Ca_m)/(K_Na^3*K_Ca) + (Na_m^3/K_Na^3) + (Cai/K_Ca) + (Na_m^3*Cai)/(K_Na^3*K_Ca));
 
-V_Hu=-3*data.rho_F1*(10^2*data.p_a*(1+exp(A_F1/(data.R*data.T)))-(data.p_a+data.p_b)*exp((3*data.F*delta_mu_h)/(data.R*data.T)))/((1+data.p_1* exp((A_F1*data.F)/(data.R*data.T)))* exp((3*data.F*data.psi_B)/(data.R*data.T))+( data.p_2+data.p_3*exp((A_F1*data.F)/(data.R*data.T)))* exp((3*data.F*delta_mu_h)/(data.R*data.T)));
+V_Hu = -3*rho_F1*(10^2*p_a*(1+exp(A_F1/(R*T)))-(p_a+p_b)*exp((3*F*delta_mu_h)/(R*T)))/...
+                  ((1 + p_1*exp((A_F1*F)/(R*T)))*exp((3*F*psi_B)/(R*T)) + (p_2 + p_3*exp((A_F1*F)/(R*T)))*exp((3*F*delta_mu_h)/(R*T)));
 
-V_H_Leak=data.g_H*delta_mu_h;
+V_H_Leak = g_H*delta_mu_h;
 
-V_ANT=data.V_ant_max*(0.75*(1-((0.25*ATPi*0.45*C_ADP_m)/(0.17*ADPi*0.025*C_ATP_m)))*exp(-(data.F*delta_Psi_m)/(data.R*data.T)))/((1+((0.25*ATPi)/(0.225*ADPi))*exp((-data.h_ANT*data.F*delta_Psi_m)/(data.R*data.T)))*(1+((0.45*C_ADP_m)/(0.025*C_ATP_m ))));
+V_ANT = V_ant_max*(0.75*(1 - ((0.25*ATPi*0.45*C_ADP_m)/(0.17*ADPi*0.025*C_ATP_m)))*exp(-(F*delta_Psi_m)/(R*T)))/...
+                  ((1 + ((0.25*ATPi)/(0.225*ADPi))*exp((-h_ANT*F*delta_Psi_m)/(R*T)))*(1 + ((0.45*C_ADP_m)/(0.025*C_ATP_m ))));
 
-%C_Cr_i=data.Cc-C_CrP_i;
 
-%C_Cr_ic=data.Cc-C_CrP_ic;
+Force_ATP = 1.02/...
+            (1 + (K_M_ATP/ATPi)*(1 + (CATPi - ATPi)/K_M_ADP));
 
-%V_CK_mito=data.k_CK_mito*(ATPi*C_Cr_i-(ADPi*C_CrP_i/data.K_EQ));
+V_AM = Max_ATP*F_f*A*Force_ATP;
+ATP_XB = MaxATP*Ff*A.*Force; 
 
-Force_ATP=1.02/(1+(data.K_M_ATP/ATPi)*(1+(data.CATPi-ATPi)/data.K_M_ADP));
+dATPi = V_ANT*(V_mito/V_myo) - (Ip+ICap)*A_cap/(V_myo*F) - 0.5*Iup - V_AM;
 
-V_AM=data.Max_ATP*data.F_f*A*Force_ATP;
-ATP_XB = data.MaxATP*Ff*A.*Force; 
 
-dATPi=V_ANT*(data.V_mito/data.V_myo)-(Ip+ICap)*data.A_cap/(data.V_myo*data.F)-0.5*Iup-V_AM;
+V_ATPase = -rho_F1*((10^2*p_a + p_c1*exp((3*F*psi_B)/(R*T)))*exp(F*A_F1/(R*T)) - (p_a*exp((3*F*delta_mu_h)/(R*T)) + p_c2*exp(F*A_F1/(R*T))*exp((3*F*delta_mu_h)/(R*T))))/...
+                   ((1 + p_1*exp((A_F1*F)/(R*T)))*exp((3*F*psi_B)/(R*T)) + (p_2 + p_3*exp((A_F1*F)/(R*T)))*exp((3*F*delta_mu_h)/(R*T)))*(1 - exp(-(Ca_m/KCaATP)));
 
-%V_CK_cyto=data.k_CK_cyto*(C_ATP_ic*C_Cr_ic-(C_ADP_ic*C_CrP_ic/data.K_EQ));
+V_SL = k_f_SL*((C_SCoA*C_ADP_m - (C_Suc*C_ATP_m*C_CoA)/(k_E_SL )));
 
-%dC_ATP_ic=-V_CK_cyto-data.V_ATPase_cyto;
-%V_tr_CrP=data.k_tr_Cr*(C_CrP_i-C_CrP_ic);
+dC_ADP_m = V_ANT - V_ATPase - V_SL;
 
-%dC_CrP_i=V_CK_mito-V_tr_CrP;
-%dC_CrP_ic=V_tr_CrP+V_CK_cyto;
+V_O2 = 0.5*rho_res*((r_a + r_c1*exp((6*F*psi_B)/(R*T)))*exp((A_res*F)/(R*T)) - r_a*exp((12*F*delta_mu_h)/(R*T)) + r_c2*exp((A_res*F)/(R*T))*exp((12*F*delta_mu_h)/(R*T)))/...
+                   ((1 + r_1*exp((A_res*F)/(R*T)))*exp((6*F*psi_B)/(R*T)) + (r_2 + r_3*exp((A_res*F)/(R*T)))*exp((12*F*delta_mu_h)/(R*T)));
 
-V_ATPase=-data.rho_F1*((10^2*data.p_a+data.p_c1*exp((3*data.F*data.psi_B)/(data.R*data.T)))*exp(data.F*A_F1/(data.R*data.T))-(data.p_a*exp((3*data.F*delta_mu_h)/(data.R*data.T))+data.p_c2*exp(data.F*A_F1/(data.R*data.T))*exp((3*data.F*delta_mu_h)/(data.R*data.T))))/((1+data.p_1* exp((A_F1*data.F)/(data.R*data.T)))* exp((3*data.F*data.psi_B)/(data.R*data.T))+(data.p_2+data.p_3* exp((A_F1*data.F)/(data.R*data.T)))* exp((3*data.F*delta_mu_h)/(data.R*data.T)))*(1-exp(-(Ca_m/data.KCaATP)));
-%V_ATPase=-data.rho_F1*((10^2*data.p_a+data.p_c1*exp((3*data.F*data.psi_B)/(data.R*data.T)))*exp(data.F*A_F1/(data.R*data.T))-(data.p_a*exp((3*data.F*delta_mu_h)/(data.R*data.T))+data.p_c2*exp(data.F*A_F1/(data.R*data.T))*exp((3*data.F*delta_mu_h)/(data.R*data.T))))/((1+data.p_1* exp((A_F1*data.F)/(data.R*data.T)))* exp((3*data.F*data.psi_B)/(data.R*data.T))+(data.p_2+data.p_3* exp((A_F1*data.F)/(data.R*data.T)))* exp((3*data.F*delta_mu_h)/(data.R*data.T)));
+f_a_IDH = ((1 + (C_ADP_m/K_ADP_a))*(1 + (Ca_m/K_Ca_a)))^(-1);
 
-V_SL=data.k_f_SL*((C_SCoA*C_ADP_m-(C_Suc*C_ATP_m*data.C_CoA)/(data.k_E_SL )));
+f_i_IDH = 1 + (C_NADH/K_i_NADH);
 
-dC_ADP_m=V_ANT-V_ATPase-V_SL;
+V_IDH = k_cat_IDH*E_T_IDH*(1 + (C_H/k_h_1) + (k_h_2/C_H) + f_i_IDH*(K_M_NAD/C_NAD) + f_a_IDH*(K_M_ISOC/C_ISOC)^2 + f_a_IDH*f_i_IDH*(K_M_ISOC/C_ISOC)^2*(K_M_NAD/C_NAD))^-1;
 
-V_O2=0.5*data.rho_res*((data.r_a+data.r_c1*exp((6*data.F*data.psi_B)/(data.R*data.T)))*exp((A_res*data.F)/(data.R*data.T))-data.r_a*exp((12*data.F*delta_mu_h)/(data.R*data.T))+data.r_c2*exp((A_res*data.F)/(data.R*data.T))*exp((12*data.F*delta_mu_h)/(data.R*data.T)))/((1+data.r_1*exp((A_res*data.F)/(data.R*data.T)))*exp((6*data.F*data.psi_B)/(data.R*data.T))+(data.r_2+data.r_3*exp((A_res*data.F)/(data.R*data.T)))*exp((12*data.F*delta_mu_h)/(data.R*data.T)));
+f_a_KGDH = ((1 + (C_Mg/K_D_Mg))*(1 + (Ca_m/K_D_Ca)))^(-1);
 
-f_a_IDH=((1+(C_ADP_m/data.K_ADP_a))*(1+(Ca_m/data.K_Ca_a)))^(-1);
+V_KGDH = (k_cat_KGDH*E_T_KGDH)/(1 + f_a_KGDH*((K_M_aKG)/C_aKG)^(n_aKG)+f_a_KGDH*((K_M_NAD_new)/C_NAD));
 
-f_i_IDH=1+(C_NADH/data.K_i_NADH);
+f_h_a = 1/...
+        (1 + C_H/k_h1 + C_H^2/(k_h1*k_h2)) + k_offset;
 
-V_IDH=data.k_cat_IDH*data.E_T_IDH*(1+(data.C_H/data.k_h_1)+(data.k_h_2/data.C_H)+f_i_IDH*(data.K_M_NAD/C_NAD)+f_a_IDH*(data.K_M_ISOC/C_ISOC)^2+f_a_IDH*f_i_IDH*(data.K_M_ISOC/C_ISOC)^2*(data.K_M_NAD/C_NAD))^-1;
+f_h_i = (1 + k_h3/C_H + (k_h3*k_h4)/(C_H^2))^-2;
 
-f_a_KGDH=((1+(data.C_Mg/data.K_D_Mg))*(1+(Ca_m/data.K_D_Ca)))^(-1);
+V_MDH = (k_cat_MDH*E_T_MDH *f_h_a*f_h_i)/(1 + (K_M_MAL/C_MAL)*(1 + (C_OAA/K_i_OAA)) + (K_M_NAD_mdh/C_NAD) + ((K_M_MAL/C_MAL)*(1 + (C_OAA/K_i_OAA))*(K_M_NAD_mdh))/(C_NAD));
 
-V_KGDH=(data.k_cat_KGDH*data.E_T_KGDH)/(1+f_a_KGDH*((data.K_M_aKG)/C_aKG)^(data.n_aKG)+f_a_KGDH*((data.K_M_NAD_new)/C_NAD));
+dC_NADH = -V_O2 + V_IDH + V_KGDH + V_MDH;
 
-f_h_a=1/(1+data.C_H/data.k_h1+data.C_H^2/(data.k_h1*data.k_h2))+data.k_offset;
+C_CIT = C_K_int - (C_ISOC + C_aKG + C_SCoA + C_Suc + C_FUM + C_MAL + C_OAA);
 
-f_h_i=(1+data.k_h3/data.C_H+(data.k_h3*data.k_h4)/(data.C_H^2))^-2;
+V_ACO = k_f_ACO*(C_CIT - (C_ISOC/k_E_ACO));
 
-V_MDH=(data.k_cat_MDH*data.E_T_MDH *f_h_a*f_h_i)/(1+(data.K_M_MAL/C_MAL)*(1+(C_OAA/data.K_i_OAA))+(data.K_M_NAD_mdh/C_NAD)+((data.K_M_MAL/C_MAL)*(1+(C_OAA/data.K_i_OAA))*(data.K_M_NAD_mdh))/(C_NAD));
+dC_ISOC = V_ACO - V_IDH;
 
-dC_NADH=-V_O2+V_IDH+V_KGDH+V_MDH;
+V_AAT = k_f_AAT*C_OAA*C_GLU*(k_ASP*K_E_AAT)/...
+                            (k_ASP*K_E_AAT+C_aKG*k_f_AAT);
 
-C_CIT=data.C_K_int-(C_ISOC+C_aKG+C_SCoA+C_Suc+C_FUM+C_MAL+C_OAA);
+dC_aKG = V_IDH - V_KGDH + V_AAT;
 
-V_ACO=data.k_f_ACO*(C_CIT-(C_ISOC/data.k_E_ACO));
+dC_SCoA = V_KGDH - V_SL;
 
-dC_ISOC=V_ACO-V_IDH;
+V_SDH = (k_cat_SDH*E_T_SDH)/...
+        (1 + ((K_M_SUC)/C_Suc)*(1 + (C_OAA/K_i_sdh_OAA))*((1 + (C_FUM/(K_i_FUM)))));
 
-V_AAT=data.k_f_AAT*C_OAA*data.C_GLU*(data.k_ASP*data.K_E_AAT)/(data.k_ASP*data.K_E_AAT+C_aKG*data.k_f_AAT);
+dC_Suc = V_SL - V_SDH;
 
-dC_aKG=V_IDH-V_KGDH+V_AAT;
+V_FH = k_f_FH*(C_FUM - C_MAL/(K_E_FH));
 
-dC_SCoA=V_KGDH-V_SL;
+dC_FUM = V_SDH - V_FH;
 
-V_SDH=(data.k_cat_SDH*data.E_T_SDH)/(1+((data.K_M_SUC)/C_Suc)*(1+(C_OAA/data.K_i_sdh_OAA))*((1+(C_FUM/(data.K_i_FUM)))));
+dC_MAL = V_FH - V_MDH;
 
-dC_Suc=V_SL-V_SDH;
+V_CS = k_cat_cs*E_T_cs*(1 + (K_M_AcCoA/C_AcCoA) + (K_M_OAA/C_OAA) + (K_M_AcCoA/C_AcCoA) + (K_M_OAA/C_OAA))^(-1);
 
-V_FH=data.k_f_FH*(C_FUM-C_MAL/(data.K_E_FH));
+dC_OAA = V_MDH - V_CS - V_AAT;
 
-dC_FUM=V_SDH-V_FH;
+dC_FLV = V_SDH - V_O2;
 
-dC_MAL=V_FH-V_MDH;
+dCa_m = Beta_Ca.*(Juni - Jnc);
 
-V_CS=data.k_cat_cs*data.E_T_cs*(1+(data.K_M_AcCoA/data.C_AcCoA)+(data.K_M_OAA/C_OAA)+(data.K_M_AcCoA/data.C_AcCoA)+(data.K_M_OAA/C_OAA))^(-1);
-
-dC_OAA=V_MDH-V_CS-V_AAT;
-
-dC_FLV=V_SDH-V_O2;
-
-dCa_m=data.Beta_Ca.*(Juni-Jnc);
-
-ddelta_Psi_m=(V_He+V_He_F-V_Hu-V_ANT-V_H_Leak-Jnc-2*Juni)/data.C_mito;
+ddelta_Psi_m = (V_He + V_He_F - V_Hu - V_ANT - V_H_Leak - Jnc - 2*Juni)/...
+                C_mito;
 
 %%
 impulseFactor = 100;
 
-if ((mod(t,1/f_stim) >= start_stim && mod(t,1/f_stim)< 0.001*impulseFactor + start_stim) && (t <= end_stim))
-    I_stim=data.Is/impulseFactor;
+if ((mod(t,1/f_stim) >= start_stim && mod(t,1/f_stim) < 0.001*impulseFactor + start_stim) && (t <= end_stim))
+    I_stim=Is/impulseFactor;
 else 
     I_stim=0;
 end
 
-dV = -(Itot + I_stim)/data.Cm;
+dV = -(Itot + I_stim)/...
+       Cm;
 
 
 
