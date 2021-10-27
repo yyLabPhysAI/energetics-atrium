@@ -87,18 +87,10 @@ P_Ca=data.P_Ca;Z_Ca=data.Z_Ca;alpha_m=data.alpha_m;alpha_e=data.alpha_e;V_NC=dat
 Na_m=data.Na_m;Beta_Ca=data.Beta_Ca;K_D_Ca=data.K_D_Ca;K_D_Mg=data.K_D_Mg;SL_o=data.SL_o;N_c=data.N_c;
 F_k0=data.F_k0;F_k1=data.F_k1;FN=data.FN;F_k_half=data.F_k_half;F_kl=data.F_kl;F_f=data.F_f;
 F_g0=data.F_g0;F_gl=data.F_gl;K_M_ATP=data.K_M_ATP;Max_ATP=data.Max_ATP;CATPi=data.CATPi;
-
-
-
-% Constant loading - whan neglecting Ca++ handling
-%Cai = Cai;
-%Ki  = Ki;
-%Nai = Nai;
-%Kc  = Kc;
-
-Ek   = RTONF*log(Kc/Ki);
-ENa  = RTONF*log(140/Nai);
-ECa  = (RTONF/2)*log(2.5/Cai);
+    
+Ek   = nernst(Ki, Kc, 1);
+ENa  = nernst(Nai, 140, 1);
+ECa  = nernst(Cai, 2.5, 2);
 
 % calculation of ikf
 IKf = 3.5*Pa*Pi*(V - Ek);
