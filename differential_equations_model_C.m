@@ -87,25 +87,15 @@ P_Ca=data.P_Ca;Z_Ca=data.Z_Ca;alpha_m=data.alpha_m;alpha_e=data.alpha_e;V_NC=dat
 Na_m=data.Na_m;Beta_Ca=data.Beta_Ca;K_D_Ca=data.K_D_Ca;K_D_Mg=data.K_D_Mg;SL_o=data.SL_o;N_c=data.N_c;
 F_k0=data.F_k0;F_k1=data.F_k1;FN=data.FN;F_k_half=data.F_k_half;F_kl=data.F_kl;F_f=data.F_f;
 F_g0=data.F_g0;F_gl=data.F_gl;K_M_ATP=data.K_M_ATP;Max_ATP=data.Max_ATP;CATPi=data.CATPi;
-    
-Ek   = nernst(Ki, Kc, 1);
-ENa  = nernst(Nai, 140, 1);
-ECa  = nernst(Cai, 2.5, 2);
+K_M_ADP = data.K_M_ADP;
 
-% calculation of ikf
+Ek   = nernst(Ki, Kc, 1, data);
+ENa  = nernst(Nai, 140, 1, data);
+ECa  = nernst(Cai, 2.5, 2, data);
+
+% Fast delayed rectifier K+ current
 IKf = 3.5*Pa*Pi*(V - Ek);
-
-Apa = 9.0*exp(V/25.371);
-Bpa = 1.3*exp(-V/13.026);
-pam = 1/(1 + exp(-(V + 5.1)/7.4));
-tpa = 1/(Apa+Bpa);
-dPa = (pam - Pa)/tpa;
-
-Api = 100*exp(-V/54.645);
-Bpi = 656*exp(V/106.157);
-pim = 1/(1+exp((V+47.3921)/18.6603));
-tpi = 1/(Api+Bpi);
-dPi = (pim-Pi)/tpi;
+[dPa, dPi] = fast_delayed_rectifier_k(V, Pa, Pi);
 
 % calculation of iks
 IKs = 2.5*n*(V-Ek);

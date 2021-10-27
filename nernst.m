@@ -1,5 +1,5 @@
-function voltage = nernst(concentration_in, concentration_out, valence)
+function voltage = nernst(concentration_in, concentration_out, valence, data)
 
-voltage  = (RTONF/valence)*log(concentration_out/concentration_in);
+voltage  = (data.RTONF/valence)*log(concentration_out/concentration_in);
 
 end
