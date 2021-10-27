@@ -226,7 +226,7 @@ IbCa = 0.03*(V  - ECa);  % 0.02 - CT, 0.03 - PM
 
 
 % Calculate the total current
-Itot = IKf + IKs + Ik1 +Ito+Ip+INaCa+INa+IbNa+ICaL+ICaT+ICap+IbCa;
+Itot = IKf + IKs+Ik1+Ito+Ip+INaCa+INa+IbNa+ICaL+ICaT+ICap+IbCa;
 
 
 % Na+ concentration change
@@ -238,7 +238,7 @@ Iup = (2800/1000).*(ATPi/7.977).*(((Cai./data.Kcy_ca) - (data.Kxcs*data.Kxcs*Cau
 Irel = 200000*((F2./(F2 + 0.25)).^2).*(Carel - Cai);
 
 % transfer current of Ca++ between the SR compartments
-Itr = (Caup - Carel)*2*data.F*data.V_up./0.01;
+Itr = (Caup - Carel)*2*data.F*data.Vup./0.01;
 
 % calculation of the Ca++ concentration in the different compartments
 dfac     = 200000*Cai.*(1 - fac) - 476*fac;
@@ -249,11 +249,11 @@ dfaCalse = 480*Carel.*(1 - faCalse) - 400*faCalse;
 dfab     = 0.08*dfaTc + 0.16*dfaTmgc + 0.045*dfac;
 
 Faraday = data.F;
-Vup     = data.V_up;
-Vrel    = data.V_rel;
-VCa     = data.V_Ca;
-Vc      = data.V_c;
-Vi      = data.V_i;
+Vup     = data.Vup;
+Vrel    = data.Vrel;
+VCa     = data.VCa;
+Vc      = data.Vc;
+Vi      = data.Vi;
 
 dCaup = (Iup - Itr)./(2*Faraday*Vup);
 dCarel = ((Itr - Irel)./(2*Faraday.*Vrel) - 31*(480*Carel.*(1 - faCalse) - 400*faCalse));

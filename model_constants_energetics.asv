@@ -1,23 +1,23 @@
 
-data.Is 	= -15000;           % STIMULUS
-data.R     	= 8314;          	% Ideal gas const. [mJ/(mol*K)]
-data.T     	= 308;           	% Temp. [K] %%%%%%% 312.15 ??????????????
-data.Cm    	= 0.05;          	% Membrane capacitance [pF] ??????? 
-data.F     	= 96487;         	% Faraday const [C/mol]
-data.RTONF 	= data.T*0.08554;	% zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz
-data.Ca_i   = 0.000071;     	% Ca^+2 	in 	[????]
-data.Ca_o  	= 2.5;           	% Ca^+2 	out [????]
-data.Na_i   = 8.4;          	% Na^+ 		in 	[mM]
-data.Na_o   = 140;				% Na^+		out	[mM]
-data.K_i    = 140;				% K^+		in	[mM]
-data.K_o    = 5.0;				% K_o		???	[mM]
-data.V_i    = 0.0126;			% Voltage	???	[mV]
-data.V_Ca   = 0.005884;			% VCa		???	[mV]
-data.V_c    = 0.0025;			% Vc		???	[mV]
-data.V_up   = 0.0003969;		% Vup		???	[mV]
-data.V_rel  = 0.000044;			% Vrel		???	[mV]
-data.V_nSR  = 0.0408;			% VnSR		???	[mV]
-
+data.Is = -15000; %% sTIMULUS
+data.R     = 8314; % gas const. [mJ/(mol*K)]
+data.T     = 308;  % temp. [K] %%%%%%% 312.15 ??
+data.Cm    = 0.05; % 
+data.F     = 96487;
+data.RTONF = data.T*0.08554;
+data.HT    = 0.000005;
+data.Cai   = 0.000071;
+data.Ca_o  = 2.5;
+data.Nai   = 8.4;
+data.Nao   = 140;
+data.Ki    = 140;
+data.Kc    = 5.0;
+data.Vi    = 0.0126;
+data.VCa   = 0.005884;
+data.Vc    = 0.0025;
+data.Vup   = 0.0003969;
+data.Vrel  = 0.000044;
+data.VnSR  = 0.0408;
 %%Iup
 data.Kcy_ca=0.0003*10^3;
 data.Kxcs=0.4;
