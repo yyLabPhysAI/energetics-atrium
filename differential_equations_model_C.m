@@ -67,36 +67,33 @@ V_up=data.V_up;
 V_rel=data.V_rel;
 
 Kcy_ca=data.Kcy_ca;Kxcs=data.Kxcs;
-Ksr_ca=data.Ksr_ca;Ff=data.Ff;SL_0=data.SL_0;N_c=data.N_c;F_k0=data.F_k0;F_k1=data.F_k1;
-F_k05=data.F_k05;F_kl=data.F_kl;F_go=data.F_go;F_gl=data.F_gl;F_XB=data.F_XB;
-FN=data.FN;C_ATPi=data.C_ATPi;MaxATP=data.MaxATP;K_ACI=data.K_ACI;K_AC=data.K_AC;
-K_Ca=data.K_Ca;k_bCM=data.k_bCM;k_fCM=data.k_fCM;K_ACCa=data.K_ACCa;k_XBATP=data.k_XBATP;
-k_XBADP=data.k_XBADP;V_uni_max=data.V_uni_max;psi0=data.psi0;K_act=data.K_act;
-K_trans=data.K_trans;L=data.L;n_a=data.n_a;V_NaCa_max=data.V_NaCa_max;b=data.b;
-K_Na=data.K_Na;K_Ca=data.K_Ca;delta=data.delta;r_a=data.r_a;r_c1=data.r_c1;
+Ksr_ca=data.Ksr_ca;Ff=data.Ff;SL_0=data.SL_0;
+F_k05=data.F_k05;F_go=data.F_go;F_XB=data.F_XB;MaxATP=data.MaxATP;
+k_XBATP=data.k_XBATP;
+k_XBADP=data.k_XBADP;
+K_Na=data.K_Na;r_a=data.r_a;r_c1=data.r_c1;
 r_c2=data.r_c2;r_1=data.r_1;r_2=data.r_2;r_3=data.r_3;rho_res=data.rho_res;K_res=data.K_res;
-rho_resF=data.rho_resF;psi_B=data.psi_B;G=data.G;K_resF=data.K_resF;r_b=data.r_b;
+rho_resF=data.rho_resF;psi_B=data.psi_B;K_resF=data.K_resF;r_b=data.r_b;
 FADH2=data.FADH2;FADH=data.FADH;p_a=data.p_a;p_b=data.p_b;p_c1=data.p_c1;p_c2=data.p_c2;
 p_1=data.p_1;p_2=data.p_2;p_3=data.p_3;KCaATP=data.KCaATP;rho_F1=data.rho_F1;K_F1=data.K_F1;
 C_A=data.C_A;V_ant_max=data.V_ant_max;h_ANT=data.h_ANT;g_H=data.g_H;delta_pH=data.delta_pH;
-C_PN=data.C_PN;C_mito=data.C_mito;Cc=data.Cc;C_AcCoA=data.C_AcCoA;k_cat_cs=data.k_cat_cs;
+C_PN=data.C_PN;C_mito=data.C_mito;C_AcCoA=data.C_AcCoA;k_cat_cs=data.k_cat_cs;
 E_T_cs=data.E_T_cs;K_M_AcCoA=data.K_M_AcCoA;K_M_OAA=data.K_M_OAA;C_K_int=data.C_K_int;
 k_f_ACO=data.k_f_ACO;k_E_ACO=data.k_E_ACO;K_ADP_a=data.K_ADP_a;K_Ca_a=data.K_Ca_a;
 K_i_NADH=data.K_i_NADH;k_cat_IDH=data.k_cat_IDH;E_T_IDH=data.E_T_IDH;C_H=data.C_H;k_h_1=data.k_h_1;
-k_h_2=data.k_h_2;K_M_ISOC=data.K_M_ISOC;N_i=data.N_i;K_M_NAD=data.K_M_NAD;K_M_Mg=data.K_M_Mg;
-K_M_Ca=data.K_M_Ca;E_T_KGDH=data.E_T_KGDH;k_cat_KGDH=data.k_cat_KGDH;K_M_aKG=data.K_M_aKG;
+k_h_2=data.k_h_2;K_M_ISOC=data.K_M_ISOC;K_M_NAD=data.K_M_NAD;
+E_T_KGDH=data.E_T_KGDH;k_cat_KGDH=data.k_cat_KGDH;K_M_aKG=data.K_M_aKG;
 K_M_NAD_new=data.K_M_NAD_new;n_aKG=data.n_aKG;C_Mg=data.C_Mg;k_f_SL=data.k_f_SL;
 k_E_SL=data.k_E_SL;C_CoA=data.C_CoA;k_cat_SDH=data.k_cat_SDH;E_T_SDH=data.E_T_SDH;
 K_M_SUC=data.K_M_SUC;K_i_FUM=data.K_i_FUM;K_i_sdh_OAA=data.K_i_sdh_OAA;k_f_FH=data.k_f_FH;
 K_E_FH=data.K_E_FH;k_h1=data.k_h1;k_h2=data.k_h2;k_h3=data.k_h3;k_h4=data.k_h4;k_offset=data.k_offset;
 k_cat_MDH=data.k_cat_MDH;E_T_MDH=data.E_T_MDH;K_M_MAL=data.K_M_MAL;K_i_OAA=data.K_i_OAA;
 K_M_NAD_mdh=data.K_M_NAD_mdh;C_GLU=data.C_GLU;k_f_AAT=data.k_f_AAT;K_E_AAT=data.K_E_AAT;
-k_ASP=data.k_ASP;C_T=data.C_T;k_CK_cyto=data.k_CK_cyto;k_CK_mito=data.k_CK_mito;k_tr_Cr=data.k_tr_Cr;
-K_EQ=data.K_EQ;V_ATPase_cyto=data.V_ATPase_cyto;V_myo=data.V_myo;V_mito=data.V_mito;A_cap=data.A_cap;
+k_ASP=data.k_ASP;V_myo=data.V_myo;V_mito=data.V_mito;A_cap=data.A_cap;
 P_Ca=data.P_Ca;Z_Ca=data.Z_Ca;alpha_m=data.alpha_m;alpha_e=data.alpha_e;V_NC=data.V_NC;Na_e=data.Na_e;
-Na_m=data.Na_m;Beta_Ca=data.Beta_Ca;K_D_Ca=data.K_D_Ca;K_D_Mg=data.K_D_Mg;SL_o=data.SL_o;N_c=data.N_c;
-F_k0=data.F_k0;F_k1=data.F_k1;FN=data.FN;F_k_half=data.F_k_half;F_kl=data.F_kl;F_f=data.F_f;
-F_g0=data.F_g0;F_gl=data.F_gl;K_M_ATP=data.K_M_ATP;Max_ATP=data.Max_ATP;CATPi=data.CATPi;
+Na_m=data.Na_m;Beta_Ca=data.Beta_Ca;K_D_Ca=data.K_D_Ca;K_D_Mg=data.K_D_Mg;N_c=data.N_c;
+F_k0=data.F_k0;F_k1=data.F_k1;FN=data.FN;F_kl=data.F_kl;F_f=data.F_f;
+F_gl=data.F_gl;K_M_ATP=data.K_M_ATP;Max_ATP=data.Max_ATP;CATPi=data.CATPi;
 K_M_ADP = data.K_M_ADP;
 Na_o = data.Na_o; Ca_o = data.Ca_o;
 
@@ -122,9 +119,7 @@ I_NaK = NaK_ATPase(K_o, Na_i, V);
 % Na+-Ca(2+) exchanger (NCX)
 I_NaCa = NCX(Na_i, Ca_i, V, data);
 
-%% soduium
-
-% calculate ina
+% Fast Na+ channels
 if(abs(V + 44.4) < 0.0001)
     Am = 460*12.673;
 else
