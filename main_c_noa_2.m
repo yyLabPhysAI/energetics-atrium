@@ -233,7 +233,7 @@ Itot = IKf + IKs + Ik1 +Ito+Ip+INaCa+INa+IbNa+ICaL+ICaT+ICap+IbCa;
 dNai = (-3*Ip-3*INaCa-IbNa-INa)./(data.F*data.V_i);
 
 % Uptake current of Ca++ to the SR
-Iup = (2800/1000).*(ATPi/7.977).*(((Cai./data.Kcy_ca) - (data.Kxcs*data.Kxcs*Caup./data.Ksr_ca))./(((Cai + data.Kcy_ca)./data.Kcy_ca) + (data.Kxcs.*(Caup + data.Ksr_ca)./data.Ksr_ca)));
+Iup = (2800/1000).*(ATPi/7.977).*(((Cai./data.K_cyCa) - (data.K_xcs*data.K_xcs*Caup./data.K_srCa))./(((Cai + data.K_cyCa)./data.K_cyCa) + (data.K_xcs.*(Caup + data.K_srCa)./data.K_srCa)));
 % Release current of Ca++ from the SR
 Irel = 200000*((F2./(F2 + 0.25)).^2).*(Carel - Cai);
 

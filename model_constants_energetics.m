@@ -11,27 +11,27 @@ data.Na_i   = 8.4;          	% Na^+ 		in 	[mM]
 data.Na_o   = 140;				% Na^+		out	[mM]
 data.K_i    = 140;				% K^+		in	[mM]
 data.K_o    = 5.0;				% K_o		???	[mM]
-data.V_i    = 0.0126;			% Voltage	???	[mV]
-data.V_Ca   = 0.005884;			% VCa		???	[mV]
-data.V_c    = 0.0025;			% Vc		???	[mV]
-data.V_up   = 0.0003969;		% Vup		???	[mV]
-data.V_rel  = 0.000044;			% Vrel		???	[mV]
-data.V_nSR  = 0.0408;			% VnSR		???	[mV]
+data.V_i    = 0.0126;			% Intracellular volume	[???]
+data.V_Ca   = 0.005884;			% V_Ca		???	[mV]
+data.V_c    = 0.0025;			% Cytoplasmic volume	[???]
+data.V_up   = 0.0003969;		% V_up		???	[mV]
+data.V_rel  = 0.000044;			% V_rel		???	[mV]
+data.V_nSR  = 0.0408;			% V_nSR		???	[mV]
 
 %%Iup
-data.Kcy_ca=0.0003*10^3;
-data.Kxcs=0.4;
-data.Ksr_ca=0.5*10;
+data.K_cyCa=0.0003*10^3;
+data.K_xcs=0.4;
+data.K_srCa=0.5*10;
 
 % force parameters
-data.Ff    = 0.04*1e3; %corrected from msec to sec
+data.Ff    = 0.04*1e3;  % corrected from msec to sec
 data.SL_0  = 0.8;
 data.N_c   = 2e13;
 data.F_k0  = 350;
 data.F_k1  = 3000;
 data.F_k05 = 2.5e9;
-data.F_kl  = 60*1e3;%corrected from msec to sec
-data.F_go  = 0.03*1e3; %corrected from msec to sec
+data.F_kl  = 60*1e3;  % corrected from msec to sec
+data.F_go  = 0.03*1e3;  % corrected from msec to sec
 data.F_gl  = 4.4e6; 
 data.F_XB  = 2e-9;
 data.FN = 3.5;

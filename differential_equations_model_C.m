@@ -9,33 +9,33 @@ s_1     = X(6);
 s_2     = X(7);
 s_3     = X(8);
 m      = X(9);
-h1     = X(10);
-h2     = X(11);
-dL     = X(12);
-fL     = X(13);
-dT     = X(14);
-fT     = X(15);
+h_1     = X(10);
+h_2     = X(11);
+d_L     = X(12);
+f_L     = X(13);
+d_T     = X(14);
+f_T     = X(15);
 Na_i    = X(16);
-Caup   = X(17);
-Carel  = X(18);
+Ca_up   = X(17);
+Ca_rel  = X(18);
 Ca_i    = X(19);
-fac    = X(20);
-faTc   = X(21);
-faTmgc = X(22);
-faTmgm = X(23);
-faCalse= X(24);
+O_c    = X(20);
+O_TnCa   = X(21);
+O_TnMgCa = X(22);
+O_TnMgMg = X(23);
+O_Calse = X(24);
 K_o     = X(25);
 K_i     = X(26);
-F1     = X(27);
-F2     = X(28);
-F3     = X(29);
+F_1     = X(27);
+F_2     = X(28);
+F_3     = X(29);
 fca    = X(30);
 SL     = X(31);
 A      = X(32);
 TT     = X(33);
 U      = X(34);
 Ve     = X(35);
-ATPi   = X(36);
+ATP_i   = X(36);
 Ca_m   = X(37);
 C_ATP_ic=X(38);
 C_CrP_i= X(39);
@@ -59,15 +59,11 @@ R=data.R;
 T=data.T;
 Cm=data.Cm;
 F=data.F;
-RTONF=data.RTONF;
 V_i=data.V_i;
 V_Ca=data.V_Ca;
 V_c=data.V_c;
-V_up=data.V_up;
-V_rel=data.V_rel;
 
-Kcy_ca=data.Kcy_ca;Kxcs=data.Kxcs;
-Ksr_ca=data.Ksr_ca;Ff=data.Ff;SL_0=data.SL_0;
+Ff=data.Ff;SL_0=data.SL_0;
 F_k05=data.F_k05;F_go=data.F_go;F_XB=data.F_XB;MaxATP=data.MaxATP;
 k_XBATP=data.k_XBATP;
 k_XBADP=data.k_XBADP;
@@ -97,6 +93,8 @@ F_gl=data.F_gl;K_M_ATP=data.K_M_ATP;Max_ATP=data.Max_ATP;CATPi=data.CATPi;
 K_M_ADP = data.K_M_ADP;
 Na_o = data.Na_o; Ca_o = data.Ca_o;
 
+%% Cell membrane
+
 E_k   = nernst(K_i, K_o, 1, data);
 E_Na  = nernst(Na_i, Na_o, 1, data);
 E_Ca  = nernst(Ca_i, Ca_o, 2, data);
@@ -120,141 +118,40 @@ I_NaK = NaK_ATPase(K_o, Na_i, V);
 I_NaCa = NCX(Na_i, Ca_i, V, data);
 
 % Fast Na+ channels
-if(abs(V + 44.4) < 0.0001)
-    Am = 460*12.673;
-else
-    Am = -460*(V + 44.4)/(exp(-(V + 44.4)/12.673) - 1);
-end
+[I_Na, dm, dh_1, dh_2] = fast_na(V, m, h_1, h_2, E_Na, data);
 
-Bm = 18400*exp(-(V + 44.4)/12.673);
-dm = Am*(1 - m) - Bm*m;
+% Membranal Ca(2+) pump
+I_Cap_max = 9.509;
+I_Cap = I_Cap_max*(Ca_i/(Ca_i + 0.0002));
 
-Ah = 44.9*exp(-(V + 66.9)/5.57);
-Bh = 1491.0/(1 + 323.3*exp(-(V + 94.6)/12.9));
+% L-type Ca(2+) channels
+[I_CaL, df_L, dd_L] = L_type_Ca(V, d_L, f_L);
 
-th1 = 0.03/(1 + exp((V+40)/6)) + 0.00015; %0.00035 - Lindblad
-th2 = 0.12/(1 + exp((V+60)/2)) + 0.00045;  %0.00295 - Lindblab
+% T-Type calcium channels
+[dd_T , df_T, I_CaT] = T_Type_calcium(V, d_T, f_T);
 
-hm  = Ah/(Ah + Bh);
-dh1 = (hm - h1)/th1;
-dh2 = (hm - h2)/th2;
+% Background currents
+g_NaB = 0.03;
+g_CaB = 0.03;
 
-if(abs(V) > 0.0001)
-    INa = 0.0014*m^3*(0.635*h1 + 0.365*h2)*140*V...
-        *(F/RTONF)*(exp((V-E_Na)/RTONF) - 1)/(exp(V/RTONF) - 1); 
-else
-    INa = 0.0014*m^3*(0.635*h1 + 0.365*h2)*140*(F)*(exp((V-E_Na)/RTONF)-1);     
-end
-
-% calculate icap
-ICap = 9.509*(Ca_i/(Ca_i + 0.0002));
-
-%% L-type
-
-% calculate ical
-V_CaL = V + 10;
-
-Adl = -16.72*(V_CaL + 35)/(exp(-(V_CaL + 35)/2.5)-1) - 50.0*V_CaL/(exp(-V_CaL/4.808) - 1);
-if(abs(V_CaL+35) < 0.0001)
-     Adl = 16.72*2.5 - 50.0*V_CaL/(exp(-V_CaL/4.808) - 1);
-end
-if(abs(V_CaL) < 0.0001)
-     Adl = -16.72*(V_CaL + 35)/(exp(-(V + 35)/2.5) - 1) + 50*4.808;
-end
-
-if(abs(V_CaL - 5) < 0.0001)
-    Bdl = 4.48*2.5;
-else
-    Bdl = 4.48*(V_CaL-5)/(exp((V_CaL - 5)/2.5) - 1);
-end
-
-tdl = 1/(Adl + Bdl);
-
-dlm = 1/(1 + exp(-(V_CaL+0.95)/6.6));
-ddL=(dlm - dL)/tdl;
-
-V_CaL = V_CaL - 10 - 10; % updated JB
-
-if(abs(V_CaL + 28) < 0.0001)
-    Afl = 8.49*4;
-else
-    Afl = 8.49*(V_CaL + 28)/(exp((V_CaL + 28)/4) - 1);
-end
-
-Bfl = 67.922/(1 + exp(-(V_CaL + 28)/4));
-
-flm = Afl/(Afl + Bfl);
-tfl = 1/(Afl + Bfl);
-dfL = (flm - fL)/tfl;
-
-ICaL = 2.1*4*(dL*fL + 1.0/(1 + exp(-(V - 23.0)/12.0)))*(V - 50);      % CT - 1.8, PM - 2.1
-
-% calculace icat
-Adt = 674.173*exp((V + 23.3)/30);
-Bdt = 674.173*exp(-(V + 23.3)/30);
-tdt = 1/(Adt + Bdt);
-dtm = 1/(1 + exp(-(V + 23)/6.1));
-ddT = (dtm - dT)/tdt;
-
-Aft = 9.637*exp(-(V + 75)/83.3);
-Bft = 9.637*exp((V + 75)/15.38);
-tft = 1/(Aft + Bft);
-ftm = Aft/(Aft + Bft);
-dfT = (ftm - fT)/tft;
-
-ICaT = 6*dT*fT*(V - 38);
-
-% calculate ibna
-IbNa = 0.03*(V - E_Na);  % 0.02 - CT, 0.03 - PM
-
-% calculate ibca
-IbCa = 0.03*(V - E_Ca);  % 0.02 - CT, 0.03 - PM
-
+INaB = g_NaB*(V - E_Na);  % 0.02 - CT, 0.03 - PM ???? what's this comment about???
+ICaB = g_CaB*(V - E_Ca);  % 0.02 - CT, 0.03 - PM ???? what's this comment about???
 
 % Calculate the total current
-Itot = I_Kr + I_Ks + I_k1 + I_Kto + I_NaK + I_NaCa + INa + IbNa + ICaL + ICaT + ICap + IbCa;
+Itot = I_Kr + I_Ks + I_k1 + I_Kto + I_NaK + I_NaCa + I_Na + INaB + I_CaL + I_CaT + I_Cap + ICaB;
 
-%% LINDBLAD Ca++ handling - SR Ca++
+% Sodium and potassium concentration in cytoplasm
+dNa_i = (-3*I_NaK - 3*I_NaCa - INaB - I_Na)/(F*V_i);
+dK_o = (-2*I_NaK + I_Kr + I_Ks + I_Kto + I_k1)/(F*V_c);
+dK_i = (2*I_NaK - I_Kr - I_Ks - I_Kto - I_k1)/(F*V_i);
 
-% Na+ concentration change
-dNai = (-3*I_NaK-3*I_NaCa-IbNa-INa)/(F*V_i);
+% Sarcoplasmic Reticulum (SR) and Calcium Handling 
+[dO_c, dO_TnCa, dO_TnMgCa, dO_TnMgMg, dO_Calse, phi_ca_i, ...
+dCa_up, dCa_rel, dF_1, dF_2, dF_3, dfca, I_up, I_rel] = ...
+          SR_calcium_handling(ATP_i, Ca_i, Ca_up, Ca_rel, F_1, F_2, ...
+          F_3, O_c, O_TnCa, O_TnMgCa, O_TnMgMg, O_Calse, V, data, fca);
 
-% Uptake current of Ca++ to the SR
-Iup = (2800/1000)*(ATPi/7.977)*(((Ca_i/Kcy_ca) - (Kxcs*Kxcs*Caup/Ksr_ca))/(((Ca_i + Kcy_ca)/Kcy_ca) + (Kxcs*(Caup + Ksr_ca)/Ksr_ca)));
-% Release current of Ca++ from the SR
-Irel = 200000*((F2/(F2 + 0.25))^2)*(Carel - Ca_i);
-
-% transfer current of Ca++ between the SR compartments
-Itr = (Caup - Carel)*2*F*V_up/0.01;
-
-% calculation of the Ca++ concentration in the different compartments
-dfac     = 200000*Ca_i*(1 - fac) - 476*fac;
-dfaTc    = 78400*Ca_i*(1 - faTc) - 392*faTc;
-dfaTmgc  = 200000*Ca_i*(1 - faTmgc - faTmgm) - 6.6*faTmgc;
-dfaTmgm  = 2000*2.5*(1 - faTmgc - faTmgm) - 666*faTmgm;
-dfaCalse = 480*Carel*(1 - faCalse) - 400*faCalse;
-dfab     = 0.08*dfaTc + 0.16*dfaTmgc + 0.045*dfac;
-
-Faraday = F;
-
-dCaup = (Iup - Itr)/(2*Faraday*V_up);
-dCarel = ((Itr - Irel)/(2*Faraday*V_rel) - 31*(480*Carel*(1 - faCalse) - 400*faCalse));
-dCai =((2*I_NaCa - ICaL - ICaT - ICap - IbCa - Iup + Irel)/(2*V_Ca*Faraday) - dfab);
-
-% calculation of the K+ concentration in the different compartments
-dKc = (-2*I_NaK + I_Kr + I_Ks + I_Kto + I_k1)/(Faraday*V_c);
-dKi = (2*I_NaK - I_Kr - I_Ks - I_Kto - I_k1)/(Faraday*V_i);
-
-% opening and closing of SR Ca++ release channels
-ract  = 240*exp((V - 20)/12.5) + 203.8*(Ca_i/(Ca_i+0.0003))^4;
-rinact= 33.96 + 339.6*(Ca_i/(Ca_i+0.0003))^4;
-
-dF1 = 0.815*F3 - ract*F1;
-dF2 = ract*F1 - rinact*F2;
-dF3 = rinact*F2 - 0.815*F3;
-
-% variable not really used in the paper - implemented for future use
-dfca = 0*fca;
+dCa_i = ((2*I_NaCa - I_CaL - I_CaT - I_Cap - ICaB - I_up + I_rel)/(2*V_Ca*F) - phi_ca_i);
 
 %% Force generation
 
@@ -266,8 +163,8 @@ dA = F_kl*Ca_i*(1 - A - TT - U) - A*(Ff + K_minus1) + TT*(F_go + F_gl*Ve);
 dTT = Ff*A - TT*(F_go + F_gl*Ve + K_minus1) + F_kl*Ca_i*U;
 dU = K_minus1*TT - (F_go + F_gl*Ve + F_kl*Ca_i)*U;
 
-ADPi=C_A-ATPi;
-N_XB_ATP=1.02/(1+(k_XBATP/ATPi)*(1+ADPi/k_XBADP));
+ADPi=C_A-ATP_i;
+N_XB_ATP=1.02/(1+(k_XBATP/ATP_i)*(1+ADPi/k_XBADP));
 Force=F_XB*N_XB_ATP*((SL-SL_0)/2)*(TT+U)*N_c;
 
 dVe = 0; % We assume here isometric contraction, change here for moving models
@@ -302,17 +199,17 @@ V_Hu = -3*rho_F1*(10^2*p_a*(1+exp(A_F1/(R*T)))-(p_a+p_b)*exp((3*F*delta_mu_h)/(R
 
 V_H_Leak = g_H*delta_mu_h;
 
-V_ANT = V_ant_max*(0.75*(1 - ((0.25*ATPi*0.45*C_ADP_m)/(0.17*ADPi*0.025*C_ATP_m)))*exp(-(F*delta_Psi_m)/(R*T)))/...
-                  ((1 + ((0.25*ATPi)/(0.225*ADPi))*exp((-h_ANT*F*delta_Psi_m)/(R*T)))*(1 + ((0.45*C_ADP_m)/(0.025*C_ATP_m ))));
+V_ANT = V_ant_max*(0.75*(1 - ((0.25*ATP_i*0.45*C_ADP_m)/(0.17*ADPi*0.025*C_ATP_m)))*exp(-(F*delta_Psi_m)/(R*T)))/...
+                  ((1 + ((0.25*ATP_i)/(0.225*ADPi))*exp((-h_ANT*F*delta_Psi_m)/(R*T)))*(1 + ((0.45*C_ADP_m)/(0.025*C_ATP_m ))));
 
 
 Force_ATP = 1.02/...
-            (1 + (K_M_ATP/ATPi)*(1 + (CATPi - ATPi)/K_M_ADP));
+            (1 + (K_M_ATP/ATP_i)*(1 + (CATPi - ATP_i)/K_M_ADP));
 
 V_AM = Max_ATP*F_f*A*Force_ATP;
 ATP_XB = MaxATP*Ff*A.*Force; 
 
-dATPi = V_ANT*(V_mito/V_myo) - (I_NaK+ICap)*A_cap/(V_myo*F) - 0.5*Iup - V_AM;
+dATPi = V_ANT*(V_mito/V_myo) - (I_NaK+I_Cap)*A_cap/(V_myo*F) - 0.5*I_up - V_AM;
 
 
 V_ATPase = -rho_F1*((10^2*p_a + p_c1*exp((3*F*psi_B)/(R*T)))*exp(F*A_F1/(R*T)) - (p_a*exp((3*F*delta_mu_h)/(R*T)) + p_c2*exp(F*A_F1/(R*T))*exp((3*F*delta_mu_h)/(R*T))))/...
@@ -405,26 +302,26 @@ dX(6)=(ds_1);
 dX(7)=(ds_2);
 dX(8)=(ds_3);
 dX(9)=(dm);
-dX(10)=(dh1);
-dX(11)=(dh2);
-dX(12)=(ddL);
-dX(13)=(dfL);
-dX(14)=(ddT);
-dX(15)=(dfT);
-dX(16)=(dNai);
-dX(17)=(dCaup);
-dX(18)=(dCarel);
-dX(19)=(dCai);
-dX(20)=(dfac);
-dX(21)=(dfaTc);
-dX(22)=(dfaTmgc);
-dX(23)=(dfaTmgm);
-dX(24)=(dfaCalse);
-dX(25)=(dKc);
-dX(26)=(dKi);
-dX(27)=(dF1);
-dX(28)=(dF2);
-dX(29)=(dF3);
+dX(10)=(dh_1);
+dX(11)=(dh_2);
+dX(12)=(dd_L);
+dX(13)=(df_L);
+dX(14)=(dd_T);
+dX(15)=(df_T);
+dX(16)=(dNa_i);
+dX(17)=(dCa_up);
+dX(18)=(dCa_rel);
+dX(19)=(dCa_i);
+dX(20)=(dO_c);
+dX(21)=(dO_TnCa);
+dX(22)=(dO_TnMgCa);
+dX(23)=(dO_TnMgMg);
+dX(24)=(dO_Calse);
+dX(25)=(dK_o);
+dX(26)=(dK_i);
+dX(27)=(dF_1);
+dX(28)=(dF_2);
+dX(29)=(dF_3);
 dX(30)=(dfca);
 dX(31)=(dSL);
 dX(32)=(dA);
