@@ -26,7 +26,7 @@ I_tr = (Ca_up - Ca_rel)*2*F*V_up/tau_tr;
 I_rel = alpha_rel*(F_2/(F_2 + 0.25))^2*(Ca_rel - Ca_i);
 
 % calculation of the Ca++ concentration in the different compartments
-Mg_i = 2.5; % ???? [????]
+Mg_i = 2.5; % [mM]
 
 dO_c     = 200000*Ca_i*(1 - O_c) - 476*O_c;
 dO_TnCa  = 78400*Ca_i*(1 - O_TnCa) - 392*O_TnCa;

@@ -1,6 +1,6 @@
 function [I_Ks, dn] = slow_delayed_rectifier_k(V, n, E_k)
 
-g_Ks = 2.5; % ????????? 
+g_Ks = 2.5; % Conductace of the slow delayed rectifier k+ channel [nS]
 I_Ks = g_Ks*n*(V - E_k);
 
 alpha_n = 1.66*exp(V/69.452);

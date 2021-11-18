@@ -1,22 +1,22 @@
 
 data.Is 	= -15000;           % STIMULUS
-data.R     	= 8314;          	% Ideal gas const. [mJ/(mol*K)]
-data.T     	= 308;           	% Temp. [K] %%%%%%% 312.15 ??????????????
-data.Cm    	= 0.05;          	% Membrane capacitance [pF] ??????? 
-data.F     	= 96487;         	% Faraday const [C/mol]
+data.R     	= 8314;          	% Ideal gas const.      [mJ/(mol*K)]
+data.T     	= 308;           	% Temp.                 [K]
+data.Cm    	= 0.05;          	% Membrane capacitance  [pF] 
+data.F     	= 96487;         	% Faraday const         [C/mol]
 data.RTONF 	= data.T*0.08554;	% zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz
-data.Ca_i   = 0.000071;     	% Ca^+2 	in 	[????]
-data.Ca_o  	= 2.5;           	% Ca^+2 	out [????]
-data.Na_i   = 8.4;          	% Na^+ 		in 	[mM]
-data.Na_o   = 140;				% Na^+		out	[mM]
-data.K_i    = 140;				% K^+		in	[mM]
-data.K_o    = 5.0;				% K_o		???	[mM]
+data.Ca_i   = 0.000071;     	% Ca^+2 	in 	        [????]
+data.Ca_o  	= 2.5;           	% Ca^+2 	out         [????]
+data.Na_i   = 8.4;          	% Na^+ 		in 	        [mM]
+data.Na_o   = 140;				% Na^+		out	        [mM]
+data.K_i    = 140;				% K^+		in	        [mM]
+data.K_o    = 5.0;				% K_o		???	        [mM]
 data.V_i    = 0.0126;			% Intracellular volume	[???]
-data.V_Ca   = 0.005884;			% V_Ca		???	[mV]
+data.V_Ca   = 0.005884;			% V_Ca		???	        [mV]
 data.V_c    = 0.0025;			% Cytoplasmic volume	[???]
-data.V_up   = 0.0003969;		% V_up		???	[mV]
-data.V_rel  = 0.000044;			% V_rel		???	[mV]
-data.V_nSR  = 0.0408;			% V_nSR		???	[mV]
+data.V_up   = 0.0003969;		% V_up		???	        [mV]
+data.V_rel  = 0.000044;			% V_rel		???	        [mV]
+data.V_nSR  = 0.0408;			% V_nSR		???	        [mV]
 
 %%Iup
 data.K_cyCa=0.0003*10^3;
@@ -24,7 +24,7 @@ data.K_xcs=0.4;
 data.K_srCa=0.5*10;
 
 % force parameters
-data.Ff    = 0.04*1e3;  % corrected from msec to sec
+data.F_f    = 0.04*1e3;  % corrected from msec to sec
 data.SL_0  = 0.8;
 data.N_c   = 2e13;
 data.F_k0  = 350;

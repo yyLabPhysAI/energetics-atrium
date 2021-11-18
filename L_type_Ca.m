@@ -1,7 +1,7 @@
 function [I_CaL, df_L, dd_L] = L_type_Ca(V, d_L, f_L)
 
-g_CaL = 2.1*4; % ?????????? why *4???
-E_CaL = 50; % ?????? Can we assume it's constant??
+g_CaL = 8.4;
+E_CaL = 50;
 
 if(abs(V + 45) < 0.0001)
     alpha_d_l = 16.72*2.5 - 50.0*(V + 10)/(exp(-(V + 10)/4.808) - 1);
@@ -34,7 +34,7 @@ f_lm = alpha_f_l/(alpha_f_l + beta_f_l);
 t_f_l = 1/(alpha_f_l + beta_f_l);
 df_L = (f_lm - f_L)/t_f_l;
 
-I_CaL = g_CaL*(d_L*f_L + 1/(1 + exp(-(V - 23)/12)))*(V - E_CaL);      % CT - 1.8, PM - 2.1 ?????????? what's this comment?
+I_CaL = g_CaL*(d_L*f_L + 1/(1 + exp(-(V - 23)/12)))*(V - E_CaL);
 
 end
 

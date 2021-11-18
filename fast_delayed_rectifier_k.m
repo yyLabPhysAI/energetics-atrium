@@ -1,6 +1,6 @@
 function [I_Kr, dP_a, dP_i] = fast_delayed_rectifier_k(V, P_a, P_i, E_k)
 
-g_Kr = 3.5; % ??????????
+g_Kr = 3.5; % Condactance of the fast delayed rectifier k+ [nS]
 I_Kr = g_Kr*P_a*P_i*(V - E_k);
 
 alpha_p_a = 9.0*exp(V/25.371);
