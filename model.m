@@ -1,4 +1,4 @@
-function dX=differential_equations_model_C (t,X,data,f_stim,start_stim,end_stim)
+function dX = model(t,X,data,f_stim,start_stim,end_stim)
 
 % Names for the state vector values
 V           = X(1);

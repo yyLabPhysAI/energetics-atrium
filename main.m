@@ -2,7 +2,7 @@ clear
 clc
 
 %% Constant decleration and loading
-model_constants_energetics
+constants
 F_XB = data.F_XB;
 options = odeset('RelTol',1e-4,'AbsTol',1e-4);
 %% Choice of stimulation parameters
@@ -12,7 +12,7 @@ f_stim     = 1;    % [Hz] at what frequency do you want the current pulses to be
 TMAX       = 100;    % [s] until what time to calculate the simulation?
 
 %% Run the model
-[t,x] = ode23tb(@(t,x)differential_equations_model_C(t,x,data,f_stim,start_stim,end_stim), [0 TMAX] ,y0',options);
+[t,x] = ode23tb(@(t,x)model(t,x,data,f_stim,start_stim,end_stim), [0 TMAX] ,y0',options);
 V = x(:,1);
 P_a = x(:,2);
 P_i = x(:,3);
