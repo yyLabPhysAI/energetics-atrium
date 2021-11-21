@@ -1,4 +1,5 @@
 
+<<<<<<< HEAD
 data.Is 		= -15000;           % [???]			STIMULUS
 data.R     		= 8314;          	% [mJ/(mol*K)]	Ideal gas const.      
 data.T     		= 308;           	% [K]			Temp.                 
@@ -47,6 +48,56 @@ data.k_fCM  	= 227.7;			% [???]			???
 data.K_ACCa 	= 0.000024;			% [???]			???
 data.k_XBATP	= 0.03;				% [???]			???
 data.k_XBADP	= 0.26;				% [???]			???
+=======
+data.Is 	= -15000;           % STIMULUS
+data.R     	= 8314;          	% Ideal gas const.      [mJ/(mol*K)]
+data.T     	= 308;           	% Temp.                 [K]
+data.Cm    	= 0.05;          	% Membrane capacitance  [pF] 
+data.F     	= 96487;         	% Faraday const         [C/mol]
+data.RTONF 	= data.T*0.08554;	% zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz
+data.Ca_i   = 0.000071;     	% Ca^+2 	in 	        [mM]
+data.Ca_o  	= 2.5;           	% Ca^+2 	out         [mM]
+data.Na_i   = 8.4;          	% Na^+ 		in 	        [mM]
+data.Na_o   = 140;				% Na^+		out	        [mM]
+data.K_i    = 140;				% K^+		in	        [mM]
+data.K_o    = 5.0;				% K_o		???	        [mM]
+data.V_i    = 0.0126;			% Intracellular volume	[nL]
+data.V_Ca   = 0.005884;			% Ca2+ intracellular volume	        [nL]
+data.V_c    = 0.0025;			% Cytoplasmic volume	[nL]
+data.V_up   = 0.0003969;		% V_up		SR uptake compartment volume       [nL]
+data.V_rel  = 0.000044;			% V_rel		SR release compartment volume	        [nL]
+data.V_nSR  = 0.0408;			% V_nSR		???	        [nL]
+
+%%Iup
+data.K_cyCa=0.0003*10^3;%[] equilibrium binding ca2+
+data.K_xcs=0.4;%[] translocation constant
+data.K_srCa=0.5*10;%[] equilibrium binding ca2+ concentration on uptake of compartment of the SR side
+
+% force parameters
+data.F_f    = 0.04*1e3;  %[1/ms] corrected from msec to sec
+data.SL_0  = 0.8;%[um] minimal length of the sarcomere
+data.N_c   = 2e13;%[1/mm^2] the reciprocal of the crosssection of the tissue
+data.F_k0  = 350;%[1/mM] the crossbridge independent coefficent of calcium affinity
+data.F_k1  = 3000;%[1/mM] cooperativity coefficient 
+data.F_k05 = 2.5e9;%[1/mm^3]the half-maximal crossbridge calcium affinity
+data.F_kl  = 60*1e3;  %[1/mM/ms] corrected from msec to sec %rate constant of calcium binding to troponin low-affinity sites
+data.F_go  = 0.03*1e3;  % [1/ms]corrected from msec to sec %the crossbridge weakening rate at isometric regime
+data.F_gl  = 4.4e6; %m[1/m] mechanical feedback coefficient
+data.F_XB  = 2e-9;% [mN] unitary force per crossbridge at isometric regime
+data.FN = 3.5;%[] Hill's coefficient
+
+% energy consumption parameters
+data.C_ATPi  = 2.6;%[mM] ATP consumption in the cytoplasm
+data.MaxATP  = 0.02533; % [mM] maximal ATP consumption by the sarcomeres
+data.K_ACI   = 0.016;%[1/min] non-ca2+ AC activity
+data.K_AC    = 0.0735; %[1/min] non-ca2+ AC activation
+data.K_Ca    = 0.000178;%[mM] maximal Ca2+ AC activation
+data.k_bCM   = 0.5421;%[1/ms] ca2+ dissociation constant for calmodulin
+data.k_fCM   = 227.7;%[1/(mM*ms)] Ca2+ association constant for calmodulin
+data.K_ACCa  = 0.000024;% [M] half-maximal ca2+ AC activation
+data.k_XBATP = 0.03;%[] coefficient of force generation at the energy state of the cell
+data.k_XBADP = 0.26;%[] coefficient of force generation at the energy state of the cell
+>>>>>>> 3927e811896878bacbd76900413ec6efa278b727
 
 % Mitochondrial calcium handling parameters
 
@@ -165,6 +216,7 @@ data.V_mito		= 15.89; 			% [pL]			mitochondrial volume
 data.A_cap		= 1.534e-4; 		% [cm^2] 		capacitative cell surface area
 
 %%mitochondrial calcium
+<<<<<<< HEAD
 data.P_Ca 		= 2.159;			%1/[ms]
 data.Z_Ca 		= 2; 				% [???]			???
 data.alpha_m 	= 0.2;				% [???]			???
@@ -193,9 +245,44 @@ data.K_M_ATP	= 0.03;				% [???]			???
 data.K_M_ADP	= 0.26;				% [???]			???
 data.Max_ATP	= 12e-4;			% [???]			???
 data.CATPi		= 2.6;				% [???]			???
+=======
+data.P_Ca=2.159; %1/[ms] permeability of calcium uniporter
+data.Z_Ca=2; %[] calcium valence
+data.alpha_m=0.2;%[] mitochondrial calcium activity coefficient
+data.alpha_e=0.341;%[] extramitochondrial calcium activity coefficient
+data.V_NC=1.863*10^-2;%[mM/ms] NCX maximal velocity
 
+data.Na_e=5;%[mM] extramitochdrial na+ concentration
+data.Na_m=3.96;%[mM] mitochondrial na+ concentration
+data.Beta_Ca=0.1;%[] Ca2+ fraction that binds to Ca2+ buffers in the mitochondria
+data.K_D_Ca=1.27*10^-3;%[mM] KGDHC Ca2+ binding constant
+data.K_D_Mg=0.0308;%[mM] KGDHC Mg2+ binding constant
+
+
+%%force generation model
+data.SL_o=0.8;%[um] minimal length of the sarcomere
+data.N_c=2*10^13;%[1/mm^2] the reciprocal of the crosssection of the tissue
+data.F_k0=350;%[1/mM] the crossbridge independent coefficent of calcium affinity
+data.F_k1=3000;%[1/mM] cooperativity coefficient 
+data.FN=3.5;%[] Hill's coefficient
+data.F_k_half=2.5*10^9;%[1/mm^3]the half-maximal crossbridge calcium affinity
+data.F_kl=60;%[1/mM/ms] corrected from msec to sec %rate constant of calcium binding to troponin low-affinity sites
+data.F_f=0.04;%[1/ms] corrected from msec to sec
+data.F_g0=0.03;% [1/ms]corrected from msec to sec %the crossbridge weakening rate at isometric regime
+data.F_gl=4.4*10^6; %m[1/m] mechanical feedback coefficient
+
+data.K_M_ATP=0.03;%[] coefficient of force generation at the energy state of the cell
+data.K_M_ADP=0.26;%[] coefficient of force generation at the energy state of the cell
+data.Max_ATP=12e-4;% [mM] maximal ATP consumption by the sarcomeres
+data.CATPi=2.6;%[mM] ATP consumption in the cytoplasm
+>>>>>>> 3927e811896878bacbd76900413ec6efa278b727
+
+
+
+data.k_XBADP = 0.26;%[] coefficient of force generation at the energy state of the cell
 %% Initial conditions for the state vector
 
+<<<<<<< HEAD
 y0(1) 	= -80;     					% V 			[mV] 		Transmembrane potential 
 y0(2) 	= 0.00016; 					% pa 			[???]		???
 y0(3) 	= 0.76898; 					% pi 			[???]		???
@@ -238,11 +325,56 @@ y0(35) 	= 0;       					% Ve  			[???]		??? <------ assumed constant in this use
 
 % state variables for the energy consumption model
 y0(36) 	= 7.977;       				% ATPi 			[???]		??? <------ assumed constant in this use of the model, implemented for future use
+=======
+y0(1)  = -80;     % V[mV] Transmembrane potential 
+y0(2)  = 0.00016; % pa [] activation gating parameter for IK,r
+y0(3)  = 0.76898; % pi [] inactivation gating parameter for IK,r
+y0(4)  = 0.02032; % n [] activation gating parameter for IK,s
+y0(5)  = 0.00006; % r1 [] activation gating variable of It
+y0(6)  = 0.5753;  % s1 [] Fast inactivation gating variable for It
+y0(7)  = 0.39871; % s2 [] Slow inactivation gating variable for It
+y0(8)  = 0.57363; % s3 [] Third inactivation gating variable for It
+y0(9)  = 0.01309; % m [] activation gating variable for INa
+y0(10) = 0.706;   % h1 [] Fast inactivation gating variable for INa
+y0(11) = 0.61493; % h2 [] Slow inactivation gating variable for INa
+y0(12) = 0.00003; % dL [] activation gating variable for ICaL
+y0(13) = 0.99981; % fL [] inactivation gating variable for ICaL
+y0(14) = 0.00046; % dT [] activation gating variable for ICaT
+y0(15) = 0.30752; % fT [] inactivation gating variable for ICaT
+
+% state variables for LINDBLAD Ca++ handling
+y0(16) = 8.4;     % Na_i %[mM] Intracellular Na+ concentration
+y0(17) = 0.730866;% Ca_up [mM] Ca2+ concentration in uptake compartment
+y0(18) = 0.726776;% Ca_rel[mM] Ca2+ concentration in release compartment
+y0(19) = 0.00007305;% Cai [mM] intracelluar Ca2+ concentration
+y0(20) = 0.029108;% fac [] fractional occupancy of calmodulin by Ca2+
+y0(21) = 0.014071;% faTc [] fractional occupancy of troponin-Ca2+ complex by ca2+
+y0(22) = 0.214036;% faTmgc [] fractional occupancy of troponin-Mg2+ complex by ca2+
+y0(23) = 0.693565;% faTmgm [] fractional occupancy of troponin-Mg2+ complex by Mg2+
+y0(24) = 0.465921;% faCalse[] fractional occupancy of caldsequestrin by Ca2+
+y0(25) = 5.0;     % Kc [mM] extracellular K+ concentration
+y0(26) = 140.0;   % Ki [mM] intracellular K+ concentration // 100.0 - Lindblad
+y0(27) = 0.288039;% F1 [] Relative amount of inactive precursor in SR release compartment
+y0(28) = 0.002262;% F2 [] Relative amount of activator in SR release compartment
+y0(29) = 0.612697;% F3 [] Relative amount of inactive product in SR release compartment
+y0(30) = 0.7755;  % fca <------ assumed constant in this use of the model, implemented for future use
+
+% state variables for the force generation model
+y0(31) = 1.75;    % SL [um] sarcomere length
+y0(32) = 0.06;    % A [] density of regulatory units with bound ca2+ and adjacent weak crossbridges
+y0(33) = 0.02;    % TT [] density of regulatory units with bound ca2+ and adjacent strong crossbridges
+y0(34) = 0.06;    % U [] density of regulatory units without bound ca2+ but with adjacent strong crossbridges
+y0(35) = 0;       % Ve [um/sec] velocity <------ assumed constant in this use of the model, implemented for future use
+
+% state variables for the energy consumption model
+y0(36) = 7.977;       % ATPi [mM] EC-coupling linked ATP concentration <------ assumed constant in this use of the model, implemented for future use
+>>>>>>> 3927e811896878bacbd76900413ec6efa278b727
 
 % state variable for the Calmodulin binding, needed for modeling of
 % Adenylate cyclase
 
 % y0(37) = 0.042;
+<<<<<<< HEAD
 y0(37)	= 0.000076; 				% Ca2+m 		[microM] 	???
 y0(38)	= 7.972; 					% [ATP]ic 		[???]		???
 y0(39)	= 18.297; 					% [CrP]i 		[???]		???
@@ -258,3 +390,20 @@ y0(48)	= 0.0282; 					% [FUM] 		[???]		???
 y0(49)	= 0.01316; 					% [MAL] 		[???]		???
 y0(50)	= 1.623e-6;					% [OAA] 		[???]		???
 y0(51)	= 5.403; 					% [FLV] 		[???]		???
+=======
+y0(37)=0.000076; % Ca2+m [microM] mitochondrial free Ca2+ concentration 
+y0(38)=7.972; %[ATP]ic [mM] cytosolic ATP concentration not linked to EC coupling
+y0(39)=18.297; %[CrP]i [mM] mitochondrial-linked creatine phosphate concentration
+y0(40)=18.291; %[CrP]ic [mM] cytosolic creatine phosphate concentration
+y0(41)=0.276; %[ADP]m [mM] mitochondrial ADP concentration
+y0(42)=5.403; %[NADH] [mM] mitochondrial NADH concentration
+y0(43)=-140.7; %[deltaPsi_m] [mV] Inner mitochondrial membrane potential
+y0(44)=0.41; %[ISOC] [mM] Isocitrate concentration (mitochondrial)
+y0(45)=2.596e-4; %[aKG] [mM] Α-ketoglutarate concentration (mitochondrial)
+y0(46)=0.362; %[SCoA]  [mM] Succinyl-CoA concentration (mitochondrial)
+y0(47)=1.06e-4; %[Suc]  [mM] Succinate concentration (mitochonrial)
+y0(48)=0.0282; %[FUM] [mM] fumarate concentration (mitochondrial)
+y0(49)=0.01316; %[MAL] [mM] Malate concentration (mitochondrial)
+y0(50)=1.623e-6; %[OAA] [mM] Oxaloacetate concentration (mitochondrial)
+y0(51)=5.403; %[FLV] [mM] Flavoprotein concentration 
+>>>>>>> 3927e811896878bacbd76900413ec6efa278b727
