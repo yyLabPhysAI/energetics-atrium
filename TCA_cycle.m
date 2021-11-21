@@ -50,7 +50,7 @@ dC_SCoA = V_KGDH - V_SL;
 
 % Succinate dehydrogenase (SDH)
 V_SDH = (k_cat_SDH*E_T_SDH)/...
-        (1 + (K_M_SUC/C_Suc)*(1 + C_OAA/K_i_sdh_OAA)*(1 + C_FUM/K_i_FUM));
+    (1 + (K_M_SUC/C_Suc)*(1 + C_OAA/K_i_sdh_OAA)*(1 + C_FUM/K_i_FUM));
 
 dC_Suc = V_SL - V_SDH;
 
