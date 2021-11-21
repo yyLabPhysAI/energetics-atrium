@@ -3,8 +3,8 @@ function [...
     ] = TCA_cycle(C_ISOC,C_aKG,C_SCoA,C_Suc,C_FUM,C_MAL,C_OAA, C_NAD, C_ADP_m, Ca_m, C_NADH, C_ATP_m, data)
 
 
-C_AcCoA=data.C_AcCoA;k_cat_cs=data.k_cat_cs;
-E_T_cs=data.E_T_cs;K_M_AcCoA=data.K_M_AcCoA;K_M_OAA=data.K_M_OAA;C_K_int=data.C_K_int;
+C_AcCoA=data.C_AcCoA;k_cat_cs=data.k_cat_cs;C_K_int=data.C_K_int;
+E_T_cs=data.E_T_cs;K_M_AcCoA=data.K_M_AcCoA;K_M_OAA=data.K_M_OAA;
 k_f_ACO=data.k_f_ACO;k_E_ACO=data.k_E_ACO;K_ADP_a=data.K_ADP_a;K_Ca_a=data.K_Ca_a;
 K_i_NADH=data.K_i_NADH;k_cat_IDH=data.k_cat_IDH;E_T_IDH=data.E_T_IDH;C_H=data.C_H;k_h_1=data.k_h_1;
 k_h_2=data.k_h_2;K_M_ISOC=data.K_M_ISOC;K_M_NAD=data.K_M_NAD;
@@ -38,7 +38,6 @@ V_IDH = k_cat_IDH*E_T_IDH*(1 + (C_H/k_h_1) + (k_h_2/C_H) + f_i_IDH*(K_M_NAD/C_NA
 
 dC_ISOC = V_ACO - V_IDH;
 
-
 % Alpha-ketoglutarate dehydrogenase (KGDH)
 f_a_KGDH = ((1 + (C_Mg/K_D_Mg))*(1 + (Ca_m/K_D_Ca)))^(-1);
 V_KGDH = (k_cat_KGDH*E_T_KGDH)/(1 + f_a_KGDH*(K_M_aKG/C_aKG)^(n_aKG)+f_a_KGDH*((K_M_NAD_new)/C_NAD)); % ?????? why not K_M_NAD??
@@ -68,6 +67,5 @@ dC_MAL = V_FH - V_MDH;
 
 % Oxaloacetate
 dC_OAA = V_MDH - V_CS - V_AAT;
-
 
 end

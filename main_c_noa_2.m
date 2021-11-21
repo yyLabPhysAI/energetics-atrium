@@ -403,7 +403,7 @@ dC_OAA=V_MDH-V_CS-V_AAT;
 
 dC_FLV=V_SDH-V_O2;
 
-dCa_m=data.Beta_Ca.*(Juni-Jnc);
+dCa_m=data.beta_Ca.*(Juni-Jnc);
 
 impulseFactor =100;
 

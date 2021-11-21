@@ -37,9 +37,9 @@ U      = X(34);
 V_e     = X(35);
 ATP_i   = X(36);
 Ca_m   = X(37);
-C_ATP_ic=X(38);
-C_CrP_i= X(39);
-C_CrP_ic=X(40);
+C_ATP_ic=X(38); % ????? Not updated, not used
+C_CrP_i= X(39); % ????? Not updated, not used
+C_CrP_ic=X(40); % ????? Not updated, not used
 C_ADP_m= X(41);
 C_NADH=  X(42);
 delta_Psi_m=X(43);
@@ -50,39 +50,28 @@ C_Suc=   X(47);
 C_FUM=   X(48);
 C_MAL=   X(49);
 C_OAA=   X(50);
-C_FLV=   X(51);
+C_FLV=   X(51); % ????? Updated, never used
 
 
-% Unpack the constants to simplefy the code
-Is=data.Is;
-R=data.R;
-T=data.T;
-Cm=data.Cm;
+%% Unpack constants to simplefy the code
 F=data.F;
-V_i=data.V_i;
-V_Ca=data.V_Ca;
-V_c=data.V_c;
 
-K_Ca = data.K_Ca;
-C_PN=data.C_PN;
-C_mito = data.C_mito;
-Ff=data.F_f;
-MaxATP=data.MaxATP;
-K_Na=data.K_Na;r_a=data.r_a;r_c1=data.r_c1;
-r_c2=data.r_c2;r_1=data.r_1;r_2=data.r_2;r_3=data.r_3;rho_res=data.rho_res;K_res=data.K_res;
-rho_resF=data.rho_resF;psi_B=data.psi_B;K_resF=data.K_resF;r_b=data.r_b;
-FADH2=data.FADH2;FADH=data.FADH;p_a=data.p_a;p_b=data.p_b;p_c1=data.p_c1;p_c2=data.p_c2;
-p_1=data.p_1;p_2=data.p_2;p_3=data.p_3;KCaATP=data.KCaATP;rho_F1=data.rho_F1;K_F1=data.K_F1;
-C_A=data.C_A;V_ant_max=data.V_ant_max;h_ANT=data.h_ANT;g_H=data.g_H;delta_pH=data.delta_pH;
-V_myo=data.V_myo;V_mito=data.V_mito;A_cap=data.A_cap;
-P_Ca=data.P_Ca;Z_Ca=data.Z_Ca;alpha_m=data.alpha_m;alpha_e=data.alpha_e;V_NC=data.V_NC;Na_e=data.Na_e;
-Na_m=data.Na_m;Beta_Ca=data.Beta_Ca;
-F_f=data.F_f;
-K_M_ATP=data.K_M_ATP;Max_ATP=data.Max_ATP;CATPi=data.CATPi;
-K_M_ADP = data.K_M_ADP;
-Na_o = data.Na_o; Ca_o = data.Ca_o;
+%% External stimulation
+Is=data.Is;
+Cm=data.Cm;
+impulseFactor = 100;
+
+if ((mod(t,1/f_stim) >= start_stim && mod(t,1/f_stim) < 0.001*impulseFactor + start_stim) && (t <= end_stim))
+    I_stim=Is/impulseFactor;
+else
+    I_stim=0;
+end
+
+%% Action potential, membrane currents and intracellular Ca2+
 
 % Nernst potentials
+Na_o = data.Na_o; Ca_o = data.Ca_o;
+
 E_k   = nernst(K_i, K_o, 1, data);
 E_Na  = nernst(Na_i, Na_o, 1, data);
 E_Ca  = nernst(Ca_i, Ca_o, 2, data);
@@ -129,108 +118,68 @@ ICaB = g_CaB*(V - E_Ca);
 Itot = I_Kr + I_Ks + I_k1 + I_Kto + I_NaK + I_NaCa + I_Na + INaB + I_CaL + I_CaT + I_Cap + ICaB;
 
 % Sodium and potassium concentration in cytoplasm
+V_i = data.V_i;
+V_Ca = data.V_Ca;
+V_c = data.V_c;
+
 dNa_i = (-3*I_NaK - 3*I_NaCa - INaB - I_Na)/(F*V_i);
 dK_o = (-2*I_NaK + I_Kr + I_Ks + I_Kto + I_k1)/(F*V_c);
 dK_i = (2*I_NaK - I_Kr - I_Ks - I_Kto - I_k1)/(F*V_i);
 
-% Sarcoplasmic Reticulum (SR) and Calcium Handling 
+% Change in membrane potential
+dV = -(Itot + I_stim)/...
+    Cm;
+
+%% Sarcoplasmic Reticulum (SR) and Calcium Handling
 [dO_c, dO_TnCa, dO_TnMgCa, dO_TnMgMg, dO_Calse, phi_ca_i, ...
-dCa_up, dCa_rel, dF_1, dF_2, dF_3, dfca, I_up, I_rel] = ...
-          SR_calcium_handling(ATP_i, Ca_i, Ca_up, Ca_rel, F_1, F_2, ...
-          F_3, O_c, O_TnCa, O_TnMgCa, O_TnMgMg, O_Calse, V, data, fca);
+    dCa_up, dCa_rel, dF_1, dF_2, dF_3, dfca, I_up, I_rel] ...
+    = ...
+    SR_calcium_handling(ATP_i, Ca_i, Ca_up, Ca_rel, F_1, F_2, ...
+    F_3, O_c, O_TnCa, O_TnMgCa, O_TnMgMg, O_Calse, V, data, fca);
 
 dCa_i = ((2*I_NaCa - I_CaL - I_CaT - I_Cap - ICaB - I_up + I_rel)/(2*V_Ca*F) - phi_ca_i);
 
 %% Mitochondrial energy metabolism, Ca2+ dynamics and oxygen consumption
 
 % Mitochondrial energetics and EC coupling
+C_A = data.C_A;
 ADP_i = C_A - ATP_i;
-
-% Force generation
-[dSL, dA, dTT, dU, dV_e, Force] = ...
-force_generation(V_e, SL, TT, A, U, data, Ca_i, ATP_i, ADP_i);
-
-%energy metabolites reaction rates
 C_ATP_m = C_A - C_ADP_m;
 
+% Force generation and energy consumption
+[dSL, dA, dTT, dU, dV_e, Force]...
+    = ...
+    force_generation(V_e, SL, TT, A, U, data, Ca_i, ATP_i, ADP_i);
+[V_AM, ATP_XB] = force_energy_consumption(Force, ATP_i, A, data);
+
 % Oxidation state
+C_PN = data.C_PN;
 C_NAD = C_PN - C_NADH;
 
 % The TCA cycle
-[dC_ISOC, dC_aKG, dC_SCoA, dC_Suc, dC_FUM,...
-    dC_MAL, dC_OAA, V_SL, V_IDH, V_KGDH, V_MDH, V_SDH] ...
-    = TCA_cycle(C_ISOC,C_aKG,C_SCoA,C_Suc,C_FUM,C_MAL,...
+[dC_ISOC, dC_aKG, dC_SCoA, dC_Suc, dC_FUM, dC_MAL, dC_OAA, V_SL, V_IDH, ...
+    V_KGDH, V_MDH, V_SDH] ...
+    = ...
+    TCA_cycle(C_ISOC,C_aKG,C_SCoA,C_Suc,C_FUM,C_MAL,...
     C_OAA, C_NAD, C_ADP_m, Ca_m, C_NADH, C_ATP_m, data);
 
-%C_ADP_ic=C_A-C_ATP_ic;
-A_res = ((R*T)/(F))*log(K_res*sqrt(C_NADH./C_NAD));
-delta_mu_h = -2.303*(R*T/F)*delta_pH + delta_Psi_m;
+% Oxidative phosphorylation
+[V_He, dC_FLV, V_He_F, dC_NADH, V_Hu, V_H_Leak, dC_ADP_m, V_ANT]...
+    = ...
+    oxidative_phosphorylation(V_SL, V_IDH, V_KGDH, V_MDH, V_SDH, ...
+    delta_Psi_m, C_NADH, C_NAD, C_ATP_m, C_ADP_m, P_i, Ca_m, ATP_i, ...
+    ADP_i, data);
 
-A_res_F = ((R*T)/(F))*log(K_resF*sqrt(FADH2/FADH));
-A_F1 = ((R*T)/F)*log((K_F1*C_ATP_m)/(C_ADP_m*P_i));
+V_myo = data.V_myo;V_mito=data.V_mito;A_cap=data.A_cap;
+dATP_i = V_ANT*V_mito/V_myo - 0.5*I_up - (I_NaK + I_Cap)*A_cap/(V_myo*F) - V_AM;
 
-V_He = 6*rho_res*(r_a*exp((A_res*F)/(R*T)) - (r_a + r_b)*exp((12*F*delta_mu_h)/(R*T)))/...
-                 ((1 + r_1*exp((A_res*F)/(R*T))) * exp((6*F*psi_B)/(R*T)) + (r_2 + r_3 * exp((A_res*F)/(R*T)))* exp((12*F*delta_mu_h)/(R*T)));
+% Mitochondrial Ca2+ handling processes
+[dCa_m, J_uni, J_NaCa] = mitochondrial_Ca2_handling(delta_Psi_m, Ca_m, Ca_i, data);
 
-V_He_F = 4*rho_resF*(r_a*exp((A_res_F*F)/(R*T)) - (r_a + r_b)*exp((12*F*delta_mu_h)/(R*T)))/...
-                    ((1+r_1* exp((A_res_F*F)/(R*T)))* exp((6*F*psi_B)/(R*T))+(r_2+r_3* exp((A_res_F*F)/(R*T)))* exp((12*F*delta_mu_h)/(R*T)));
-
-Juni = P_Ca*((Z_Ca*delta_Psi_m*F)/(R*T))*(alpha_m*Ca_m*exp((-Z_Ca*delta_Psi_m*F)/(R*T))-(alpha_e*Ca_i))/...
-                                         (exp((-Z_Ca*delta_Psi_m*F)/(R*T))-1);
-
-Jnc = V_NC*(exp(0.5*delta_Psi_m*F/(R*T))*(Na_e^3*Ca_m)/(K_Na^3*K_Ca) - exp(-0.5*delta_Psi_m*F/(R*T))*(Na_m^3*Ca_i)/(K_Na^3*K_Ca))/...
-           (1 + (Na_e^3/K_Na^3) + (Ca_m/K_Ca) + (Na_e^3*Ca_m)/(K_Na^3*K_Ca) + (Na_m^3/K_Na^3) + (Ca_i/K_Ca) + (Na_m^3*Ca_i)/(K_Na^3*K_Ca));
-
-V_Hu = -3*rho_F1*(10^2*p_a*(1+exp(A_F1/(R*T)))-(p_a+p_b)*exp((3*F*delta_mu_h)/(R*T)))/...
-                  ((1 + p_1*exp((A_F1*F)/(R*T)))*exp((3*F*psi_B)/(R*T)) + (p_2 + p_3*exp((A_F1*F)/(R*T)))*exp((3*F*delta_mu_h)/(R*T)));
-
-V_H_Leak = g_H*delta_mu_h;
-
-V_ANT = V_ant_max*(0.75*(1 - ((0.25*ATP_i*0.45*C_ADP_m)/(0.17*ADP_i*0.025*C_ATP_m)))*exp(-(F*delta_Psi_m)/(R*T)))/...
-                  ((1 + ((0.25*ATP_i)/(0.225*ADP_i))*exp((-h_ANT*F*delta_Psi_m)/(R*T)))*(1 + ((0.45*C_ADP_m)/(0.025*C_ATP_m ))));
-
-
-Force_ATP = 1.02/...
-            (1 + (K_M_ATP/ATP_i)*(1 + (CATPi - ATP_i)/K_M_ADP));
-
-V_AM = Max_ATP*F_f*A*Force_ATP;
-ATP_XB = MaxATP*Ff*A.*Force; 
-
-dATPi = V_ANT*(V_mito/V_myo) - (I_NaK+I_Cap)*A_cap/(V_myo*F) - 0.5*I_up - V_AM;
-
-
-V_ATPase = -rho_F1*((10^2*p_a + p_c1*exp((3*F*psi_B)/(R*T)))*exp(F*A_F1/(R*T)) - (p_a*exp((3*F*delta_mu_h)/(R*T)) + p_c2*exp(F*A_F1/(R*T))*exp((3*F*delta_mu_h)/(R*T))))/...
-                   ((1 + p_1*exp((A_F1*F)/(R*T)))*exp((3*F*psi_B)/(R*T)) + (p_2 + p_3*exp((A_F1*F)/(R*T)))*exp((3*F*delta_mu_h)/(R*T)))*(1 - exp(-(Ca_m/KCaATP)));
-
-dC_ADP_m = V_ANT - V_ATPase - V_SL;
-
-V_O2 = 0.5*rho_res*((r_a + r_c1*exp((6*F*psi_B)/(R*T)))*exp((A_res*F)/(R*T)) - r_a*exp((12*F*delta_mu_h)/(R*T)) + r_c2*exp((A_res*F)/(R*T))*exp((12*F*delta_mu_h)/(R*T)))/...
-                   ((1 + r_1*exp((A_res*F)/(R*T)))*exp((6*F*psi_B)/(R*T)) + (r_2 + r_3*exp((A_res*F)/(R*T)))*exp((12*F*delta_mu_h)/(R*T)));
-
-
-dC_NADH = -V_O2 + V_IDH + V_KGDH + V_MDH;
-
-
-dC_FLV = V_SDH - V_O2;
-
-dCa_m = Beta_Ca.*(Juni - Jnc);
-
-ddelta_Psi_m = (V_He + V_He_F - V_Hu - V_ANT - V_H_Leak - Jnc - 2*Juni)/...
-                C_mito;
-
-%%
-impulseFactor = 100;
-
-if ((mod(t,1/f_stim) >= start_stim && mod(t,1/f_stim) < 0.001*impulseFactor + start_stim) && (t <= end_stim))
-    I_stim=Is/impulseFactor;
-else 
-    I_stim=0;
-end
-
-dV = -(Itot + I_stim)/...
-       Cm;
-
-
+% Mitochondrial membrane voltage
+C_mito = data.C_mito;
+ddelta_Psi_m = (V_He + V_He_F - V_Hu - V_ANT - V_H_Leak - J_NaCa - 2*J_uni)/...
+    C_mito;
 
 % Update the state vector
 dX=zeros(51,1);
@@ -270,7 +219,7 @@ dX(32)=(dA);
 dX(33)=(dTT);
 dX(34)=(dU);
 dX(35)=(dV_e);
-dX(36)=(dATPi);
+dX(36)=(dATP_i);
 dX(37)=(dCa_m);
 %dX(38)=(dC_ATP_ic);
 %dX(39)=(dC_CrP_i);
