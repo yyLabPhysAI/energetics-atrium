@@ -1,4 +1,4 @@
-function dX = model(t,X,data,f_stim,start_stim,end_stim)
+function dX = model(t, X, data, f_stim, start_stim, end_stim)
 
 % Names for the state vector values
 V           = X(1);
@@ -30,7 +30,7 @@ K_i         = X(26);
 F_1         = X(27);
 F_2         = X(28);
 F_3         = X(29);
-fca         = X(30);
+% fca       = X(30), not used
 SL          = X(31);
 A           = X(32);
 TT          = X(33);
@@ -38,9 +38,9 @@ U           = X(34);
 V_e         = X(35);
 ATP_i       = X(36);
 Ca_m        = X(37);
-C_ATP_ic    = X(38); % ????? Not updated, not used
-C_CrP_i     = X(39); % ????? Not updated, not used
-C_CrP_ic    = X(40); % ????? Not updated, not used
+% C_ATP_ic  = X(38), not used
+% C_CrP_i   = X(39), not used
+% C_CrP_ic  = X(40), not used
 C_ADP_m     = X(41);
 C_NADH      = X(42);
 delta_Psi_m = X(43);
@@ -51,7 +51,7 @@ C_Suc       = X(47);
 C_FUM       = X(48);
 C_MAL       = X(49);
 C_OAA       = X(50);
-C_FLV       = X(51); % ????? Updated, never used
+C_FLV       = X(51);
 
 
 %% Unpack constants to simplefy the code
@@ -62,8 +62,8 @@ Is=data.Is;
 Cm=data.Cm;
 impulseFactor = 100;
 
-if ((mod(t,1/f_stim) >= start_stim && mod(t,1/f_stim) < 0.001*impulseFactor + start_stim) && (t <= end_stim))
-    I_stim=Is/impulseFactor;
+if ((mod(t,1./f_stim) >= start_stim && mod(t,1./f_stim) < 0.001*impulseFactor + start_stim) && (t <= end_stim))
+    I_stim=Is./impulseFactor;
 else
     I_stim=0;
 end
@@ -100,7 +100,7 @@ I_NaCa = NCX(Na_i, Ca_i, V, data);
 
 % Membranal Ca(2+) pump
 I_Cap_max = 9.509;
-I_Cap = I_Cap_max*(Ca_i/(Ca_i + 0.0002));
+I_Cap = I_Cap_max.*(Ca_i./(Ca_i + 0.0002));
 
 % L-type Ca(2+) channels
 [I_CaL, df_L, dd_L] = L_type_Ca(V, d_L, f_L);
@@ -112,33 +112,33 @@ I_Cap = I_Cap_max*(Ca_i/(Ca_i + 0.0002));
 g_NaB = 0.03;
 g_CaB = 0.03;
 
-INaB = g_NaB*(V - E_Na);
-ICaB = g_CaB*(V - E_Ca);
+I_NaB = g_NaB.*(V - E_Na);
+I_CaB = g_CaB.*(V - E_Ca);
 
 % Calculate the total current
-Itot = I_Kr + I_Ks + I_k1 + I_Kto + I_NaK + I_NaCa + I_Na + INaB + I_CaL + I_CaT + I_Cap + ICaB;
+I_tot = I_Kr + I_Ks + I_k1 + I_Kto + I_NaK + I_NaCa + I_Na + I_NaB + I_CaL + I_CaT + I_Cap + I_CaB;
 
 % Sodium and potassium concentration in cytoplasm
 V_i = data.V_i;
 V_Ca = data.V_Ca;
 V_c = data.V_c;
 
-dNa_i = (-3*I_NaK - 3*I_NaCa - INaB - I_Na)/(F*V_i);
-dK_o = (-2*I_NaK + I_Kr + I_Ks + I_Kto + I_k1)/(F*V_c);
-dK_i = (2*I_NaK - I_Kr - I_Ks - I_Kto - I_k1)/(F*V_i);
+dNa_i = (-3.*I_NaK - 3.*I_NaCa - I_NaB - I_Na)./(F.*V_i);
+dK_o = (-2.*I_NaK + I_Kr + I_Ks + I_Kto + I_k1)./(F.*V_c);
+dK_i = (2.*I_NaK - I_Kr - I_Ks - I_Kto - I_k1)./(F.*V_i);
 
 % Change in membrane potential
-dV = -(Itot + I_stim)/...
+dV = -(I_tot + I_stim)./...
     Cm;
 
 %% Sarcoplasmic Reticulum (SR) and Calcium Handling
 [dO_c, dO_TnCa, dO_TnMgCa, dO_TnMgMg, dO_Calse, phi_ca_i, ...
-    dCa_up, dCa_rel, dF_1, dF_2, dF_3, dfca, I_up, I_rel] ...
+    dCa_up, dCa_rel, dF_1, dF_2, dF_3, I_up, I_rel] ...
     = ...
     SR_calcium_handling(ATP_i, Ca_i, Ca_up, Ca_rel, F_1, F_2, ...
-    F_3, O_c, O_TnCa, O_TnMgCa, O_TnMgMg, O_Calse, V, data, fca);
+    F_3, O_c, O_TnCa, O_TnMgCa, O_TnMgMg, O_Calse, V, data);
 
-dCa_i = ((2*I_NaCa - I_CaL - I_CaT - I_Cap - ICaB - I_up + I_rel)/(2*V_Ca*F) - phi_ca_i);
+dCa_i = ((2.*I_NaCa - I_CaL - I_CaT - I_Cap - I_CaB - I_up + I_rel)./(2.*V_Ca.*F) - phi_ca_i);
 
 %% Mitochondrial energy metabolism, Ca2+ dynamics and oxygen consumption
 
@@ -165,21 +165,21 @@ C_NAD = C_PN - C_NADH;
     C_OAA, C_NAD, C_ADP_m, Ca_m, C_NADH, C_ATP_m, data);
 
 % Oxidative phosphorylation
-[V_He, dC_FLV, V_He_F, dC_NADH, V_Hu, V_H_Leak, dC_ADP_m, V_ANT]...
+[V_He, dC_FLV, V_He_F, dC_NADH, V_Hu, V_H_Leak, dC_ADP_m, V_ANT, ~]...
     = ...
     oxidative_phosphorylation(V_SL, V_IDH, V_KGDH, V_MDH, V_SDH, ...
     delta_Psi_m, C_NADH, C_NAD, C_ATP_m, C_ADP_m, P_i, Ca_m, ATP_i, ...
     ADP_i, data);
 
 V_myo = data.V_myo;V_mito=data.V_mito;A_cap=data.A_cap;
-dATP_i = V_ANT*V_mito/V_myo - 0.5*I_up - (I_NaK + I_Cap)*A_cap/(V_myo*F) - V_AM;
+dATP_i = V_ANT.*V_mito./V_myo - 0.5.*I_up - (I_NaK + I_Cap).*A_cap./(V_myo.*F) - V_AM;
 
 % Mitochondrial Ca2+ handling processes
 [dCa_m, J_uni, J_NaCa] = mitochondrial_Ca2_handling(delta_Psi_m, Ca_m, Ca_i, data);
 
 % Mitochondrial membrane voltage
 C_mito = data.C_mito;
-ddelta_Psi_m = (V_He + V_He_F - V_Hu - V_ANT - V_H_Leak - J_NaCa - 2*J_uni)/...
+ddelta_Psi_m = (V_He + V_He_F - V_Hu - V_ANT - V_H_Leak - J_NaCa - 2.*J_uni)./...
     C_mito;
 
 % Update the state vector
@@ -214,7 +214,7 @@ dX(26)  = dK_i;
 dX(27)  = dF_1;
 dX(28)  = dF_2;
 dX(29)  = dF_3;
-dX(30)  = dfca;
+%   dX(30) = dfca; - not used
 dX(31)  = dSL;
 dX(32)  = dA;
 dX(33)  = dTT;
@@ -222,9 +222,9 @@ dX(34)  = dU;
 dX(35)  = dV_e;
 dX(36)  = dATP_i;
 dX(37)  = dCa_m;
-%dX(38)=(dC_ATP_ic);
-%dX(39)=(dC_CrP_i);
-%dX(40)=(dC_CrP_ic);
+%   dX(38) = dC_ATP_ic - not used
+%   dX(39) = dC_CrP_i  - not used
+%   dX(40) = dC_CrP_ic - not used
 dX(41)  = dC_ADP_m;
 dX(42)  = dC_NADH;
 dX(43)  = ddelta_Psi_m;
@@ -236,6 +236,7 @@ dX(48)  = dC_FUM;
 dX(49)  = dC_MAL;
 dX(50)  = dC_OAA;
 dX(51)  = dC_FLV;
+
 end
 
 

@@ -22,15 +22,15 @@ dV_e = 0; % Assume constant contraction velocity
 dSL = -V_e;
 
 
-N_XB = (1e-6)*(SL - SL_0)*N_c*(TT + U)*1000/2;
-K_Ca = F_k0 + F_k1*(N_XB^FN)/(F_k05^FN + N_XB^FN);
-K_minus1 = F_kl/K_Ca;
-dA = F_kl*Ca_i*(1 - A - TT - U) - A*(F_f + K_minus1) + TT*(F_go + F_gl*V_e);
-dTT = F_f*A - TT*(F_go + F_gl*V_e + K_minus1) + F_kl*Ca_i*U;
-dU = K_minus1*TT - (F_go + F_gl*V_e + F_kl*Ca_i)*U;
+N_XB = (1e-6).*(SL - SL_0).*N_c.*(TT + U).*1000./2;
+K_Ca = F_k0 + F_k1.*(N_XB.^FN)./(F_k05.^FN + N_XB.^FN);
+K_minus1 = F_kl./K_Ca;
+dA = F_kl.*Ca_i.*(1 - A - TT - U) - A.*(F_f + K_minus1) + TT.*(F_go + F_gl.*V_e);
+dTT = F_f.*A - TT.*(F_go + F_gl.*V_e + K_minus1) + F_kl.*Ca_i.*U;
+dU = K_minus1.*TT - (F_go + F_gl.*V_e + F_kl.*Ca_i).*U;
 
 
-N_XB_ATP = 1.02/(1 + (k_XBATP/ATP_i)*(1 + ADP_i/k_XBADP));
-Force = F_XB*N_XB_ATP*((SL - SL_0)/2)*(TT + U)*N_c;
+N_XB_ATP = 1.02./(1 + (k_XBATP./ATP_i).*(1 + ADP_i./k_XBADP));
+Force = F_XB.*N_XB_ATP.*((SL - SL_0)./2).*(TT + U).*N_c;
 
 end

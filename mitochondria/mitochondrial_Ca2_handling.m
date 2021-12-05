@@ -15,12 +15,12 @@ T=data.T;
 F=data.F;
 
 % The Ca2+ uniporter
-J_uni = P_Ca*(Z_Ca*delta_Psi_m*F/(R*T))*(alpha_m*Ca_m*exp(-Z_Ca*delta_Psi_m*F/(R*T)) - alpha_e*Ca_i)/...
-    (exp(-Z_Ca*delta_Psi_m*F/(R*T)) - 1);
+J_uni = P_Ca.*(Z_Ca.*delta_Psi_m.*F./(R.*T)).*(alpha_m.*Ca_m.*exp(-Z_Ca.*delta_Psi_m.*F./(R.*T)) - alpha_e.*Ca_i)./...
+    (exp(-Z_Ca.*delta_Psi_m.*F./(R.*T)) - 1);
 
-% The Na+/Ca2+ exchanger
-J_NaCa = V_NC*(exp(0.5*delta_Psi_m*F/(R*T))*Na_e^3*Ca_m/(K_Na^3*K_Ca) - exp(-0.5*delta_Psi_m*F/(R*T))*(Na_m^3*Ca_i)/(K_Na^3*K_Ca))/...
-    (1 + Na_e^3/K_Na^3 + Ca_m/K_Ca + Na_e^3*Ca_m/(K_Na^3*K_Ca) + Na_m^3/K_Na^3 + Ca_i/K_Ca + Na_m^3*Ca_i/(K_Na^3*K_Ca));
+% The Na+./Ca2+ exchanger
+J_NaCa = V_NC.*(exp(0.5.*delta_Psi_m.*F./(R.*T)).*Na_e.^3.*Ca_m./(K_Na.^3.*K_Ca) - exp(-0.5.*delta_Psi_m.*F./(R.*T)).*(Na_m.^3.*Ca_i)./(K_Na.^3.*K_Ca))./...
+    (1 + Na_e.^3./K_Na.^3 + Ca_m./K_Ca + Na_e.^3.*Ca_m./(K_Na.^3.*K_Ca) + Na_m.^3./K_Na.^3 + Ca_i./K_Ca + Na_m.^3.*Ca_i./(K_Na.^3.*K_Ca));
 
 dCa_m = beta_Ca.*(J_uni - J_NaCa);
 
