@@ -5,7 +5,7 @@ I_Kto = 0.35.*g_Kto.*r.*(0.59.*s_1.^3 + 0.41.*s_2.^3).*(0.6.*s_3.^6 + 0.4).*(V -
 
 g_sus = 2.4; % Conductance of the sustained current [nS]
 E_sus = 70; % Reversal potential of the sustained current [mV]
-Isus = g_sus.*(E_sus + 70);
+Isus = g_sus.*(V + E_sus);
 I_Kto  = I_Kto + Isus;
 
 alpha_r = 386.6.*exp(V./12);

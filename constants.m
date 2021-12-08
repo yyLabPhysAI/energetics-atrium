@@ -184,7 +184,7 @@ data.F_k1		= 3000;				% [1/mM]		Cooperativity coefficient
 data.FN			= 3.5;				% []			Hill's coefficient
 data.F_k_half	= 2.5e9;			% [1/mm^3]		The half-maximal crossbridge calcium affinity
 data.F_kl		= 60;				% [1/mM/ms]		Corrected from msec to sec %rate constant of calcium binding to troponin low-affinity sites
-data.F_f		= 0.04;				% [1/ms]		Corrected from msec to sec
+data.Ff		    = 0.04;				% [1/ms]		Corrected from msec to sec
 data.F_g0		= 0.03;				% [1/ms]		Corrected from msec to sec %the crossbridge weakening rate at isometric regime
 data.F_gl		= 4.4e6;			% m[1/m]		Mechanical feedback coefficient
 

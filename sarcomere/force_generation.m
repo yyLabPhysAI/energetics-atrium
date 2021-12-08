@@ -3,7 +3,7 @@ function [...
     ] = force_generation(V_e, SL, TT, A, U, data, Ca_i, ATP_i, ADP_i)
 
 F_kl = data.F_kl;
-F_f = data.F_f;
+Ff = data.Ff;
 F_go = data.F_go;
 F_gl = data.F_gl;
 SL_0 = data.SL_0;
@@ -25,8 +25,8 @@ dSL = -V_e;
 N_XB = (1e-6).*(SL - SL_0).*N_c.*(TT + U).*1000./2;
 K_Ca = F_k0 + F_k1.*(N_XB.^FN)./(F_k05.^FN + N_XB.^FN);
 K_minus1 = F_kl./K_Ca;
-dA = F_kl.*Ca_i.*(1 - A - TT - U) - A.*(F_f + K_minus1) + TT.*(F_go + F_gl.*V_e);
-dTT = F_f.*A - TT.*(F_go + F_gl.*V_e + K_minus1) + F_kl.*Ca_i.*U;
+dA = F_kl.*Ca_i.*(1 - A - TT - U) - A.*(Ff + K_minus1) + TT.*(F_go + F_gl.*V_e);
+dTT = Ff.*A - TT.*(F_go + F_gl.*V_e + K_minus1) + F_kl.*Ca_i.*U;
 dU = K_minus1.*TT - (F_go + F_gl.*V_e + F_kl.*Ca_i).*U;
 
 

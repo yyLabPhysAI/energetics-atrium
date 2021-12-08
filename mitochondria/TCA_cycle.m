@@ -34,7 +34,7 @@ Ni = 2;
 
 f_a_IDH = ((1 + (C_ADP_m./K_ADP_a)).*(1 + (Ca_m./K_Ca_a))).^(-1);
 f_i_IDH = 1 + (C_NADH./K_i_NADH);
-V_IDH = k_cat_IDH.*E_T_IDH.*(1 + (C_H./k_h_1) + (k_h_2./C_H) + f_i_IDH.*(K_M_NAD./C_NAD) + f_a_IDH.*(K_M_ISOC./C_ISOC).^Ni + f_a_IDH.*f_i_IDH.*(K_M_NAD./C_NAD).*(K_M_ISOC./C_ISOC).^Ni).^-1;
+V_IDH = k_cat_IDH.*E_T_IDH.*(1 + (C_H./k_h_1) + (k_h_2./C_H) + f_i_IDH.*(K_M_NAD./C_NAD) + f_a_IDH.*(K_M_ISOC./C_ISOC).^Ni + f_a_IDH.*f_i_IDH.*(K_M_ISOC./C_ISOC).^Ni.*(K_M_NAD./C_NAD)).^-1;
 
 dC_ISOC = V_ACO - V_IDH;
 

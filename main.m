@@ -8,10 +8,10 @@ options = odeset('RelTol',1e-4,'AbsTol',1e-4);
 
 %% Choice of stimulation parameters
 start_stim = 0;     % [s]   When to start the current stimulation
-end_stim   = 10;    % [s]   When to end it
+end_stim   = 100;    % [s]   When to end it
 f_stim     = 1;     % [Hz]  At what frequency do you want the current pulses to be?
-TMAX       = 10;    % [s]   Until what time to calculate the simulation?
-TMIN       = 5;     % [s]   Time to start plotting?
+TMAX       = 100;    % [s]   Until what time to calculate the simulation?
+TMIN       = 0;     % [s]   Time to start plotting?
 
 %% Run the model
 [t,x] = ode23tb(@(t,x)model(t,x,data,f_stim,start_stim,end_stim), [0 TMAX] ,y0',options);
@@ -84,7 +84,7 @@ ATP_m = C_A - C_ADP_m;
 
 [~, ~, ~, ~, ~, ~, ~, V_ANT, V_O2]...
     = oxidative_phosphorylation(V_SL, V_IDH, V_KGDH, V_MDH, V_SDH, ...
-    delta_Psi_m, C_NADH, C_NAD, ATP_m, C_ADP_m, P_i, Ca_m, ATP_i, ...
+    delta_Psi_m, C_NADH, C_NAD, ATP_m, C_ADP_m, Ca_m, ATP_i, ...
     ADP_i, data);
 
 %% Membrane potential
