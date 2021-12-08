@@ -23,7 +23,7 @@ data.K_xcs		= 0.4;				% []			Translocation constant
 data.K_srCa		= 5;				% []			Equilibrium binding ca2+ concentration on uptake of compartment of the SR side
 
 % force parameters
-data.F_f    	= 40;				% [1/ms] 		???
+data.Ff    	    = 40;				% [1/ms] 		???
 data.SL_0  		= 0.8;				% [um] 			Minimal length of the sarcomere
 data.N_c   		= 2e13;				% [1/mm^2] 		The reciprocal of the crosssection of the tissue
 data.F_k0  		= 350;				% [1/mM] 		The crossbridge independent coefficent of calcium affinity
@@ -184,7 +184,7 @@ data.F_k1		= 3000;				% [1/mM]		Cooperativity coefficient
 data.FN			= 3.5;				% []			Hill's coefficient
 data.F_k_half	= 2.5e9;			% [1/mm^3]		The half-maximal crossbridge calcium affinity
 data.F_kl		= 60;				% [1/mM/ms]		Corrected from msec to sec %rate constant of calcium binding to troponin low-affinity sites
-data.Ff		    = 0.04;				% [1/ms]		Corrected from msec to sec
+data.F_f		= 0.04;				% [1/ms]		Corrected from msec to sec
 data.F_g0		= 0.03;				% [1/ms]		Corrected from msec to sec %the crossbridge weakening rate at isometric regime
 data.F_gl		= 4.4e6;			% m[1/m]		Mechanical feedback coefficient
 
