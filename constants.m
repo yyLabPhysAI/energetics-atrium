@@ -63,9 +63,9 @@ data.delta		= 3e-4;			 	% [] 			Fraction of free [Ca2+]m
  
 % Oxidative phosphorylation parameters
 data.r_a		= 6.394e-13;		% 1/[ms] 		Sum of products of rate constants
-data.r_c1		= 2.6560e-17; 	    % 1/[ms] 		Sum of products of rate constants ??? Can we replace this expression with it's result????
+data.r_c1		= 2.656e-22*10^5; 	    % 1/[ms] 		Sum of products of rate constants ??? Can we replace this expression with it's result????
 data.r_c2		= 8.632e-30;		% 1/[ms] 		Sum of products of rate constants
-data.r_1		= 3.6548e-14;       % [] 	Sum of products of rate constants ??? Can we replace this expression with it's result????
+data.r_1		= 3.654759809959528e-14;       % [] 	Sum of products of rate constants ??? Can we replace this expression with it's result????
 data.r_2		= 1.728e-9;		 	% []			Sum of products of rate constants 
 data.r_3		= 1.059e-26;		% []			Sum of products of rate constants
 data.rho_res	= 300; 		% [mM] 			Concentration of electron carriers (respiratory complexes I-III-IV) ??? Can we replace this expression with it's result????
@@ -89,7 +89,7 @@ data.rho_F1		= 1.5;				% [mM] 			Concentration of F1F0-ATPASE
 data.K_F1		= 1.71e6;			% [] 			Equilibrium constant of ATP hydrolysis
 data.Pi			= 2; 				% [mM] 			Inorganic phosphate concentration
 data.C_A		= 1.5; 				% [mM] 			Total sum of mitochondrial adenine nucleotides
-data.V_ant_max	= 1.7857e-05;		% [mM/ms] 		Maximal rate of ANT
+data.V_ant_max	= 1.785714285714286e-05;		% [mM/ms] 		Maximal rate of ANT
 data.h_ANT		= 0.05; 			% [] 			Fraction of delta_psi_m
 data.g_H		= 1e-08; 		    % [mM]/[ms][mV]	Ionic conductance of the inner membrane
 data.delta_pH	= -0.6; 		    % [pH units] 	PH gradient across the inner membrane
@@ -167,7 +167,7 @@ data.P_Ca 		= 2.159;			% 1/[ms]		Permeability of calcium uniporter
 data.Z_Ca 		= 2; 				% []			Calcium valence
 data.alpha_m 	= 0.2;				% []			Mitochondrial calcium activity coefficient
 data.alpha_e 	= 0.341;			% []			Extramitochondrial calcium activity coefficient
-data.V_NC 		= 0.0186;			% [mM/ms]		NCX maximal velocity
+data.V_NC 		= 0.01863;			% [mM/ms]		NCX maximal velocity
 
 data.Na_e 		= 5;				% [mM]			Extramitochdrial na+ concentration
 data.Na_m 		= 3.96;				% [mM]			Mitochondrial na+ concentration
