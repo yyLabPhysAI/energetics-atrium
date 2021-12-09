@@ -11,7 +11,7 @@ start_stim = 0;     % [s]   When to start the current stimulation
 end_stim   = 100;    % [s]   When to end it
 f_stim     = 1;     % [Hz]  At what frequency do you want the current pulses to be?
 TMAX       = 100;    % [s]   Until what time to calculate the simulation?
-TMIN       = 0;     % [s]   Time to start plotting?
+TMIN       = 5;     % [s]   Time to start plotting?
 
 %% Run the model
 [t,x] = ode23tb(@(t,x)model(t,x,data,f_stim,start_stim,end_stim), [0 TMAX] ,y0',options);
