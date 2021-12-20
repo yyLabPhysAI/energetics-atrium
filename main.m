@@ -7,10 +7,10 @@ constants
 options = odeset('RelTol',1e-4,'AbsTol',1e-4);
 
 %% Choice of stimulation parameters
-start_stim = 100;     % [s]   When to start the current stimulation
-end_stim   = 100;    % [s]   When to end it
+start_stim = 0;     % [s]   When to start the current stimulation
+end_stim   = 10;    % [s]   When to end it
 f_stim     = 1;     % [Hz]  At what frequency do you want the current pulses to be?
-TMAX       = 100;    % [s]   Until what time to calculate the simulation?
+TMAX       = 10;    % [s]   Until what time to calculate the simulation?
 TMIN       = 0;     % [s]   Time to start plotting?
 
 %% Run the model
@@ -76,9 +76,10 @@ I_tot = I_Kr + I_Ks + I_k1 + I_Kto + I_NaK + I_NaCa + I_Na + I_NaB + I_CaL + I_C
 
 C_PN = data.C_PN;
 C_NAD = C_PN - C_NADH;
-C_A = data.C_A;
-ADP_i = C_A - ATP_i;
-ATP_m = C_A - C_ADP_m;
+C_A_m = data.C_A_m;
+C_A_i = data.C_A_i;
+ADP_i = C_A_i - ATP_i;
+ATP_m = C_A_m - C_ADP_m;
 
 [~, ~, ~, ~, ~, ~, ~, V_SL, V_IDH, V_KGDH, V_MDH, V_SDH] = TCA_cycle(...
     C_ISOC, C_aKG, C_SCoA, C_Suc, C_FUM, C_MAL, ...
@@ -133,3 +134,22 @@ nice_plot(V_O2, t)
 figure()
 
 nice_plot(C_FLV, t)
+
+%% Mitochondria
+
+figure()
+subplot(4, 4, 1); nice_plot(C_FLV, t);
+subplot(4, 4, 2); nice_plot(C_OAA, t);
+subplot(4, 4, 3); nice_plot(ATP_i, t);
+subplot(4, 4, 4); nice_plot(Ca_m, t);
+subplot(4, 4, 5); nice_plot(C_ADP_m, t);
+subplot(4, 4, 6); nice_plot(C_NADH, t);
+subplot(4, 4, 7); nice_plot(delta_Psi_m, t);
+subplot(4, 4, 8); nice_plot(C_ISOC, t);
+subplot(4, 4, 9); nice_plot(C_aKG, t);
+subplot(4, 4, 10); nice_plot(C_SCoA, t);
+subplot(4, 4, 11); nice_plot(C_Suc, t);
+subplot(4, 4, 12); nice_plot(C_FUM, t);
+subplot(4, 4, 13); nice_plot(C_MAL, t);
+subplot(4, 4, 14); nice_plot(C_FLV, t);
+

@@ -63,7 +63,7 @@ Cm=data.Cm;
 impulseFactor = 100;
 
 if ((mod(t,1./f_stim) >= start_stim && mod(t,1./f_stim) < 0.001*impulseFactor + start_stim) && (t <= end_stim))
-    I_stim=Is./impulseFactor;
+    I_stim=2*Is./impulseFactor;
 else
     I_stim=0;
 end
@@ -143,9 +143,10 @@ dCa_i = ((2.*I_NaCa - I_CaL - I_CaT - I_Cap - I_CaB - I_up + I_rel)./(2.*V_Ca.*F
 %% Mitochondrial energy metabolism, Ca2+ dynamics and oxygen consumption
 
 % Mitochondrial energetics and EC coupling
-C_A = data.C_A;
-ADP_i = C_A - ATP_i;
-C_ATP_m = C_A - C_ADP_m;
+C_A_m = data.C_A_m;
+C_A_i = data.C_A_i;
+ADP_i = C_A_i - ATP_i;
+C_ATP_m = C_A_m - C_ADP_m;
 
 % Force generation and energy consumption
 [dSL, dA, dTT, dU, dV_e, Force]...

@@ -40,7 +40,6 @@ new_data.KCaATP = new_data.KCaATP*exp(eta*randn(1));
 new_data.rho_F1 = new_data.rho_F1*exp(eta*randn(1)); 
 new_data.K_F1 = new_data.K_F1*exp(eta*randn(1)); 
 new_data.Pi = new_data.Pi*exp(eta*randn(1)); 
-new_data.C_A = new_data.C_A*exp(eta*randn(1)); 
 new_data.V_ant_max = new_data.V_ant_max*exp(eta*randn(1)); 
 new_data.h_ANT = new_data.h_ANT*exp(eta*randn(1)); 
 new_data.g_H = new_data.g_H*exp(eta*randn(1)); 

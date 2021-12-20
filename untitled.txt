@@ -1,8 +1,9 @@
 Tasks:
 
 - Ca_i, V_O2 as in noa's: 1HZ
-- ATP_i, ATP_m, C_FLV and all TLC metabolites const
 - Variable stimulation
 - Stabilize Ca_m
 - Validate force is in right range
 - Fit the voltage curve
+
+Questions:

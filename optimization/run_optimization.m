@@ -23,8 +23,10 @@ for i = 1:1000
         y0 = new_y0;
         l = current_l;
         loss_list = [loss_list, [i;l]];
-        eta = eta*0.999;
+        eta = eta*0.99;
         disp([i, current_l])
+    elseif ~mod(i, 100)
+        disp(i)
     end
 end
 
@@ -47,5 +49,4 @@ subplot(4, 4, 10); nice_plot(C_SCoA, t);
 subplot(4, 4, 11); nice_plot(C_Suc, t);
 subplot(4, 4, 12); nice_plot(C_FUM, t);
 subplot(4, 4, 13); nice_plot(C_MAL, t);
-subplot(4, 4, 14); nice_plot(C_OAA, t);
-subplot(4, 4, 15); nice_plot(C_FLV, t);
+subplot(4, 4, 14); nice_plot(C_FLV, t);
