@@ -195,21 +195,21 @@ data.Max_ATP	= 12e-4;			% [mM]			Maximal ATP consumption by the sarcomeres
 data.CATPi		= 2.6;				% [mM]			ATP consumption in the cytoplasm
 
 %% Initial conditions for the state vector
-y0(1) 	= -50;     					% V 			[mV] 		Transmembrane potential 
-y0(2) 	= 0.00016; 					% pa 			[]			Activation gating parameter for IK,r
-y0(3) 	= 0.76898; 					% pi 			[]			Inactivation gating parameter for IK,r
-y0(4) 	= 0.02032; 					% n 			[]			Activation gating parameter for IK,s
-y0(5) 	= 0.00006; 					% r1 			[]			Activation gating variable of It
-y0(6) 	= 0.5753;  					% s1 			[]			Fast inactivation gating variable for It
-y0(7) 	= 0.39871; 					% s2 			[]			Slow inactivation gating variable for It
-y0(8) 	= 0.57363; 					% s3 			[]			Third inactivation gating variable for It
+y0(1) 	= -80;       					% V 			[mV] 		Transmembrane potential 
+y0(2) 	= 4.0199e-05; 					% pa 			[]			Activation gating parameter for IK,r
+y0(3) 	= 0.85163060; 					% pi 			[]			Inactivation gating parameter for IK,r
+y0(4) 	= 0.00283657; 					% n 			[]			Activation gating parameter for IK,s
+y0(5) 	= 9.741123779064439e-06; 					% r1 			[]			Activation gating variable of It
+y0(6) 	= 0.999341154613107;  					% s1 			[]			Fast inactivation gating variable for It
+y0(7) 	= 0.999341154613107; 					% s2 			[]			Slow inactivation gating variable for It
+y0(8) 	= 0.846836033530383; 					% s3 			[]			Third inactivation gating variable for It
 y0(9) 	= 0.01309; 					% m 			[]			Activation gating variable for INa
 y0(10)	= 0.706;   					% h1 			[]			Fast inactivation gating variable for INa
 y0(11)	= 0.61493; 					% h2 			[]			Slow inactivation gating variable for INa
-y0(12)	= 0.00003; 					% dL 			[]			Activation gating variable for ICaL
-y0(13)	= 0.99981; 					% fL 			[]			Inactivation gating variable for ICaL
-y0(14)	= 0.00046; 					% dT 			[]			Activation gating variable for ICaT
-y0(15)	= 0.30752; 					% fT 			[]			Inactivation gating variable for ICaT
+y0(12)	= 2.859868525741944e-05; 					% dL 			[]			Activation gating variable for ICaL
+y0(13)	= 0.999999976058771; 					% fL 			[]			Inactivation gating variable for ICaL
+y0(14)	= 8.745818565125313e-05; 					% dT 			[]			Activation gating variable for ICaT
+y0(15)	= 0.595107759542203; 					% fT 			[]			Inactivation gating variable for ICaT
 
 % state variables for LINDBLAD Ca++ handling
 y0(16) 	= 8.4;       				% Na_i			[mM]		Intracellular Na+ concentration	

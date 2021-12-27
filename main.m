@@ -8,7 +8,7 @@ options = odeset('RelTol',1e-4,'AbsTol',1e-4);
 
 %% Choice of stimulation parameters
 start_stim = 0;     % [s]   When to start the current stimulation
-end_stim   = 10;    % [s]   When to end it
+end_stim   = 0;    % [s]   When to end it
 f_stim     = 1;     % [Hz]  At what frequency do you want the current pulses to be?
 TMAX       = 10;    % [s]   Until what time to calculate the simulation?
 TMIN       = 0;     % [s]   Time to start plotting?

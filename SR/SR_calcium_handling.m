@@ -8,12 +8,12 @@ function [dO_c, dO_TnCa, dO_TnMgCa, dO_TnMgMg, ...
 F = data.F;
 V_up = data.V_up;
 V_rel = data.V_rel;
-I_upMax = 2800./1000;
+I_upMax = 2800;
 tau_tr = 0.01;
-alpha_rel = 200000;
+alpha_rel = 200000/10000;
 K_cyCa = data.K_cyCa;
 K_srCa = data.K_srCa;
-K_xcs = data.K_xcs;
+K_xcs = data.K_xcs/9.78;
 
 % Uptake current of Ca++ to the SR
 I_up = I_upMax.*(ATP_i./7.977).*((Ca_i./K_cyCa - K_xcs.^2.*Ca_up./K_srCa)./...

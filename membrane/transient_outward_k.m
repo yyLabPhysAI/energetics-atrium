@@ -1,6 +1,6 @@
 function [I_Kto, dr, ds_1, ds_2, ds_3] = transient_outward_k(r, s_1, s_2, s_3, V, E_k)
 
-g_Kto = 50.02;
+g_Kto = 50.02*10;
 I_Kto = 0.35.*g_Kto.*r.*(0.59.*s_1.^3 + 0.41.*s_2.^3).*(0.6.*s_3.^6 + 0.4).*(V - E_k);
 
 g_sus = 2.4; % Conductance of the sustained current [nS]

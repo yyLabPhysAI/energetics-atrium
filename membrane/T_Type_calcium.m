@@ -1,6 +1,6 @@
 function [dd_T , df_T, I_CaT] = T_Type_calcium(V, d_T, f_T)
 
-g_CaT = 6;
+g_CaT = 6*10;
 E_CaT = 38;
 
 alpha_d_t = 674.173.*exp((V + 23.3)./30);

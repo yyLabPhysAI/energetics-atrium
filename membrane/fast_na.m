@@ -2,7 +2,7 @@ function [I_Na, dm, dh_1, dh_2] = fast_na(V, m, h_1, h_2, E_Na, data)
 
 RTONF = data.RTONF;
 F = data.F;
-g_Na = 0.0014;
+g_Na = 0.003;
 Na_o = data.Na_o;
 
 h = 0.635.*h_1 + 0.365.*h_2;

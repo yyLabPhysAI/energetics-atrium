@@ -63,7 +63,7 @@ Cm=data.Cm;
 impulseFactor = 100;
 
 if ((mod(t,1./f_stim) >= start_stim && mod(t,1./f_stim) < 0.001*impulseFactor + start_stim) && (t <= end_stim))
-    I_stim=2*Is./impulseFactor;
+    I_stim=Is./impulseFactor;
 else
     I_stim=0;
 end

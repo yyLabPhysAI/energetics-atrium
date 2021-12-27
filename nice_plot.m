@@ -1,8 +1,9 @@
 function nice_plot(var, t)
 
 n = inputname(1);
+closes = count(n, "_");
 if contains(n, '_')
-    n = [replace(n, "_", "_{"), "}"];
+    n = [replace(n, "_", "_{"), repelem("}", closes)];
 end
 
 plot(t, var, "LineWidth", 2)
