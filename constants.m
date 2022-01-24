@@ -213,14 +213,14 @@ y0(15)	= 0.595107759542203; 					% fT 			[]			Inactivation gating variable for I
 
 % state variables for LINDBLAD Ca++ handling
 y0(16) 	= 8.4;       				% Na_i			[mM]		Intracellular Na+ concentration	
-y0(17) 	= 0.730866;  				% Ca_up			[mM]		Ca2+ concentration in uptake compartment	
-y0(18) 	= 0.726776;  				% Ca_rel		[mM]		Ca2+ concentration in release compartment	
+y0(17) 	= 0.2;  				% Ca_up			[mM]		Ca2+ concentration in uptake compartment	
+y0(18) 	= 0.2;  				% Ca_rel		[mM]		Ca2+ concentration in release compartment	
 y0(19) 	= 0.00007305;  				% Cai			[mM]		Intracelluar Ca2+ concentration	
 y0(20) 	= 0.029108;  				% fac			[]			Fractional occupancy of calmodulin by Ca2+	
 y0(21) 	= 0.014071;  				% faTc			[]			Fractional occupancy of troponin-Ca2+ complex by ca2+	
 y0(22) 	= 0.214036;  				% faTmgc		[]			Fractional occupancy of troponin-Mg2+ complex by ca2+	
 y0(23) 	= 0.693565;  				% faTmgm		[]			Fractional occupancy of troponin-Mg2+ complex by Mg2+	
-y0(24) 	= 0.465921;  				% faCalse		[]			Fractional occupancy of caldsequestrin by Ca2+	
+y0(24) 	= 0.193548387096774;  				% faCalse		[]			Fractional occupancy of caldsequestrin by Ca2+	
 y0(25) 	= 5.0;       				% Kc			[mM]		Extracellular K+ concentration	
 y0(26) 	= 140.0;   					% Ki			[mM]		Intracellular K+ concentration	// 100.0 - Lindblad ???? relevent???
 y0(27) 	= 0.288039;					% F1			[]			Relative amount of inactive precursor in SR release compartment
@@ -250,7 +250,7 @@ y0(42)	= 5.403; 					% [NADH] 		[mM]		Mitochondrial NADH concentration
 y0(43)	= -140.7; 					% [deltaPsi_m] 	[mV]		Inner mitochondrial membrane potential
 y0(44)	= 0.41; 					% [ISOC]		[mM]		Isocitrate concentration (mitochondrial)
 y0(45)	= 2.596e-4;					% [aKG]			[mM]		Α-ketoglutarate concentration (mitochondrial)
-y0(46)	= 0.362e-3; 					% [SCoA]  		[mM]		Succinyl-CoA concentration (mitochondrial)
+y0(46)	= 0.362e-3; 				% [SCoA]  		[mM]		Succinyl-CoA concentration (mitochondrial)
 y0(47)	= 1.06e-4;					% [Suc]  		[mM]		Succinate concentration (mitochonrial)
 y0(48)	= 0.0282; 					% [FUM] 		[mM]		Fumarate concentration (mitochondrial)
 y0(49)	= 0.01316; 					% [MAL] 		[mM]		Malate concentration (mitochondrial)

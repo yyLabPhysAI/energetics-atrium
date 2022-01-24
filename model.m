@@ -132,11 +132,25 @@ dV = -(I_tot + I_stim)./...
     Cm;
 
 %% Sarcoplasmic Reticulum (SR) and Calcium Handling
+%%%%%%%%%%%%%%%%%%
+C_A_i = data.C_A_i;
+ADP_i = C_A_i - ATP_i;
+
+
 [dO_c, dO_TnCa, dO_TnMgCa, dO_TnMgMg, dO_Calse, phi_ca_i, ...
     dCa_up, dCa_rel, dF_1, dF_2, dF_3, I_up, I_rel] ...
     = ...
     SR_calcium_handling(ATP_i, Ca_i, Ca_up, Ca_rel, F_1, F_2, ...
     F_3, O_c, O_TnCa, O_TnMgCa, O_TnMgMg, O_Calse, V, data);
+
+
+% Force generation and energy consumption
+[dSL, dA, dTT, dU, dV_e, Force, dO_TnCa]...
+    = ...
+    force_generation(V_e, SL, TT, A, U, data, Ca_i, ATP_i, ADP_i);
+[V_AM, ATP_XB] = force_energy_consumption(Force, ATP_i, A, data);
+
+phi_ca_i = 0.08.*dO_TnCa + 0.16.*dO_TnMgCa + 0.045.*dO_c;
 
 dCa_i = ((2.*I_NaCa - I_CaL - I_CaT - I_Cap - I_CaB - I_up + I_rel)./(2.*V_Ca.*F) - phi_ca_i);
 
@@ -144,15 +158,7 @@ dCa_i = ((2.*I_NaCa - I_CaL - I_CaT - I_Cap - I_CaB - I_up + I_rel)./(2.*V_Ca.*F
 
 % Mitochondrial energetics and EC coupling
 C_A_m = data.C_A_m;
-C_A_i = data.C_A_i;
-ADP_i = C_A_i - ATP_i;
 C_ATP_m = C_A_m - C_ADP_m;
-
-% Force generation and energy consumption
-[dSL, dA, dTT, dU, dV_e, Force]...
-    = ...
-    force_generation(V_e, SL, TT, A, U, data, Ca_i, ATP_i, ADP_i);
-[V_AM, ATP_XB] = force_energy_consumption(Force, ATP_i, A, data);
 
 % Oxidation state
 C_PN = data.C_PN;
@@ -173,7 +179,7 @@ C_NAD = C_PN - C_NADH;
     ADP_i, data);
 
 V_myo = data.V_myo;V_mito=data.V_mito;A_cap=data.A_cap;
-dATP_i = V_ANT.*V_mito./V_myo - 0.5.*I_up - (I_NaK + I_Cap).*A_cap./(V_myo.*F) - V_AM;
+dATP_i = V_ANT.*V_mito./V_myo - 0.5.*I_up/(F*data.V_myo) - (I_NaK + I_Cap).*A_cap./(V_myo.*F) - V_AM;
 
 % Mitochondrial Ca2+ handling processes
 [dCa_m, J_uni, J_NaCa] = mitochondrial_Ca2_handling(delta_Psi_m, Ca_m, Ca_i, data);

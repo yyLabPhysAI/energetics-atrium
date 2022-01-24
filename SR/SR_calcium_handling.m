@@ -8,12 +8,12 @@ function [dO_c, dO_TnCa, dO_TnMgCa, dO_TnMgMg, ...
 F = data.F;
 V_up = data.V_up;
 V_rel = data.V_rel;
-I_upMax = 2800;
+I_upMax = 2800*100;
 tau_tr = 0.01;
-alpha_rel = 200000/10000;
-K_cyCa = data.K_cyCa;
+alpha_rel = 200000/10;
+K_cyCa = data.K_cyCa*10*0.38045;
 K_srCa = data.K_srCa;
-K_xcs = data.K_xcs/9.78;
+K_xcs = data.K_xcs/10;
 
 % Uptake current of Ca++ to the SR
 I_up = I_upMax.*(ATP_i./7.977).*((Ca_i./K_cyCa - K_xcs.^2.*Ca_up./K_srCa)./...
@@ -28,10 +28,10 @@ I_rel = alpha_rel.*(F_2./(F_2 + 0.25)).^2.*(Ca_rel - Ca_i);
 % calculation of the Ca++ concentration in the different compartments
 Mg_i = 2.5; % [mM]
 
-dO_c     = 200000.*Ca_i.*(1 - O_c) - 476.*O_c;
+dO_c     = (200000.*Ca_i.*(1 - O_c) - 476.*O_c);
 dO_TnCa  = 78400.*Ca_i.*(1 - O_TnCa) - 392.*O_TnCa;
-dO_TnMgCa  = 200000.*Ca_i.*(1 - O_TnMgCa - O_TnMgMg) - 6.6.*O_TnMgCa;
-dO_TnMgMg  = 2000.*Mg_i.*(1 - O_TnMgCa - O_TnMgMg) - 666.*O_TnMgMg;
+dO_TnMgCa  = 0; %(200000.*Ca_i.*(1 - O_TnMgCa - O_TnMgMg) - 6.6.*O_TnMgCa)/100;
+dO_TnMgMg  = 0; % 2000.*Mg_i.*(1 - O_TnMgCa - O_TnMgMg) - 666.*O_TnMgMg;
 dO_Calse = 480.*Ca_rel.*(1 - O_Calse) - 400.*O_Calse;
 phi_ca_i = 0.08.*dO_TnCa + 0.16.*dO_TnMgCa + 0.045.*dO_c;
 

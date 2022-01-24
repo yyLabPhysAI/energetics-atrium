@@ -1,6 +1,6 @@
 function [I_CaL, df_L, dd_L] = L_type_Ca(V, d_L, f_L)
 
-g_CaL = 2.1.*4*4;
+g_CaL = 2.1;
 E_CaL = 50; 
 
 if(abs(V + 45) < 0.0001)

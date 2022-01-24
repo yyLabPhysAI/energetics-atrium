@@ -3,8 +3,9 @@ load('v2.mat')
 load('v3.mat')
 load('v4.mat')
 
-figure()
+figure(8)
 
+hold off
 tm = (0:1/10000: (length(v1)-1)/10000)';
 plot(tm,v1)
 hold on
@@ -16,6 +17,5 @@ plot(tm,v3)
 hold on
 tm = (0:1/10000: (length(v4)-1)/10000)';
 plot(tm,v4)
-hold on
 
 legend('V_1', 'V_2', 'V_3', 'V_4')

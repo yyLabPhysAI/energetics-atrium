@@ -1,6 +1,6 @@
 %% Constant decleration and loading
 clear
-close all
+% close all
 constants
 options = odeset('RelTol',1e-4,'AbsTol',1e-4);
 
@@ -10,14 +10,14 @@ end_stim   = 0;    % [s]   When to end it
 f_stim     = 1;     % [Hz]  At what frequency do you want the current pulses to be?
 TMAX       = 10;    % [s]   Until what time to calculate the simulation?
 TMIN       = 0;     % [s]   Time to start plotting?
-stim_vec = [1.015:1:TMAX];
+stim_vec = [start_stim:1/f_stim:TMAX];%/2, TMAX/2+0.1:1/3:TMAX];
 %% Run the model
-tic;
-[t,x] = ode23tb(@(t,x)model(t,x,data,f_stim,start_stim,end_stim), [0 TMAX] ,y0',options);
-toc
-ind_min = find(t>=TMIN);
-t = t(ind_min:end);
-V=x(ind_min:end,1); P_a=x(ind_min:end,2); P_i=x(ind_min:end,3); n=x(ind_min:end,4); r=x(ind_min:end,5); s_1=x(ind_min:end,6); s_2=x(ind_min:end,7); s_3=x(ind_min:end,8); m=x(ind_min:end,9); h_1=x(ind_min:end,10); h_2=x(ind_min:end,11); d_L=x(ind_min:end,12); f_L=x(ind_min:end,13); d_T=x(ind_min:end,14); f_T=x(ind_min:end,15); Na_i=x(ind_min:end,16); Ca_up=x(ind_min:end,17); Ca_rel=x(ind_min:end,18); Ca_i=x(ind_min:end,19); O_c=x(ind_min:end,20); O_TnCa=x(ind_min:end,21); O_TnMgCa=x(ind_min:end,22); O_TnMgMg=x(ind_min:end,23); O_Calse=x(ind_min:end,24); K_o=x(ind_min:end,25); K_i=x(ind_min:end,26); F_1=x(ind_min:end,27); F_2=x(ind_min:end,28); F_3=x(ind_min:end,29); SL=x(ind_min:end,31); A=x(ind_min:end,32); TT=x(ind_min:end,33); U=x(ind_min:end,34); Ve=x(ind_min:end,35); ATP_i=x(ind_min:end,36); Ca_m=x(ind_min:end,37); C_ATP_ic=x(ind_min:end,38); C_CrP_i=x(ind_min:end,39); C_CrP_ic=x(ind_min:end,40); C_ADP_m=x(ind_min:end,41); C_NADH=x(ind_min:end,42); delta_Psi_m=x(ind_min:end,43); C_ISOC=x(ind_min:end,44); C_aKG=x(ind_min:end,45); C_SCoA=x(ind_min:end,46); C_Suc=x(ind_min:end,47); C_FUM=x(ind_min:end,48); C_MAL=x(ind_min:end,49); C_OAA=x(ind_min:end,50); C_FLV=x(ind_min:end,51);  
+% tic;
+% [t,x] = ode23tb(@(t,x)model(t,x,data,f_stim,start_stim,end_stim), [0 TMAX] ,y0',options);
+% toc
+ind_min = 1;%find(t>=TMIN);
+% t = t(ind_min:end);
+% V=x(ind_min:end,1); P_a=x(ind_min:end,2); P_i=x(ind_min:end,3); n=x(ind_min:end,4); r=x(ind_min:end,5); s_1=x(ind_min:end,6); s_2=x(ind_min:end,7); s_3=x(ind_min:end,8); m=x(ind_min:end,9); h_1=x(ind_min:end,10); h_2=x(ind_min:end,11); d_L=x(ind_min:end,12); f_L=x(ind_min:end,13); d_T=x(ind_min:end,14); f_T=x(ind_min:end,15); Na_i=x(ind_min:end,16); Ca_up=x(ind_min:end,17); Ca_rel=x(ind_min:end,18); Ca_i=x(ind_min:end,19); O_c=x(ind_min:end,20); O_TnCa=x(ind_min:end,21); O_TnMgCa=x(ind_min:end,22); O_TnMgMg=x(ind_min:end,23); O_Calse=x(ind_min:end,24); K_o=x(ind_min:end,25); K_i=x(ind_min:end,26); F_1=x(ind_min:end,27); F_2=x(ind_min:end,28); F_3=x(ind_min:end,29); SL=x(ind_min:end,31); A=x(ind_min:end,32); TT=x(ind_min:end,33); U=x(ind_min:end,34); Ve=x(ind_min:end,35); ATP_i=x(ind_min:end,36); Ca_m=x(ind_min:end,37); C_ATP_ic=x(ind_min:end,38); C_CrP_i=x(ind_min:end,39); C_CrP_ic=x(ind_min:end,40); C_ADP_m=x(ind_min:end,41); C_NADH=x(ind_min:end,42); delta_Psi_m=x(ind_min:end,43); C_ISOC=x(ind_min:end,44); C_aKG=x(ind_min:end,45); C_SCoA=x(ind_min:end,46); C_Suc=x(ind_min:end,47); C_FUM=x(ind_min:end,48); C_MAL=x(ind_min:end,49); C_OAA=x(ind_min:end,50); C_FLV=x(ind_min:end,51);  
 
 %%
 start = 0;
@@ -116,12 +116,12 @@ ATP_m = C_A_m - C_ADP_m;
     ADP_i, data);
 
 %% Membrane potential
-figure()
+figure(1)
 
 nice_plot(V, t)
 
 %% Membranal currents
-figure()
+figure(2)
 
 subplot(3, 4, 1); nice_plot(I_Kr, t) 
 subplot(3, 4, 2); nice_plot(I_Ks, t) 
@@ -137,7 +137,7 @@ subplot(3, 4, 11); nice_plot(I_Cap, t)
 subplot(3, 4, 12); nice_plot(I_CaB, t)
 
 %% Calcium 
-figure()
+figure(3)
 
 subplot(2, 2, 1); nice_plot(Ca_up, t)
 subplot(2, 2, 2); nice_plot(Ca_rel, t)
@@ -145,24 +145,24 @@ subplot(2, 2, 3); nice_plot(Ca_i, t)
 subplot(2, 2, 4); nice_plot(Ca_m, t)
 
 %% ATP
-figure()
+figure(4)
 
 subplot(1, 2, 1); nice_plot(ATP_i, t)
 subplot(1, 2, 2); nice_plot(ATP_m, t)
 
 %% V_O2
-figure()
+figure(5)
 
 nice_plot(V_O2, t)
 
 %% FLV
-figure()
-
-nice_plot(C_FLV, t)
+% figure(6)
+% 
+% nice_plot(C_FLV, t)
 
 %% Mitochondria
 
-figure()
+figure(7)
 subplot(4, 4, 1); nice_plot(C_FLV, t);
 subplot(4, 4, 2); nice_plot(C_OAA, t);
 subplot(4, 4, 3); nice_plot(ATP_i, t);
@@ -179,54 +179,63 @@ subplot(4, 4, 13); nice_plot(C_MAL, t);
 subplot(4, 4, 14); nice_plot(C_FLV, t);
 
 %%
-tops = Ca_i(find_peaks(Ca_i));
-bottoms = Ca_i(find_peaks(-Ca_i));
-top_times = t(find_peaks(Ca_i));
-bottom_times = t(find_peaks(-Ca_i));
 
-x50 = (tops(1:end-1) + bottoms)/2;
-x90 = (tops(1:end-1) + 9*bottoms)/10;
+% tops = Ca_i(find_peaks(Ca_i));
+% bottoms = Ca_i(find_peaks(-Ca_i));
+% top_times = t(find_peaks(Ca_i));
+% bottom_times = t(find_peaks(-Ca_i));
 
-t50 = [];
-t90 = [];
-i50  = [];
-i90 = [];
 
-for i=[top_times(1:end-1), bottom_times, x50, x90]'
-    w = (i(1)<t)&(t<i(2));
-    s = find(t==i(1));
-    tm = t(w);
-    [~, idx50] = min(abs(Ca_i(w) - i(3)));
-    i50 = [i50 s+idx50];
-    t50 = [t50, t(idx50+s)-i(1)];
-    [~, idx90] = min(abs(Ca_i(w) - i(4)));
-    t90 = [t50, t(idx90+s)-i(1)];
-    i90 = [i90 s+idx90];
-end
-
-figure()
-nice_plot(Ca_i, t)
-hold on
-scatter(t(find_peaks(Ca_i)), Ca_i(find_peaks(Ca_i)))
-hold on
-scatter(t(find_peaks(-Ca_i)), Ca_i(find_peaks(-Ca_i)))
-hold on
-yline(mean(x50), "LineWidth", 2)
-hold on
-yline(mean(x90), "LineWidth", 2)
-hold on
-xline(t(i50))
-hold on
-xline(t(i90))
-hold on
-scatter(t(i50), Ca_i(i50))
-hold on
-scatter(t(i90), Ca_i(i90))
-hold on
-
-mean(t50)
-gt_t50 = 440.5466
-
-mean(t90)
-gt_t90=680.8175
-
+% [tops, top_times] = findpeaks(Ca_i, 'MinPeakProminence',0.0001);
+% top_times = t(top_times);
+% [bottoms, bottom_times] = findpeaks(-Ca_i, 'MinPeakProminence',0.0001);
+% bottoms = -bottoms;
+% bottom_times = t(bottom_times);
+% 
+% 
+% x50 = (tops(1:end-1) + bottoms)/2;
+% x90 = (tops(1:end-1) + 9*bottoms)/10;
+% 
+% t50 = [];
+% t90 = [];
+% i50  = [];
+% i90 = [];
+% 
+% for i=[top_times(1:end-1), bottom_times, x50, x90]'
+%     w = (i(1)<t)&(t<i(2));
+%     s = find(t==i(1));
+%     tm = t(w);
+%     [~, idx50] = min(abs(Ca_i(w) - i(3)));
+%     i50 = [i50 s+idx50];
+%     t50 = [t50, t(idx50+s)-i(1)];
+%     [~, idx90] = min(abs(Ca_i(w) - i(4)));
+%     t90 = [t50, t(idx90+s)-i(1)];
+%     i90 = [i90 s+idx90];
+% end
+% 
+% figure()
+% nice_plot(Ca_i, t)
+% hold on
+% scatter(top_times, tops)
+% hold on
+% scatter(bottom_times, bottoms)
+% hold on
+% yline(mean(x50), "LineWidth", 2)
+% hold on
+% yline(mean(x90), "LineWidth", 2)
+% hold on
+% xline(t(i50))
+% hold on
+% xline(t(i90))
+% hold on
+% scatter(t(i50), Ca_i(i50))
+% hold on
+% scatter(t(i90), Ca_i(i90))
+% hold on
+% 
+% mean(t50)
+% gt_t50 = 440.5466
+% 
+% mean(t90)
+% gt_t90=680.8175
+% 

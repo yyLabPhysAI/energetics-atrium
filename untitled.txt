@@ -1,9 +1,6 @@
 Tasks:
 
 - Ca_i, V_O2(0.109 muMol/(l*sec)) as in noa's: 1HZ
-- Variable stimulation
-- Stabilize Ca_m
 - Validate force is in right range: 1.9 mN
-- Fit the voltage curve
 
 Questions:

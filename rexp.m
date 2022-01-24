@@ -1,7 +1,7 @@
 sb
 v_data
 plot(t, V)
-ylim([-55, 35])
+ylim([-70, 35])
 xlim([1.01, 1.135])
 
 
@@ -57,35 +57,92 @@ I_CaB = g_CaB.*(V - E_Ca);
 I_tot = I_Kr + I_Ks + I_k1 + I_Kto + I_NaK + I_NaCa + I_Na + I_NaB + I_CaL + I_CaT + I_Cap + I_CaB;
 
 
-figure()
-plot(t, V)
-hold on
-plot(t, I_Kr)
-plot(t, I_Ks)
-plot(t, I_k1)
-plot(t, I_Kto)
-plot(t, I_NaK)
-plot(t, I_NaCa)
-plot(t, I_Na)
-plot(t, I_NaB)
-plot(t, I_CaL)
-plot(t, I_CaT)
-plot(t, I_Cap)
-plot(t, I_CaB)
-plot(t, I_tot)
-xlim([0, 0.01])
+% figure(9)
+% plot(t, V)
+% hold on
+% plot(t, I_Kr)
+% plot(t, I_Ks)
+% plot(t, I_k1)
+% plot(t, I_Kto)
+% plot(t, I_NaK)
+% plot(t, I_NaCa)
+% plot(t, I_Na)
+% plot(t, I_NaB)
+% plot(t, I_CaL)
+% plot(t, I_CaT)
+% plot(t, I_Cap)
+% plot(t, I_CaB)
+% plot(t, I_tot)
+% xlim([0, 0.1])
+% 
+% legend(["V";
+% "I_Kr";
+% "I_Ks";
+% "I_k1";
+% "I_Kto";
+% "I_NaK";
+% "I_NaCa";
+% "I_Na";
+% "I_NaB";
+% "I_CaL";
+% "I_CaT";
+% "I_Cap";
+% "I_CaB";
+% "I_tot"])
+% 
 
-legend(["V";
-"I_Kr";
-"I_Ks";
-"I_k1";
-"I_Kto";
-"I_NaK";
-"I_NaCa";
-"I_Na";
-"I_NaB";
-"I_CaL";
-"I_CaT";
-"I_Cap";
-"I_CaB";
-"I_tot"])
+%%
+%close all
+
+[dO_c, dO_TnCa, dO_TnMgCa, dO_TnMgMg, dO_Calse, phi_ca_i, ...
+    dCa_up, dCa_rel, dF_1, dF_2, dF_3, I_up, I_rel] ...
+    = ...
+    SR_calcium_handling(ATP_i, Ca_i, Ca_up, Ca_rel, F_1, F_2, ...
+    F_3, O_c, O_TnCa, O_TnMgCa, O_TnMgMg, O_Calse, V, data);
+
+figure(10)
+hold off
+plot(t, 2.*I_NaCa)
+hold on
+plot(t, -I_CaL)
+hold on
+plot(t, -I_CaT)
+hold on
+plot(t, -I_Cap)
+hold on
+plot(t, -I_CaB)
+hold on
+plot(t, -I_up)
+hold on
+plot(t, I_rel)
+
+legend("I_NaCa","I_CaL","I_CaT","I_Cap","I_CaB","I_up","I_rel")
+
+%%
+
+[...
+dSL, dA, dTT, dU, dV_e, Force...
+] = force_generation(Ve, SL, TT, A, U, data, Ca_i, ATP_i, ADP_i);
+
+
+Ca_ratio = sum(I_rel(500:end)/sum(I_CaL(500:end)))
+
+%% 
+
+[V_AM, ATP_XB] = force_energy_consumption(Force, ATP_i, A, data);
+
+SR_consumption = sum(0.5.*I_up/(data.F*data.V_myo));
+pump_consumption = sum((I_NaK + I_Cap).*data.A_cap./(data.V_myo.*data.F));
+sarcomere_consumtion = sum(V_AM);
+
+con_vec = [SR_consumption, pump_consumption, sarcomere_consumtion];
+
+
+figure(11)
+labels = {'SR','Membrane','Sarcomere'};
+pie(con_vec/sum(con_vec),[1,1,1], labels)
+
+%%
+
+figure(12); plot(t, Force)
+legend("force")

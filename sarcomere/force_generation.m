@@ -1,8 +1,8 @@
 function [...
-    dSL, dA, dTT, dU, dV_e, Force...
+    dSL, dA, dTT, dU, dV_e, Force, dO_TnCa...
     ] = force_generation(V_e, SL, TT, A, U, data, Ca_i, ATP_i, ADP_i)
 
-F_kl = data.F_kl;
+F_kl = data.F_kl*5000;
 Ff = data.Ff;
 F_go = data.F_go;
 F_gl = data.F_gl;
@@ -21,7 +21,6 @@ F_XB = data.F_XB;
 dV_e = 0; % Assume constant contraction velocity
 dSL = -V_e;
 
-
 N_XB = (1e-6).*(SL - SL_0).*N_c.*(TT + U).*1000./2;
 K_Ca = F_k0 + F_k1.*(N_XB.^FN)./(F_k05.^FN + N_XB.^FN);
 K_minus1 = F_kl./K_Ca;
@@ -32,5 +31,7 @@ dU = K_minus1.*TT - (F_go + F_gl.*V_e + F_kl.*Ca_i).*U;
 
 N_XB_ATP = 1.02./(1 + (k_XBATP./ATP_i).*(1 + ADP_i./k_XBADP));
 Force = F_XB.*N_XB_ATP.*((SL - SL_0)./2).*(TT + U).*N_c;
+
+dO_TnCa  = F_kl.*Ca_i.*(1 - A - TT - U) + F_kl.*Ca_i.*U + - TT.*K_minus1 - A.*K_minus1; %78400.*Ca_i.*(1 - O_TnCa) - 392.*O_TnCa;
 
 end
