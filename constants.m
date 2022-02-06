@@ -120,18 +120,18 @@ data.N_i		= 2; 				% [] 			Cooperativity of isocitrate
 data.K_M_NAD	= 0.923;			% [mM]			Michaelis constant for NAD+
 data.K_M_Mg		= 0.0308;			% [mM]			Activation constant for Mg2+
 data.K_M_Ca		= 1.27e-3; 			% [mM]			Activation constant for Ca2+
-data.E_T_KGDH	= 0.5/1000*7.234582915592815; 				% [mM]			Concentration of KGDH
+data.E_T_KGDH	= 0.5; 				% [mM]			Concentration of KGDH
 data.k_cat_KGDH	= 0.05; 			% 1/[ms]		Rate constant of KGDH
-data.K_M_aKG	= 1.94/1000;			% [mM]			Michaelis constant for aKG
-data.K_M_NAD_new= 38.7/1000;			% [mM]			Michaelis constant for NAD (no plus)
+data.K_M_aKG	= 1.94;			% [mM]			Michaelis constant for aKG
+data.K_M_NAD_new= 38.7;			% [mM]			Michaelis constant for NAD (no plus)
 data.n_aKG		= 0.48; 			% [] 			Hill coefficient of KGDH for aKG
 data.C_Mg		= 0.4;  			% [mM]			Mg2+ concentration in mitochondria
 data.k_f_SL		= 0.424963503669724*500e-3*7.234582915592814; 				% [mM]/[ms]		Forward rate constant of SL
 data.k_E_SL		= 3.115;  			% [] 			Equilibrium constant of the SL reaction
 data.C_CoA		= 2e-04; 			% [mM]			Coenzyme A cocentration
 data.k_cat_SDH	= 3e-3;  			% 1/[ms]		Rate constant of SDH
-data.E_T_SDH	= 0.5*0.131987434845784;  			% [mM]			SDH enzyme concentration
-data.K_M_SUC	= 0.03/1000; 			% [mM]			Michaelis constant for succinate
+data.E_T_SDH	= 0.5;  			% [mM]			SDH enzyme concentration
+data.K_M_SUC	= 0.03; 			% [mM]			Michaelis constant for succinate
 data.K_i_FUM	= 1.3;  			% [mM]			Inhibition constant by oxalacetate
 data.K_i_sdh_OAA= 0.15;  			% [mM]			Inhibition constant by oxalacetate
 data.k_f_FH		= 3.32e-3*3.075605707093998; 			% 1/[ms]		Forward rate constant of FH
@@ -141,7 +141,7 @@ data.k_h2		= 26.7;  			% [mM]			Ionization constant of MDH
 data.k_h3		= 6.68e-9; 			% [mM]			Ionization constant of MDH
 data.k_h4		= 5.62e-6; 			% [mM]			Ionization constant of MDH
 data.k_offset	= 3.99e-2; 			% [] pH			Independent term in the pH activation factor of MDH
-data.k_cat_MDH	= 0.111*3.074316067393907;  			% 1/[ms] 		Rate constant of MDH
+data.k_cat_MDH	= 0.111;  			% 1/[ms] 		Rate constant of MDH
 data.E_T_MDH	= 0.154;  			% [mM]			Total MDH enzyme concentration
 data.K_M_MAL	= 1.493;  			% [mM]			Michaelis constant for malate
 data.K_i_OAA	= 3.1e-3; 			% [mM]			Inhibition constant for oxalacetate
@@ -213,14 +213,14 @@ y0(15)	= 0.595107759542203; 					% fT 			[]			Inactivation gating variable for I
 
 % state variables for LINDBLAD Ca++ handling
 y0(16) 	= 8.4;       				% Na_i			[mM]		Intracellular Na+ concentration	
-y0(17) 	= 0.2;  				% Ca_up			[mM]		Ca2+ concentration in uptake compartment	
-y0(18) 	= 0.2;  				% Ca_rel		[mM]		Ca2+ concentration in release compartment	
+y0(17) 	= 0.2/2.5;  				% Ca_up			[mM]		Ca2+ concentration in uptake compartment	
+y0(18) 	= 0.2/2.5;  				% Ca_rel		[mM]		Ca2+ concentration in release compartment	
 y0(19) 	= 0.00007305;  				% Cai			[mM]		Intracelluar Ca2+ concentration	
 y0(20) 	= 0.029108;  				% fac			[]			Fractional occupancy of calmodulin by Ca2+	
 y0(21) 	= 0.014071;  				% faTc			[]			Fractional occupancy of troponin-Ca2+ complex by ca2+	
 y0(22) 	= 0.214036;  				% faTmgc		[]			Fractional occupancy of troponin-Mg2+ complex by ca2+	
 y0(23) 	= 0.693565;  				% faTmgm		[]			Fractional occupancy of troponin-Mg2+ complex by Mg2+	
-y0(24) 	= 0.193548387096774;  				% faCalse		[]			Fractional occupancy of caldsequestrin by Ca2+	
+y0(24) 	= 0.193548387096774/2;  				% faCalse		[]			Fractional occupancy of caldsequestrin by Ca2+	
 y0(25) 	= 5.0;       				% Kc			[mM]		Extracellular K+ concentration	
 y0(26) 	= 140.0;   					% Ki			[mM]		Intracellular K+ concentration	// 100.0 - Lindblad ???? relevent???
 y0(27) 	= 0.288039;					% F1			[]			Relative amount of inactive precursor in SR release compartment
@@ -230,9 +230,9 @@ y0(30) 	= 0.7755;  					% fca			[???]		???		<------ assumed constant in this use
 
 % state variables for the force generation model
 y0(31) 	= 1.75;    					% SL  			[um]		Sarcomere length
-y0(32) 	= 0.06;    					% A  			[]			Density of regulatory units with bound ca2+ and adjacent weak crossbridges
-y0(33) 	= 0.02;    					% TT  			[]			Density of regulatory units with bound ca2+ and adjacent strong crossbridges
-y0(34) 	= 0.06;    					% U  			[]			Density of regulatory units without bound ca2+ but with adjacent strong crossbridges
+y0(32) 	= 0.0233;    					% A  			[]			Density of regulatory units with bound ca2+ and adjacent weak crossbridges
+y0(33) 	= 0.0018;    					% TT  			[]			Density of regulatory units with bound ca2+ and adjacent strong crossbridges
+y0(34) 	= 0.0293;    					% U  			[]			Density of regulatory units without bound ca2+ but with adjacent strong crossbridges
 y0(35) 	= 0;       					% Ve  			[um/sec]	Velocity <------ assumed constant in this use of the model, implemented for future use
 
 % state variables for the energy consumption model
@@ -241,7 +241,7 @@ y0(36) 	= 7.977;       				% ATPi 			[mM]		EC-coupling linked ATP concentration 
 % state variable for the Calmodulin binding, needed for modeling of
 % Adenylate cyclase
 % y0(37) = 0.042;
-y0(37)	= 0.000076; 				% Ca2+m 		[microM] 	Mitochondrial free Ca2+ concentration 
+y0(37)	= 0.000021;%0.000076/4; 				% Ca2+m 		[microM] 	Mitochondrial free Ca2+ concentration 
 y0(38)	= 7.972; 					% [ATP]ic 		[mM]		Cytosolic ATP concentration not linked to EC coupling
 y0(39)	= 18.297; 					% [CrP]i 		[mM]		Mitochondrial-linked creatine phosphate concentration
 y0(40)	= 18.291; 					% [CrP]ic 		[mM]		Cytosolic creatine phosphate concentration
@@ -254,5 +254,6 @@ y0(46)	= 0.362e-3; 				% [SCoA]  		[mM]		Succinyl-CoA concentration (mitochondri
 y0(47)	= 1.06e-4;					% [Suc]  		[mM]		Succinate concentration (mitochonrial)
 y0(48)	= 0.0282; 					% [FUM] 		[mM]		Fumarate concentration (mitochondrial)
 y0(49)	= 0.01316; 					% [MAL] 		[mM]		Malate concentration (mitochondrial)
-y0(50)	= 1.623e-6;					% [OAA] 		[mM]		Oxaloacetate concentration (mitochondrial)
+y0(50)	= 1.623e-4;					% [OAA] 		[mM]		Oxaloacetate concentration (mitochondrial)
 y0(51)	= 5.403; 					% [FLV] 		[mM]		Flavoprotein concentration
+y0(52)  = data.C_AcCoA;             % [AcCoA]       [mM]

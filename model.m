@@ -52,7 +52,7 @@ C_FUM       = X(48);
 C_MAL       = X(49);
 C_OAA       = X(50);
 C_FLV       = X(51);
-
+C_AcCoA     = X(52);
 
 %% Unpack constants to simplefy the code
 F=data.F;
@@ -166,10 +166,10 @@ C_NAD = C_PN - C_NADH;
 
 % The TCA cycle
 [dC_ISOC, dC_aKG, dC_SCoA, dC_Suc, dC_FUM, dC_MAL, dC_OAA, V_SL, V_IDH, ...
-    V_KGDH, V_MDH, V_SDH] ...
+    V_KGDH, V_MDH, V_SDH, dC_AcCoA, ~] ...
     = ...
     TCA_cycle(C_ISOC,C_aKG,C_SCoA,C_Suc,C_FUM,C_MAL,...
-    C_OAA, C_NAD, C_ADP_m, Ca_m, C_NADH, C_ATP_m, data);
+    C_OAA, C_NAD, C_ADP_m, Ca_m, C_NADH, C_ATP_m, C_AcCoA, data);
 
 % Oxidative phosphorylation
 [V_He, dC_FLV, V_He_F, dC_NADH, V_Hu, V_H_Leak, dC_ADP_m, V_ANT, ~]...
@@ -243,6 +243,7 @@ dX(48)  = dC_FUM;
 dX(49)  = dC_MAL;
 dX(50)  = dC_OAA;
 dX(51)  = dC_FLV;
+dX(52)  = dC_AcCoA;
 
 end
 

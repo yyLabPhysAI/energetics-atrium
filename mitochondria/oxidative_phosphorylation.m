@@ -37,7 +37,7 @@ T = data.T;
 F = data.F;
 
 % The respiration-driven proton pump
-g = 2; % voltage correction factor
+g = 1/2000; % voltage correction factor
 delta_mu_h = -2.303.*(R.*T./F).*delta_pH + delta_Psi_m;
 A_res = (R.*T./F).*log(K_res.*sqrt(C_NADH./C_NAD));
 V_O2 = 0.5.*rho_res.*((r_a + r_c1.*exp(6.*F.*psi_B./(R.*T))).*exp(A_res.*F./(R.*T)) - r_a.*exp((g.*6.*F.*delta_mu_h)./(R.*T)) + r_c2.*exp(A_res.*F./(R.*T)).*exp(g.*6.*F.*delta_mu_h./(R.*T)))./...
