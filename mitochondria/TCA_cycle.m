@@ -30,7 +30,7 @@ k = 1;
 C_CIT = C_K_int - (C_ISOC + C_aKG + C_SCoA + C_Suc + C_FUM + C_MAL + C_OAA);
 
 % Citrate synthase (CS)
-V_CS = k*k_cat_cs.*E_T_cs.*(1 + (K_M_AcCoA./C_AcCoA) + (K_M_OAA./C_OAA) + (K_M_AcCoA./C_AcCoA) + (K_M_OAA./C_OAA)).^(-1);
+V_CS = k*k_cat_cs.*E_T_cs.*(1 + (K_M_AcCoA./C_AcCoA) + (K_M_OAA./C_OAA) + (K_M_AcCoA./C_AcCoA).*(K_M_OAA./C_OAA)).^(-1);
 
 % Aspartate amino transferase (AAT)
 V_AAT = 0; %k_f_AAT.*C_OAA.*C_GLU.*(k_ASP.*K_E_AAT)./(k_ASP.*K_E_AAT + C_aKG.*k_f_AAT);
