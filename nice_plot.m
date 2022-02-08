@@ -11,11 +11,11 @@ title(n)
 xlabel('Time [sec]')
 ylabel(n)
 xlim([t(1), t(end)]);
-%ylim([1.5*min([0, min(var)]), 1.5*max([0, max(var)])]);
+ylim([1.5*min([0, min(var)]), 1.5*max([0, max(var)])]);
 set(gca,'FontSize',10)
 set(gcf,'color','white')
 set(gca, 'FontName', 'Times New Roman');
 set(gca,'linewidth',2)
 set(gca,'FontWeight','bold')
-
+box off
 end

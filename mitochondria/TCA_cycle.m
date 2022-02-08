@@ -24,13 +24,13 @@ K_D_Ca=data.K_D_Ca;
 
 K_D_Mg=data.K_D_Mg;
 
-k = 1/4;
+k = 1.0210;
 
 % Citrate
 C_CIT = C_K_int - (C_ISOC + C_aKG + C_SCoA + C_Suc + C_FUM + C_MAL + C_OAA);
 
 % Citrate synthase (CS)
-V_CS = k*k_cat_cs.*E_T_cs.*(1 + (K_M_AcCoA./C_AcCoA) + (K_M_OAA./C_OAA) + (K_M_AcCoA./C_AcCoA) + (K_M_OAA./C_OAA)).^(-1);
+V_CS = k_cat_cs.*E_T_cs.*(1 + (K_M_AcCoA./C_AcCoA) + (K_M_OAA./C_OAA) + (K_M_AcCoA./C_AcCoA).*(K_M_OAA./C_OAA)).^(-1);
 
 % Aspartate amino transferase (AAT)
 V_AAT = 0; %k_f_AAT.*C_OAA.*C_GLU.*(k_ASP.*K_E_AAT)./(k_ASP.*K_E_AAT + C_aKG.*k_f_AAT);
@@ -80,7 +80,7 @@ dC_OAA = V_MDH - V_CS - V_AAT;
 
 % PDH
 K_CaAcCoa = 0.2e-4; % mM
-K_PDH = 0.37/28; % muM/s
+K_PDH = 1.0554*0.37/6.9; % muM/s
 C_PDH =  0.12; % mM
 dC_AcCoA = K_PDH*C_PDH*(Ca_m./(Ca_m + K_CaAcCoa)) - V_CS;
 

@@ -25,7 +25,7 @@ data.K_srCa		= 5;				% []			Equilibrium binding ca2+ concentration on uptake of 
 % force parameters
 data.Ff    	    = 40;				% [1/ms] 		???
 data.SL_0  		= 0.8;				% [um] 			Minimal length of the sarcomere
-data.N_c   		= 2e13;				% [1/mm^2] 		The reciprocal of the crosssection of the tissue
+data.N_c   		= 4.1667e+08;				% [1/mm^2] 		The reciprocal of the crosssection of the tissue
 data.F_k0  		= 350;				% [1/mM] 		The crossbridge independent coefficent of calcium affinity
 data.F_k1  		= 3000;				% [1/mM] 		Cooperativity coefficient 
 data.F_k05 		= 2.5e9;			% [1/mm^3]		The half-maximal crossbridge calcium affinity

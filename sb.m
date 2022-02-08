@@ -6,11 +6,11 @@ options = odeset('RelTol',1e-4,'AbsTol',1e-4);
 
 %% Choice of stimulation parameters
 start_stim = 1.015;     % [s]   When to start the current stimulation
-end_stim   = 10;    % [s]   When to end it
+end_stim   = 60;    % [s]   When to end it
 f_stim     = 1;     % [Hz]  At what frequency do you want the current pulses to be?
-TMAX       = 20;    % [s]   Until what time to calculate the simulation?
+TMAX       = 31;    % [s]   Until what time to calculate the simulation?
 TMIN       = 0;     % [s]   Time to start plotting?
-stim_vec = [start_stim:1/f_stim:end_stim];%/2, TMAX/2+0.1:1/3:TMAX];
+stim_vec = [start_stim:1/1:10, 11:1/2:20, 21:1/3:30];%[start_stim:1/f_stim:end_stim];%/2, TMAX/2+0.1:1/3:TMAX];
 %% Run the model
 % tic;
 % [t,x] = ode23tb(@(t,x)model(t,x,data,f_stim,start_stim,end_stim), [0 TMAX] ,y0',options);
@@ -39,6 +39,7 @@ for stim_time = [stim_vec TMAX]
     start = stim_time;
     y1=x(end, :);
     y1(1) = y1(1) + 40;
+    disp(stim_time)
 end
 
 t = t_acc;
