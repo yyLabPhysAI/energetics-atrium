@@ -2,7 +2,7 @@ function [...
     V_He, dC_FLV, V_He_F, dC_NADH, V_Hu, V_H_Leak, dC_ADP_m, V_ANT, V_O2]...
     = oxidative_phosphorylation(V_SL, V_IDH, V_KGDH, V_MDH, V_SDH, ...
     delta_Psi_m, C_NADH, C_NAD, C_ATP_m, C_ADP_m, Ca_m, ATP_i, ...
-    ADP_i, dC_AcCoA,  data)
+    ADP_i, V_PDH, C_FLV, data)
 
 r_a = data.r_a;
 r_c1 = data.r_c1;
@@ -36,31 +36,37 @@ R = data.R;
 T = data.T;
 F = data.F;
 
-% The respiration-driven proton pump
+
 g = 1/2; % voltage correction factor
 delta_mu_h = -2.303.*(R.*T./F).*delta_pH + delta_Psi_m;
-A_res = (R.*T./F).*log(K_res.*sqrt(C_NADH./C_NAD));
-V_O2 = 9.1979*0.2515*7.0810*0.5.*rho_res.*((r_a + r_c1.*exp(6.*F.*psi_B./(R.*T))).*exp(A_res.*F./(R.*T)) - r_a.*exp((g.*6.*F.*delta_mu_h)./(R.*T)) + r_c2.*exp(A_res.*F./(R.*T)).*exp(g.*6.*F.*delta_mu_h./(R.*T)))./...
-                   ((1 + r_1.*exp(A_res.*F./(R.*T))) .* exp(6.*F.*psi_B./(R.*T)) + (r_2 + r_3.*exp(A_res.*F./(R.*T))).*exp(g.*6.*F.*delta_mu_h./(R.*T)));
-V_He = 6.*rho_res.*(r_a.*exp(A_res.*F./(R.*T)) - (r_a + r_b).*exp(g.*6.*F.*delta_mu_h./(R.*T)))./...
-                 ((1 + r_1.*exp(A_res.*F./(R.*T))) .* exp(6.*F.*psi_B./(R.*T)) + (r_2 + r_3.*exp(A_res.*F./(R.*T))).*exp(g.*6.*F.*delta_mu_h./(R.*T)));
-dC_FLV = V_SDH - V_O2;
-A_res_F = (R.*T./F).*log(K_resF.*sqrt(FADH2./FADH)); % 
-V_He_F = 4.*rho_resF.*(r_a.*exp(A_res_F.*F./(R.*T)) - (r_a + r_b).*exp(g.*6.*F.*delta_mu_h./(R.*T)))./...
-                    ((1 + r_1.*exp(A_res_F.*F./(R.*T))).*exp(6.*F.*psi_B./(R.*T)) + (r_2 + r_3.*exp(A_res_F.*F./(R.*T))).*exp(g.*6.*F.*delta_mu_h./(R.*T)));
-dC_NADH = -V_O2 + V_IDH + V_KGDH + V_MDH + dC_AcCoA;
 
 % The F_1F_0-ATPase
 A_F1 = (R.*T./F).*log(K_F1.*C_ATP_m./(C_ADP_m.*data.Pi));
-V_ATPase = -rho_F1.*((10.^2.*p_a + p_c1.*exp(3.*F.*psi_B./(R.*T))).*exp(F.*A_F1./(R.*T)) - (p_a.*exp(3.*F.*delta_mu_h./(R.*T)) + p_c2.*exp(F.*A_F1./(R.*T)).*exp(3.*F.*delta_mu_h./(R.*T))))./...
+V_ATPase = -30*rho_F1.*((10.^2.*p_a + p_c1.*exp(3.*F.*psi_B./(R.*T))).*exp(F.*A_F1./(R.*T)) - (p_a.*exp(3.*F.*delta_mu_h./(R.*T)) + p_c2.*exp(F.*A_F1./(R.*T)).*exp(3.*F.*delta_mu_h./(R.*T))))./...
                    ((1 + p_1.*exp(A_F1.*F./(R.*T))).*exp(3.*F.*psi_B./(R.*T)) + (p_2 + p_3.*exp(A_F1.*F./(R.*T))).*exp(3.*F.*delta_mu_h./(R.*T))).*(1 - exp(-Ca_m./KCaATP));
 V_Hu = -3.*rho_F1.*(10.^2.*p_a.*(1 + exp(A_F1./(R.*T))) - (p_a + p_b).*exp(3.*F.*delta_mu_h./(R.*T)))./...
                   ((1 + p_1.*exp(A_F1.*F./(R.*T))).*exp(3.*F.*psi_B./(R.*T)) + (p_2 + p_3.*exp(A_F1.*F./(R.*T))).*exp(3.*F.*delta_mu_h./(R.*T)));
 
+% The respiration-driven proton pump
+k_ATPase = -6.24e-4;
+A_res_NADH = (R.*T./F).*log(K_res.*sqrt(C_NADH./C_NAD));
+A_res_FLV = (R.*T./F).*log(K_res.*sqrt(C_FLV./(6 - C_FLV)));
+A_res = A_res_NADH*4/5 + A_res_FLV*1/5;
+%30.0063
+V_O2 = (0.1/3)*8.1901.*(V_ATPase/k_ATPase).*rho_res.*((r_a + r_c1.*exp(6.*F.*psi_B./(R.*T))).*exp(A_res.*F./(R.*T)) - r_a.*exp((g.*6.*F.*delta_mu_h)./(R.*T)) + r_c2.*exp(A_res.*F./(R.*T)).*exp(g.*6.*F.*delta_mu_h./(R.*T)))./...
+                   ((1 + r_1.*exp(A_res.*F./(R.*T))) .* exp(6.*F.*psi_B./(R.*T)) + (r_2 + r_3.*exp(A_res.*F./(R.*T))).*exp(g.*6.*F.*delta_mu_h./(R.*T)));
+V_He = 6.*rho_res.*(r_a.*exp(A_res.*F./(R.*T)) - (r_a + r_b).*exp(g.*6.*F.*delta_mu_h./(R.*T)))./...
+                 ((1 + r_1.*exp(A_res.*F./(R.*T))) .* exp(6.*F.*psi_B./(R.*T)) + (r_2 + r_3.*exp(A_res.*F./(R.*T))).*exp(g.*6.*F.*delta_mu_h./(R.*T)));
+dC_FLV = V_SDH - V_O2*1/5;
+A_res_F = (R.*T./F).*log(K_resF.*sqrt(FADH2./C_FLV));%FADH)); % 
+V_He_F = 4.*rho_resF.*(r_a.*exp(A_res_F.*F./(R.*T)) - (r_a + r_b).*exp(g.*6.*F.*delta_mu_h./(R.*T)))./...
+                    ((1 + r_1.*exp(A_res_F.*F./(R.*T))).*exp(6.*F.*psi_B./(R.*T)) + (r_2 + r_3.*exp(A_res_F.*F./(R.*T))).*exp(g.*6.*F.*delta_mu_h./(R.*T)));
+dC_NADH = -V_O2*4/5 + V_IDH + V_KGDH + V_MDH + V_PDH;
+
 % Adenine nucleotide translocator (ANT) and proton leak
 V_H_Leak = g_H.*delta_mu_h;
 V_ANT = V_ant_max.*(0.75.*(1 - 1e-4*((0.25.*ATP_i.*0.45.*C_ADP_m)./(0.17.*ADP_i.*0.025.*C_ATP_m))).*exp(-(F.*delta_Psi_m)./(R.*T)))./...
-                  ((1 + ((0.25.*ATP_i)./(0.225.*ADP_i)).*exp((-h_ANT.*F.*delta_Psi_m)./(R.*T))).*(1 + ((0.45.*C_ADP_m)./(0.025.*C_ATP_m ))));
+                  ((1 + 1e-4*((0.25.*ATP_i)./(0.225.*ADP_i)).*exp((-10*h_ANT.*F.*delta_Psi_m)./(R.*T))).*(1 + 0.1*((0.45.*C_ADP_m)./(0.025.*C_ATP_m ))));
 dC_ADP_m = V_ANT - V_ATPase - V_SL;
 
 end

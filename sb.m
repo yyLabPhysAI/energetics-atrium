@@ -10,7 +10,7 @@ end_stim   = 60;    % [s]   When to end it
 f_stim     = 1;     % [Hz]  At what frequency do you want the current pulses to be?
 TMAX       = 31;    % [s]   Until what time to calculate the simulation?
 TMIN       = 0;     % [s]   Time to start plotting?
-stim_vec = [start_stim:1/1:10, 11:1/2:20, 21:1/3:30];%[start_stim:1/f_stim:end_stim];%/2, TMAX/2+0.1:1/3:TMAX];
+stim_vec = [start_stim:1/0.25:10, 11:1/2:20, 21:1/0.25:30];%[start_stim:1/f_stim:end_stim];%/2, TMAX/2+0.1:1/3:TMAX];
 %% Run the model
 % tic;
 % [t,x] = ode23tb(@(t,x)model(t,x,data,f_stim,start_stim,end_stim), [0 TMAX] ,y0',options);
@@ -107,14 +107,14 @@ C_A_i = data.C_A_i;
 ADP_i = C_A_i - ATP_i;
 ATP_m = C_A_m - C_ADP_m;
 
-[~, ~, ~, ~, ~, ~, ~, V_SL, V_IDH, V_KGDH, V_MDH, V_SDH, dC_AcCoA, C_CIT] = TCA_cycle(...
+[~, ~, ~, ~, ~, ~, ~, V_SL, V_IDH, V_KGDH, V_MDH, V_SDH, dC_AcCoA,V_PDH, C_CIT] = TCA_cycle(...
     C_ISOC, C_aKG, C_SCoA, C_Suc, C_FUM, C_MAL, ...
     C_OAA, C_NAD, C_ADP_m, Ca_m, C_NADH, ATP_m, C_AcCoA, data);
 
 [~, ~, ~, ~, ~, ~, ~, V_ANT, V_O2]...
     = oxidative_phosphorylation(V_SL, V_IDH, V_KGDH, V_MDH, V_SDH, ...
     delta_Psi_m, C_NADH, C_NAD, ATP_m, C_ADP_m, Ca_m, ATP_i, ...
-    ADP_i, dC_AcCoA, data);
+    ADP_i, dC_AcCoA, C_FLV, data);
 
 %% Membrane potential
 figure(1)

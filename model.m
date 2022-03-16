@@ -166,7 +166,7 @@ C_NAD = C_PN - C_NADH;
 
 % The TCA cycle
 [dC_ISOC, dC_aKG, dC_SCoA, dC_Suc, dC_FUM, dC_MAL, dC_OAA, V_SL, V_IDH, ...
-    V_KGDH, V_MDH, V_SDH, dC_AcCoA, ~] ...
+    V_KGDH, V_MDH, V_SDH, dC_AcCoA, V_PDH, ~] ...
     = ...
     TCA_cycle(C_ISOC,C_aKG,C_SCoA,C_Suc,C_FUM,C_MAL,...
     C_OAA, C_NAD, C_ADP_m, Ca_m, C_NADH, C_ATP_m, C_AcCoA, data);
@@ -176,7 +176,7 @@ C_NAD = C_PN - C_NADH;
     = ...
     oxidative_phosphorylation(V_SL, V_IDH, V_KGDH, V_MDH, V_SDH, ...
     delta_Psi_m, C_NADH, C_NAD, C_ATP_m, C_ADP_m, Ca_m, ATP_i, ...
-    ADP_i, dC_AcCoA, data);
+    ADP_i, V_PDH, C_FLV, data);
 
 V_myo = data.V_myo;V_mito=data.V_mito;A_cap=data.A_cap;
 dATP_i = V_ANT.*V_mito./V_myo - 0.5.*I_up/(F*data.V_myo) - (I_NaK + I_Cap).*A_cap./(V_myo.*F) - V_AM;
@@ -228,7 +228,7 @@ dX(33)  = dTT;
 dX(34)  = dU;
 dX(35)  = dV_e;
 dX(36)  = dATP_i;
-dX(37)  = dCa_m;
+dX(37)  = dCa_m; %0;
 %   dX(38) = dC_ATP_ic - not used
 %   dX(39) = dC_CrP_i  - not used
 %   dX(40) = dC_CrP_ic - not used

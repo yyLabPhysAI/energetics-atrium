@@ -1,12 +1,12 @@
 function [...
-    dC_ISOC, dC_aKG, dC_SCoA, dC_Suc, dC_FUM, dC_MAL, dC_OAA, V_SL, V_IDH, V_KGDH, V_MDH, V_SDH, dC_AcCoA, C_CIT...
+    dC_ISOC, dC_aKG, dC_SCoA, dC_Suc, dC_FUM, dC_MAL, dC_OAA, V_SL, V_IDH, V_KGDH, V_MDH, V_SDH, dC_AcCoA, V_PDH, C_CIT...
     ] = TCA_cycle(C_ISOC,C_aKG,C_SCoA,C_Suc,C_FUM,C_MAL,C_OAA, C_NAD, C_ADP_m, Ca_m, C_NADH, C_ATP_m, C_AcCoA,  data)
 
 k_cat_cs=data.k_cat_cs;C_K_int=data.C_K_int;
 E_T_cs=data.E_T_cs;K_M_AcCoA=data.K_M_AcCoA;K_M_OAA=data.K_M_OAA;
 k_f_ACO=data.k_f_ACO;k_E_ACO=data.k_E_ACO;K_ADP_a=data.K_ADP_a;
 
-K_Ca_a=data.K_Ca_a/2;
+K_Ca_a=data.K_Ca_a;
 
 
 K_i_NADH=data.K_i_NADH;k_cat_IDH=data.k_cat_IDH;E_T_IDH=data.E_T_IDH;C_H=data.C_H;k_h_1=data.k_h_1;
@@ -20,20 +20,20 @@ k_cat_MDH=data.k_cat_MDH;E_T_MDH=data.E_T_MDH;K_M_MAL=data.K_M_MAL;K_i_OAA=data.
 K_M_NAD_mdh=data.K_M_NAD_mdh;C_GLU=data.C_GLU;k_f_AAT=data.k_f_AAT;K_E_AAT=data.K_E_AAT;
 k_ASP=data.k_ASP;
 
-K_D_Ca=data.K_D_Ca;
+K_D_Ca=data.K_D_Ca/20;
 
 K_D_Mg=data.K_D_Mg;
 
-k = 1.0210;
+k = 7;
 
 % Citrate
 C_CIT = C_K_int - (C_ISOC + C_aKG + C_SCoA + C_Suc + C_FUM + C_MAL + C_OAA);
 
 % Citrate synthase (CS)
-V_CS = k_cat_cs.*E_T_cs.*(1 + (K_M_AcCoA./C_AcCoA) + (K_M_OAA./C_OAA) + (K_M_AcCoA./C_AcCoA).*(K_M_OAA./C_OAA)).^(-1);
+V_CS = 5*k_cat_cs.*E_T_cs.*(1 + (K_M_AcCoA./C_AcCoA) + (K_M_OAA./C_OAA) + (K_M_AcCoA./C_AcCoA).*(K_M_OAA./C_OAA)).^(-1);
 
 % Aspartate amino transferase (AAT)
-V_AAT = 0; %k_f_AAT.*C_OAA.*C_GLU.*(k_ASP.*K_E_AAT)./(k_ASP.*K_E_AAT + C_aKG.*k_f_AAT);
+V_AAT = 0;%0.2*k_f_AAT.*C_OAA.*C_GLU.*(k_ASP.*K_E_AAT)./(k_ASP.*K_E_AAT + C_aKG.*k_f_AAT);
 
 % Aconitase (ACO)
 V_ACO = k*69.5704*k_f_ACO.*(C_CIT - (C_ISOC./k_E_ACO));
@@ -48,8 +48,8 @@ V_IDH = k*73.1778*k_cat_IDH.*E_T_IDH.*(1 + (C_H./k_h_1) + (k_h_2./C_H) + f_i_IDH
 dC_ISOC = V_ACO - V_IDH;
 
 % Alpha-ketoglutarate dehydrogenase (KGDH)
-f_a_KGDH = ((1 + (C_Mg./K_D_Mg)).*(1 + (Ca_m./K_D_Ca))).^(-1);
-V_KGDH = k*0.9101*(k_cat_KGDH.*E_T_KGDH)./(1 + f_a_KGDH.*(K_M_aKG./C_aKG).^(n_aKG)+f_a_KGDH.*((K_M_NAD_new)./C_NAD)); % ?????? why not K_M_NAD??
+f_a_KGDH = ((1 + (C_Mg./K_D_Mg)).*(1 + (Ca_m./(K_D_Ca*0.1)))).^(-1);
+V_KGDH = 0.8*k*0.9101*(k_cat_KGDH.*E_T_KGDH)./(1/5 + f_a_KGDH.*(K_M_aKG./(C_aKG/100)).^(n_aKG) + f_a_KGDH.*((K_M_NAD_new)./(C_NAD*0.3))); % ?????? why not K_M_NAD??
 
 dC_aKG = V_IDH - V_KGDH + V_AAT;
 
@@ -80,9 +80,10 @@ dC_OAA = V_MDH - V_CS - V_AAT;
 
 % PDH
 K_CaAcCoa = 0.2e-4; % mM
-K_PDH = 1.0554*0.37/6.9; % muM/s
+K_PDH = 1.0554/3.2; % muM/s
 C_PDH =  0.12; % mM
-dC_AcCoA = K_PDH*C_PDH*(Ca_m./(Ca_m + K_CaAcCoa)) - V_CS;
+V_PDH = K_PDH*C_PDH*(Ca_m./(Ca_m + K_CaAcCoa));
+dC_AcCoA = V_PDH - V_CS;
 
 
 end
